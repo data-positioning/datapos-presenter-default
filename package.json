@@ -1,14 +1,14 @@
 {
-    "name": "datapos-explorer-default",
+    "name": "datapos-presenter-default",
     "license": "ISC",
     "private": true,
     "type": "module",
-    "version": "0.1.432",
+    "version": "0.1.433",
     "peerDependencies": {
-        "@datapos/datapos-share-core": "^0.1.001"
+        "@datapos/datapos-share-core": "^0.1.583"
     },
     "devDependencies": {
-        "@datapos/datapos-operations": "^0.1.482",
+        "@datapos/datapos-operations": "^0.1.486",
         "@types/node": "^20.14.2",
         "@typescript-eslint/eslint-plugin": "^7.12.0",
         "@typescript-eslint/parser": "^7.12.0",

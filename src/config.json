@@ -1,8 +1,8 @@
 {
     "categoryId": "application",
-    "id": "datapos-explorer-default",
+    "id": "datapos-presenter-default",
     "implementations": { "default": { "authMethodId": "none", "maxConnectionCount": 1 } },
-    "label": { "en": "Default Explorer" },
+    "label": { "en": "Default Presentation Set" },
     "statusId": "alpha",
     "typeId": "connector",
     "usageId": "source",
