@@ -1,8 +1,8 @@
 {
     "categoryId": "application",
-    "id": "datapos-connector-application-emulator",
+    "id": "datapos-explorer-default",
     "implementations": { "default": { "authMethodId": "none", "maxConnectionCount": 1 } },
-    "label": { "en": "Application Emulator" },
+    "label": { "en": "Default Explorer" },
     "statusId": "alpha",
     "typeId": "connector",
     "usageId": "source",
