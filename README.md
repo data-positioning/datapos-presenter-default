@@ -1,3 +1,3 @@
-# Data Pos - Default Presentation Set
+# DataPos - Default Presentation Set
 
-A TypeScript library that implements the default Presentation Set.
+A TypeScript library that implements the Default presentor.
