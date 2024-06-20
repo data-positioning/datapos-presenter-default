@@ -1,12 +1,42 @@
 {
-    "categoryId": "application",
     "id": "datapos-presenter-default",
-    "implementations": { "default": { "authMethodId": "none", "maxConnectionCount": 1 } },
-    "label": { "en": "Default Presentation Set" },
+    "label": { "en": "Default Presentor" },
     "statusId": "alpha",
-    "typeId": "connector",
-    "usageId": "source",
-    "vendorAccountURL": null,
-    "vendorDocumentationURL": null,
-    "vendorHomeURL": null
+    "typeId": "presentor",
+    "index": [
+        { "name": "customerServices", "label": { "en": "Customer Services" }, "typeId": "folder", "children": [] },
+        { "name": "financialManagement", "label": { "en": "Financial Management" }, "typeId": "folder", "children": [] },
+        {
+            "name": "humanResources",
+            "label": { "en": "Human Resources" },
+            "typeId": "folder",
+            "children": [
+                {
+                    "name": "workforce",
+                    "label": { "en": "Workforce" },
+                    "typeId": "folder",
+                    "children": [
+                        { "name": "physicalHeadcount", "label": { "en": "Physical Headcount" }, "typeId": "presentation" },
+                        { "name": "averageHeadcount", "label": { "en": "Average Headcount" }, "typeId": "presentation" },
+                        { "name": "hiresTerminations", "label": { "en": "Hires & Terminations" }, "typeId": "presentation" },
+                        { "name": "fteHeadcount", "label": { "en": "Full-Time Equivalent Headcount" }, "typeId": "presentation" },
+                        { "name": "movements", "label": { "en": "Movements (Entry, Internal & Exit)" }, "typeId": "presentation" },
+                        { "name": "movementFlows", "label": { "en": "Movement Flows" }, "typeId": "presentation" },
+                        { "name": "employeeProfiles", "label": { "en": "Employee Profiles" }, "typeId": "presentation" },
+                        { "name": "headcountSummary", "label": { "en": "Headcount Summary" }, "typeId": "presentation" }
+                    ]
+                },
+                { "name": "recruitmentOnboarding", "label": { "en": "Recruitment & Onboarding" }, "typeId": "folder", "children": [] },
+                { "name": "learning", "label": { "en": "Learning" }, "typeId": "folder", "children": [] },
+                { "name": "talentManagement", "label": { "en": "Talent Management" }, "typeId": "folder", "children": [] },
+                { "name": "attendance", "label": { "en": "Attendance" }, "typeId": "folder", "children": [] },
+                { "name": "compensation", "label": { "en": "Compensation" }, "typeId": "folder", "children": [] }
+            ]
+        },
+        { "name": "inventoryManagement", "label": { "en": "Inventory Management" }, "typeId": "folder", "children": [] },
+        { "name": "orderManagement", "label": { "en": "Order Management" }, "typeId": "folder", "children": [] },
+        { "name": "salesManagement", "label": { "en": "Sales Management" }, "typeId": "folder", "children": [] },
+        { "name": "socialNetworking", "label": { "en": "Social Networking" }, "typeId": "folder", "children": [] },
+        { "name": "workManagement", "label": { "en": "Work Management" }, "typeId": "folder", "children": [] }
+    ]
 }
