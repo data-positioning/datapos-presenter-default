@@ -1,30 +1,22 @@
-// Dependencies - Vendor
-
 // Dependencies - Framework
-import type { PresentationItemConfig, PresentationSet, PresentationSetConfig } from '@datapos/datapos-share-core';
+import type { IPresentor, IPresentorConfig, IPresentorItemConfig } from '@datapos/datapos-share-core';
 
 // Dependencies - Data
-import index from './index.json';
+import config from './config.json';
 
 // Classes - Default Presentation Set
-export default class DefaultPresentor implements Presentor {
-    readonly config: PresentorConfig;
-    private index: PresentationSetConfig;
+export default class DefaultPresentor implements IPresentor {
+    readonly config: IPresentorConfig;
 
-    constructor(presentationSetConfig: PresentationSetConfig) {
-        this.config = presentationSetConfig;
-        this.index = index as PresentationSetConfig;
+    constructor() {
+        this.config = config as IPresentorConfig;
     }
 
-    getIndex(): PresentationItemConfig[] {
-        return [];
-    }
-
-    list(path: string = ''): PresentationItemConfig[] {
+    list(path: string = ''): IPresentorItemConfig[] {
         const pathSegments = path.split('/');
-        let items = this.index.items;
+        let items = this.config.index;
         for (let segmentIndex = 1; segmentIndex < pathSegments.length; segmentIndex++) {
-            const childItem = items.find((item) => item.id === pathSegments[segmentIndex]);
+            const childItem = items.find((item) => item.name === pathSegments[segmentIndex]);
             if (childItem && childItem.typeId === 'folder') {
                 items = childItem.items || [];
             } else {

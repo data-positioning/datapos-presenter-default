@@ -3,9 +3,9 @@
     "license": "ISC",
     "private": true,
     "type": "module",
-    "version": "0.1.435",
+    "version": "0.1.436",
     "peerDependencies": {
-        "@datapos/datapos-share-core": "^0.1.583"
+        "@datapos/datapos-share-core": "^0.1.591"
     },
     "dependencies": {
         "highcharts": "^11.4.3",
