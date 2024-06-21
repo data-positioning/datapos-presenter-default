@@ -1,8 +1,8 @@
 {
     "id": "datapos-presenter-default",
-    "label": { "en": "Default Presentor" },
+    "label": { "en": "Default Presenter" },
     "statusId": "alpha",
-    "typeId": "presentor",
+    "typeId": "presenter",
     "index": [
         { "name": "customerServices", "label": { "en": "Customer Services" }, "typeId": "folder", "items": [] },
         { "name": "financialManagement", "label": { "en": "Financial Management" }, "typeId": "folder", "items": [] },

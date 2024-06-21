@@ -1,3 +1,3 @@
-# DataPos - Default Presentor
+# DataPos - Default Presenter
 
-A TypeScript library that implements the Default presentor.
+A TypeScript library that implements the Default presenter.
