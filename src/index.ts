@@ -14,6 +14,13 @@ import type {
 import type { IPresentor, IPresentorConfig, IPresentorItemConfig } from '@datapos/datapos-share-core';
 import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions } from 'highcharts';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import BarSeries from 'highcharts/es-modules/Series/Bar/BarSeries.js';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import Chart from 'highcharts/es-modules/Core/Chart/Chart.js';
+
 // Dependencies - Data
 import config from './config.json';
 
@@ -45,10 +52,11 @@ export default class DefaultPresentor implements IPresentor {
     }
 
     async render(id: string, renderTo: string | HTMLElement): Promise<void> {
-        const chartUrl = 'https://code.highcharts.com/es-modules/Core/Chart/Chart.js';
-        const Chart = ((await import(chartUrl)) as ModuleImport).default as typeof HighchartsChart;
-        const barUrl = 'https://code.highcharts.com/es-modules/Series/Bar/BarSeries.js';
-        ((await import(barUrl)) as ModuleImport).default as typeof Series;
+        // TODO: See: https://www.highcharts.com/docs/getting-started/installation-with-esm for bundling option.
+        // const chartUrl = 'https://code.highcharts.com/es-modules/Core/Chart/Chart.js';
+        // const Chart = ((await import(chartUrl)) as ModuleImport).default as typeof HighchartsChart;
+        // const barUrl = 'https://code.highcharts.com/es-modules/Series/Bar/BarSeries.js';
+        // ((await import(barUrl)) as ModuleImport).default as typeof Series;
 
         new Chart(renderTo, {
             chart: { type: 'bar' },
