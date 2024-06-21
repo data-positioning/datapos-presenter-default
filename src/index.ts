@@ -29,7 +29,8 @@ export default class DefaultPresentor implements IPresentor {
     }
 
     async render(id: string, renderTo: string | HTMLElement): Promise<void> {
-        const Highcharts = (await import('highcharts')).default;
+        const url = `https://firebasestorage.googleapis.com/v0/b/datapos-prod.appspot.com/o/connectors%2Fhighcharts-Dl4Gk9bH.js?alt=media`;
+        const Highcharts = (await import(url)).default;
         new Highcharts.Chart(renderTo, {
             chart: { type: 'bar' },
             title: { text: 'Fruit Consumption' },
