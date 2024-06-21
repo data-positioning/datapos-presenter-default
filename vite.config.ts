@@ -9,7 +9,7 @@ export default defineConfig({
             entry: resolve('src/index.ts'),
             name: 'DataPosApplicationEmulatorConnector',
             formats: ['es'],
-            fileName: (format) => `index.js`
+            fileName: (format) => `${config.id}-${format}.js`
         },
         target: 'ESNext'
         // rollupOptions: {
