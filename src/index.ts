@@ -32,9 +32,8 @@ export default class DefaultPresentor implements IPresentor {
         // const url = `https://firebasestorage.googleapis.com/v0/b/datapos-prod.appspot.com/o/connectors%2Fhighcharts-Dl4Gk9bH.js?alt=media`;
         const url = 'https://code.highcharts.com/es-modules/Core/Chart/Chart.js';
         const Highcharts = (await import(url)).default;
-        console.log(Highcharts.default);
-        // console.log(Highcharts.h.default);
-        new Highcharts.Chart(renderTo, {
+        console.log(Highcharts);
+        new Highcharts(renderTo, {
             chart: { type: 'bar' },
             title: { text: 'Fruit Consumption' },
             xAxis: { categories: ['Apples', 'Bananas', 'Oranges'] },
