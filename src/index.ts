@@ -32,7 +32,7 @@ export default class DefaultPresentor implements IPresentor {
         // const url = `https://firebasestorage.googleapis.com/v0/b/datapos-prod.appspot.com/o/connectors%2Fhighcharts-Dl4Gk9bH.js?alt=media`;
         const chartUrl = 'https://code.highcharts.com/es-modules/Core/Chart/Chart.js';
         const Chart = (await import(chartUrl)).default;
-        const barUrl = 'https://code.highcharts.com/es-modules/Series/Line/LineSeries.js';
+        const barUrl = 'https://code.highcharts.com/es-modules/Series/Bar/BarSeries.js';
         const BarSeries = (await import(barUrl)).default;
 
         console.log(Chart);
