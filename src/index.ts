@@ -1,25 +1,25 @@
 // Dependencies - Framework
-// import type { Axis, ChartCallbackFunction, ChartOptions, LegendOptions, Options, SubtitleOptions, TitleOptions, XAxisOptions, YAxisOptions } from 'highcharts';
+import type { Axis, ChartCallbackFunction, ChartOptions, LegendOptions, Options, SubtitleOptions, TitleOptions, XAxisOptions, YAxisOptions } from 'highcharts';
 import type { IPresentor, IPresentorConfig, IPresentorItemConfig } from '@datapos/datapos-share-core';
 // import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions } from 'highcharts';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-import ColumnSeries from 'highcharts/es-modules/Series/Column/ColumnSeries.js';
+// // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// // @ts-expect-error
+// import ColumnSeries from 'highcharts/es-modules/Series/Column/ColumnSeries.js';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-import LineSeries from 'highcharts/es-modules/Series/Line/LineSeries.js';
+// // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// // @ts-expect-error
+// import LineSeries from 'highcharts/es-modules/Series/Line/LineSeries.js';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-import Chart from 'highcharts/es-modules/Core/Chart/Chart.js';
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+// // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// // @ts-expect-error
+// import Chart from 'highcharts/es-modules/Core/Chart/Chart.js';
+// // eslint-disable-next-line @typescript-eslint/no-unsafe-call
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-import BarSeries from 'highcharts/es-modules/Series/Bar/BarSeries.js';
-console.log(BarSeries);
+// // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// // @ts-expect-error
+// import BarSeries from 'highcharts/es-modules/Series/Bar/BarSeries.js';
+// console.log(BarSeries);
 
 // Dependencies - Data
 import config from './config.json';
@@ -62,6 +62,8 @@ export default class DefaultPresentor implements IPresentor {
         // const Highcharts = ((await import(url)) as ModuleImport).default;
 
         // console.log(Highcharts);
+
+        const Highcharts = (await import('highcharts')).default;
 
         new Highcharts.Chart(renderTo, {
             chart: { type: 'bar' },
