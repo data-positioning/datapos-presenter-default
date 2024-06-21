@@ -14,6 +14,10 @@ export default defineConfig({
         target: 'ESNext',
         rollupOptions: {
             output: {
+                chunkFileNames: (chunkInfo) => {
+                    console.log('@@@@', chunkInfo);
+                    return `${chunkInfo.name}.js`;
+                },
                 manualChunks(id) {
                     if (id.includes('/node_modules/highcharts')) return 'vendor-highcharts';
                     else console.log('####', id);
