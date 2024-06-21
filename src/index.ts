@@ -55,15 +55,15 @@ export default class DefaultPresentor implements IPresentor {
         // const Chart = ((await import(chartUrl)) as ModuleImport).default as typeof HighchartsChart;
         // const barUrl = 'https://code.highcharts.com/es-modules/Series/Bar/BarSeries.js';
         // ((await import(barUrl)) as ModuleImport).default as typeof Series;
-        // new Chart(renderTo, {
-        //     chart: { type: 'bar' },
-        //     title: { text: 'Fruit Consumption' },
-        //     xAxis: { categories: ['Apples', 'Bananas', 'Oranges'] },
-        //     yAxis: { title: { text: 'Fruit eaten' } },
-        //     series: [
-        //         { name: 'Jane', data: [1, 0, 4] },
-        //         { name: 'John', data: [5, 7, 3] }
-        //     ]
-        // } as Options);
+        new Chart(renderTo, {
+            chart: { type: 'bar' },
+            title: { text: 'Fruit Consumption' },
+            xAxis: { categories: ['Apples', 'Bananas', 'Oranges'] },
+            yAxis: { title: { text: 'Fruit eaten' } },
+            series: [
+                { name: 'Jane', data: [1, 0, 4] },
+                { name: 'John', data: [5, 7, 3] }
+            ]
+        } as Options);
     }
 }
