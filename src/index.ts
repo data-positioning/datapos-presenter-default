@@ -60,8 +60,8 @@ export default class DefaultPresentor implements IPresentor {
         // TODO: See: https://www.highcharts.com/docs/getting-started/installation-with-esm for bundling option.
         const chartUrl = 'https://code.highcharts.com/es-modules/Core/Chart/Chart.js';
         const Chart = ((await import(chartUrl)) as ModuleImport).default as typeof HighchartsChart;
-        // const barUrl = 'https://code.highcharts.com/es-modules/Series/Bar/BarSeries.js';
-        // ((await import(barUrl)) as ModuleImport).default as typeof Series;
+        const barUrl = 'https://code.highcharts.com/es-modules/Series/Bar/BarSeries.js';
+        ((await import(barUrl)) as ModuleImport).default as typeof Series;
 
         new Chart(renderTo, {
             chart: { type: 'bar' },
