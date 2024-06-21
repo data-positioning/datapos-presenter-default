@@ -5,10 +5,6 @@ import type { IPresentor, IPresentorConfig, IPresentorItemConfig } from '@datapo
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
-import BarSeries from 'highcharts/es-modules/Series/Bar/BarSeries.js';
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
 import ColumnSeries from 'highcharts/es-modules/Series/Column/ColumnSeries.js';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -18,6 +14,11 @@ import LineSeries from 'highcharts/es-modules/Series/Line/LineSeries.js';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import Chart from 'highcharts/es-modules/Core/Chart/Chart.js';
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import BarSeries from 'highcharts/es-modules/Series/Bar/BarSeries.js';
 
 // Dependencies - Data
 import config from './config.json';
