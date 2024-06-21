@@ -30,10 +30,13 @@ export default class DefaultPresentor implements IPresentor {
 
     async render(id: string, renderTo: string | HTMLElement): Promise<void> {
         // const url = `https://firebasestorage.googleapis.com/v0/b/datapos-prod.appspot.com/o/connectors%2Fhighcharts-Dl4Gk9bH.js?alt=media`;
-        const url = 'https://code.highcharts.com/es-modules/Core/Chart/Chart.js';
-        const Highcharts = (await import(url)).default;
-        console.log(Highcharts);
-        new Highcharts(renderTo, {
+        const Chart = (await import('https://code.highcharts.com/es-modules/Core/Chart/Chart.js')).default;
+        const BarSeries = (await import('https://code.highcharts.com/es-modules/Series/Line/LineSeries.js')).default;
+
+        console.log(Chart);
+        console.log(BarSeries);
+
+        new Chart(renderTo, {
             chart: { type: 'bar' },
             title: { text: 'Fruit Consumption' },
             xAxis: { categories: ['Apples', 'Bananas', 'Oranges'] },
