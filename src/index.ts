@@ -1,7 +1,7 @@
 // Dependencies - Framework
 import type { Axis, Chart, ChartCallbackFunction, ChartOptions, LegendOptions, Options, SubtitleOptions, TitleOptions, XAxisOptions, YAxisOptions } from 'highcharts';
 import type { IPresentor, IPresentorConfig, IPresentorItemConfig } from '@datapos/datapos-share-core';
-import type { SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions } from 'highcharts';
+import type { SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions, Series } from 'highcharts';
 
 // Dependencies - Data
 import config from './config.json';
@@ -31,14 +31,14 @@ export default class DefaultPresentor implements IPresentor {
     async render(id: string, renderTo: string | HTMLElement): Promise<void> {
         // const url = `https://firebasestorage.googleapis.com/v0/b/datapos-prod.appspot.com/o/connectors%2Fhighcharts-Dl4Gk9bH.js?alt=media`;
         const chartUrl = 'https://code.highcharts.com/es-modules/Core/Chart/Chart.js';
-        const Chart = (await import(chartUrl)).default;
+        const MyChart = ((await import(chartUrl)) as { default: unknown }).default as Chart;
         const barUrl = 'https://code.highcharts.com/es-modules/Series/Bar/BarSeries.js';
-        const BarSeries = (await import(barUrl)).default;
+        const BarSeries = ((await import(barUrl)) as { default: unknown }).default as Series;
 
-        console.log(Chart);
+        console.log(MyChart);
         console.log(BarSeries);
 
-        new Chart(renderTo, {
+        new MyChart(renderTo, {
             chart: { type: 'bar' },
             title: { text: 'Fruit Consumption' },
             xAxis: { categories: ['Apples', 'Bananas', 'Oranges'] },
