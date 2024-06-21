@@ -1,10 +1,26 @@
 // Dependencies - Framework
-import type { Axis, Chart, ChartCallbackFunction, ChartOptions, LegendOptions, Options, SubtitleOptions, TitleOptions, XAxisOptions, YAxisOptions } from 'highcharts';
+import type {
+    Axis,
+    Chart as HighchartsChart,
+    ChartCallbackFunction,
+    ChartOptions,
+    LegendOptions,
+    Options,
+    SubtitleOptions,
+    TitleOptions,
+    XAxisOptions,
+    YAxisOptions
+} from 'highcharts';
 import type { IPresentor, IPresentorConfig, IPresentorItemConfig } from '@datapos/datapos-share-core';
-import type { SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions, Series } from 'highcharts';
+import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions } from 'highcharts';
 
 // Dependencies - Data
 import config from './config.json';
+
+// Interfaces/Types - Module Import
+interface ModuleImport {
+    default: unknown;
+}
 
 // Classes - Default Presentation Set
 export default class DefaultPresentor implements IPresentor {
@@ -29,18 +45,12 @@ export default class DefaultPresentor implements IPresentor {
     }
 
     async render(id: string, renderTo: string | HTMLElement): Promise<void> {
-        // const url = `https://firebasestorage.googleapis.com/v0/b/datapos-prod.appspot.com/o/connectors%2Fhighcharts-Dl4Gk9bH.js?alt=media`;
         const chartUrl = 'https://code.highcharts.com/es-modules/Core/Chart/Chart.js';
-        const MyChart = ((await import(chartUrl)) as { default: unknown }).default as Chart;
+        const Chart = ((await import(chartUrl)) as ModuleImport).default as typeof HighchartsChart;
         const barUrl = 'https://code.highcharts.com/es-modules/Series/Bar/BarSeries.js';
-        const BarSeries = ((await import(barUrl)) as { default: unknown }).default as Series;
+        ((await import(barUrl)) as ModuleImport).default as typeof Series;
 
-        console.log(MyChart);
-        console.log(BarSeries);
-
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        new MyChart(renderTo, {
+        new Chart(renderTo, {
             chart: { type: 'bar' },
             title: { text: 'Fruit Consumption' },
             xAxis: { categories: ['Apples', 'Bananas', 'Oranges'] },
