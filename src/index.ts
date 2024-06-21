@@ -56,7 +56,13 @@ export default class DefaultPresentor implements IPresentor {
         // const Chart = ((await import(chartUrl)) as ModuleImport).default as typeof HighchartsChart;
         // const barUrl = 'https://code.highcharts.com/es-modules/Series/Bar/BarSeries.js';
         // ((await import(barUrl)) as ModuleImport).default as typeof Series;
-        new Chart(renderTo, {
+
+        const url = 'https://datapos-plugins.pages.dev/vendor-highcharts.js';
+        const Highcharts = ((await import(url)) as ModuleImport).default;
+
+        console.log(Highcharts);
+
+        new Highcharts.Chart(renderTo, {
             chart: { type: 'bar' },
             title: { text: 'Fruit Consumption' },
             xAxis: { categories: ['Apples', 'Bananas', 'Oranges'] },
