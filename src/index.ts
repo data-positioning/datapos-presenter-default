@@ -19,6 +19,7 @@ import Chart from 'highcharts/es-modules/Core/Chart/Chart.js';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import BarSeries from 'highcharts/es-modules/Series/Bar/BarSeries.js';
+console.log(BarSeries);
 
 // Dependencies - Data
 import config from './config.json';
@@ -57,10 +58,10 @@ export default class DefaultPresentor implements IPresentor {
         // const barUrl = 'https://code.highcharts.com/es-modules/Series/Bar/BarSeries.js';
         // ((await import(barUrl)) as ModuleImport).default as typeof Series;
 
-        const url = 'https://datapos-plugins.pages.dev/vendor-highcharts.js';
-        const Highcharts = ((await import(url)) as ModuleImport).default;
+        // const url = 'https://datapos-plugins.pages.dev/vendor-highcharts.js';
+        // const Highcharts = ((await import(url)) as ModuleImport).default;
 
-        console.log(Highcharts);
+        // console.log(Highcharts);
 
         new Highcharts.Chart(renderTo, {
             chart: { type: 'bar' },
