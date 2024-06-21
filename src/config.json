@@ -1,5 +1,4 @@
 {
-    "id": "datapos-presenter-default",
     "label": { "en": "Default Presenter" },
     "statusId": "alpha",
     "typeId": "presenter",
