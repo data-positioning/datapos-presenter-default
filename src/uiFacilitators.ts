@@ -1,8 +1,8 @@
 // Dependencies - Vendor
-import markdownIt from 'markdown-it'; // TODO: Move this to 'dev-dependencies'.
+// import markdownIt from 'markdown-it'; // TODO: Move this to 'dev-dependencies'.
 
 // Module Variables
-let markdown: markdownIt | undefined = undefined;
+// let markdown: markdownIt | undefined = undefined;
 
 // Facilitators - Identify 'Render To' Element
 export const identifyRenderToElement = (renderTo: string | HTMLElement | null): HTMLElement => {
@@ -19,8 +19,8 @@ export const identifyRenderToElement = (renderTo: string | HTMLElement | null): 
 
 // Facilitators - Parse Markdown to HTML
 export const parseMarkdownToHTML = (renderToElement: HTMLElement, text: string) => {
-    if (!markdown) markdown = markdownIt();
-    const wrapperElement = document.createElement('div');
-    wrapperElement.innerHTML = markdown.render(text);
-    renderToElement.appendChild(wrapperElement);
+    // if (!markdown) markdown = markdownIt();
+    // const wrapperElement = document.createElement('div');
+    // wrapperElement.innerHTML = markdown.render(text);
+    // renderToElement.appendChild(wrapperElement);
 };
