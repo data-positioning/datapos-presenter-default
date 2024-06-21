@@ -38,6 +38,8 @@ export default class DefaultPresentor implements IPresentor {
         console.log(MyChart);
         console.log(BarSeries);
 
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         new MyChart(renderTo, {
             chart: { type: 'bar' },
             title: { text: 'Fruit Consumption' },
