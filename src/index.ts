@@ -29,8 +29,9 @@ export default class DefaultPresentor implements IPresentor {
     }
 
     async render(id: string, renderTo: string | HTMLElement): Promise<void> {
-        const url = `https://firebasestorage.googleapis.com/v0/b/datapos-prod.appspot.com/o/connectors%2Fhighcharts-Dl4Gk9bH.js?alt=media`;
-        const Highcharts = (await import(url)).h.default;
+        // const url = `https://firebasestorage.googleapis.com/v0/b/datapos-prod.appspot.com/o/connectors%2Fhighcharts-Dl4Gk9bH.js?alt=media`;
+        const url = 'https://code.highcharts.com/es-modules/Core/Chart/Chart.js';
+        const Highcharts = await import(url);
         console.log(Highcharts);
         // console.log(Highcharts.h.default);
         new Highcharts.Chart(renderTo, {
