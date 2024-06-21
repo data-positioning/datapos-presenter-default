@@ -1,6 +1,6 @@
 // Dependencies - Framework
 import type { Axis, ChartCallbackFunction, ChartOptions, LegendOptions, Options, SubtitleOptions, TitleOptions, XAxisOptions, YAxisOptions } from 'highcharts';
-import type { IPresentor, IPresentorConfig, IPresentorItemConfig } from '@datapos/datapos-share-core';
+import type { IPresenter, IPresenterConfig, IPresenterItemConfig } from '@datapos/datapos-share-core';
 // import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions } from 'highcharts';
 
 // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -30,14 +30,14 @@ interface ModuleImport {
 }
 
 // Classes - Default Presentation Set
-export default class DefaultPresentor implements IPresentor {
-    readonly config: IPresentorConfig;
+export default class DefaultPresenter implements IPresenter {
+    readonly config: IPresenterConfig;
 
     constructor() {
-        this.config = config as IPresentorConfig;
+        this.config = config as IPresenterConfig;
     }
 
-    list(path: string = ''): IPresentorItemConfig[] {
+    list(path: string = ''): IPresenterItemConfig[] {
         const pathSegments = path.split('/');
         let items = this.config.index;
         for (let segmentIndex = 1; segmentIndex < pathSegments.length; segmentIndex++) {
