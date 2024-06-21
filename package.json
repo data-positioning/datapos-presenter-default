@@ -3,7 +3,7 @@
     "license": "ISC",
     "private": true,
     "type": "module",
-    "version": "0.1.483",
+    "version": "0.1.484",
     "peerDependencies": {
         "@datapos/datapos-share-core": "^0.1.592"
     },
@@ -12,7 +12,7 @@
         "markdown-it": "^14.1.0"
     },
     "devDependencies": {
-        "@datapos/datapos-operations": "^0.1.509",
+        "@datapos/datapos-operations": "^0.1.510",
         "@types/markdown-it": "^14.1.1",
         "@types/node": "^20.14.2",
         "@typescript-eslint/eslint-plugin": "^7.12.0",
@@ -34,12 +34,12 @@
         "format": "prettier --write *.ts",
         "lint": "npx eslint **/*.ts",
         "publishToNPM": "echo \"***** PUBLISH TO NPM SCRIPT NOT IMPLEMENTED. *****\"",
-        "release": "npm run syncWithGitHub && npm run build && npm run uploadPresenter",
+        "release": "npm run syncWithGitHub && npm run build && npm run uploadPlugin",
         "syncWithGitHub": "npm run bumpVersion && node -e \"require('@datapos/datapos-operations/scriptHelpers').syncWithGitHub()\"",
         "test": "echo \"***** TEST SCRIPT NOT IMPLEMENTED. *****\"",
         "updateDependencies": "npm run updateOperations && npm run updateShareCore",
         "updateOperations": "npm install --save-dev @datapos/datapos-operations@latest",
         "updateShareCore": "npm install @datapos/datapos-share-core@latest",
-        "uploadPresenter": "node -e \"require('@datapos/datapos-operations/scriptHelpers').uploadPresenter()\""
+        "uploadPlugin": "node -e \"require('@datapos/datapos-operations/scriptHelpers').uploadPlugin()\""
     }
 }

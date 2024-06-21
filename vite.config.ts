@@ -12,6 +12,16 @@ export default defineConfig({
             fileName: (format) => `${config.id}-${format}.js`
         },
         target: 'ESNext'
+        // rollupOptions: {
+        //     output: {
+        //         chunkFileNames: (chunkInfo) => {
+        //             return `presentors/${chunkInfo.name}.js`;
+        //         },
+        //         manualChunks(id) {
+        //             if (id.includes('/node_modules/highcharts')) return 'vendor-highcharts';
+        //         }
+        //     }
+        // }
     },
     plugins: [dts({ outDir: 'dist/types' })]
 });
