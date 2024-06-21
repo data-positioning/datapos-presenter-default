@@ -3,7 +3,7 @@
     "license": "ISC",
     "private": true,
     "type": "module",
-    "version": "0.1.495",
+    "version": "0.1.496",
     "peerDependencies": {
         "@datapos/datapos-share-core": "^0.1.592"
     },
@@ -11,7 +11,7 @@
         "highcharts": "^11.4.3"
     },
     "devDependencies": {
-        "@datapos/datapos-operations": "^0.1.519",
+        "@datapos/datapos-operations": "^0.1.520",
         "@types/node": "^20.14.2",
         "@typescript-eslint/eslint-plugin": "^7.12.0",
         "@typescript-eslint/parser": "^7.12.0",
