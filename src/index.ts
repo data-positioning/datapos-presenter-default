@@ -33,7 +33,7 @@ export default class DefaultPresenter implements IPresenter {
 
         new Highcharts.Chart(renderTo, {
             chart: { type: 'bar' },
-            title: { text: 'Fruit Consumption 2' },
+            title: { text: 'Fruit Consumption' },
             xAxis: { categories: ['Apples', 'Bananas', 'Oranges'] },
             yAxis: { title: { text: 'Fruit eaten' } },
             series: [
