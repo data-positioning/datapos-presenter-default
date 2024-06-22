@@ -3,7 +3,7 @@
     "license": "ISC",
     "private": true,
     "type": "module",
-    "version": "0.1.500",
+    "version": "0.1.501",
     "peerDependencies": {
         "@datapos/datapos-share-core": "^0.1.592"
     },
@@ -11,7 +11,7 @@
         "highcharts": "^11.4.3"
     },
     "devDependencies": {
-        "@datapos/datapos-operations": "^0.1.523",
+        "@datapos/datapos-operations": "^0.1.537",
         "@types/node": "^20.14.2",
         "@typescript-eslint/eslint-plugin": "^7.12.0",
         "@typescript-eslint/parser": "^7.12.0",
@@ -28,6 +28,7 @@
         "build": "npx vite build",
         "bumpVersion": "node -e \"require('@datapos/datapos-operations/scriptHelpers').bumpVersion()\"",
         "check": "npx npm-check-updates && npm outdated",
+        "compile": "node -e \"require('@datapos/datapos-operations/scriptHelpers').compilePresenter()\"",
         "document": "npx npm-license-crawler --onlyDirectDependencies --production --relativeLicensePath --json LICENSES.json",
         "format": "prettier --write *.ts",
         "lint": "npx eslint **/*.ts",
