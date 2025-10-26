@@ -1,4 +1,4 @@
-// Dependencies - Framework
+// Dependencies
 import type { Axis, ChartCallbackFunction, ChartOptions, LegendOptions, Options, SubtitleOptions, TitleOptions, XAxisOptions, YAxisOptions } from 'highcharts';
 import type { Presenter, PresenterConfig, PresenterItemConfig, PresenterLocalisedConfig } from '@datapos/datapos-shared';
 // import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions } from 'highcharts';
@@ -6,12 +6,11 @@ import type { Presenter, PresenterConfig, PresenterItemConfig, PresenterLocalise
 // Dependencies - Data
 import config from '../config.json';
 
-// Classes - Default Presentation Set
+// Classes - Default Presentation
 export default class DefaultPresenter implements Presenter {
     readonly config: PresenterConfig;
 
     constructor() {
-        // @ts-expect-error
         this.config = config as PresenterConfig;
     }
 

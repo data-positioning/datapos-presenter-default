@@ -3,9 +3,13 @@
     "label": {
         "en": "Default Presenter"
     },
+    "description": {
+        "en-gb": "..."
+    },
     "statusId": "alpha",
     "typeId": "presenter",
-    "index": [
+    "version": "0.1.535",
+    "presentations": [
         {
             "name": "customerServices",
             "label": {
@@ -176,6 +180,5 @@
             "typeId": "folder",
             "items": []
         }
-    ],
-    "version": "0.1.534"
+    ]
 }
