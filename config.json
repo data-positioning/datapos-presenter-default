@@ -8,7 +8,7 @@
     },
     "statusId": "alpha",
     "typeId": "presenter",
-    "version": "0.1.536",
+    "version": "0.1.537",
     "presentations": [
         {
             "name": "customerServices",
@@ -162,7 +162,32 @@
                 "en": "Sales Management"
             },
             "typeId": "folder",
-            "items": []
+            "items": [
+                {
+                    "name": "salesManagementContacts",
+                    "label": {
+                        "en": "Contacts"
+                    },
+                    "typeId": "folder",
+                    "items": []
+                },
+                {
+                    "name": "salesManagementLeads",
+                    "label": {
+                        "en": "Leads"
+                    },
+                    "typeId": "folder",
+                    "items": []
+                },
+                {
+                    "name": "salesManagemenOpportunities",
+                    "label": {
+                        "en": "Opportunities"
+                    },
+                    "typeId": "folder",
+                    "items": []
+                }
+            ]
         },
         {
             "name": "socialNetworking",
