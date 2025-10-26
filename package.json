@@ -3,9 +3,9 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.530",
+    "version": "0.1.531",
     "peerDependencies": {
-        "@datapos/datapos-shared": "^0.3.27"
+        "@datapos/datapos-shared": "^0.3.63"
     },
     "dependencies": {
         "highcharts": "^12.4.0"

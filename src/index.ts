@@ -1,23 +1,26 @@
 // Dependencies - Framework
 import type { Axis, ChartCallbackFunction, ChartOptions, LegendOptions, Options, SubtitleOptions, TitleOptions, XAxisOptions, YAxisOptions } from 'highcharts';
-import type { IPresenter, IPresenterConfig, IPresenterItemConfig } from '@datapos/datapos-share-core';
+import type { Presenter, PresenterConfig, PresenterItemConfig, PresenterLocalisedConfig } from '@datapos/datapos-shared';
 // import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions } from 'highcharts';
 
 // Dependencies - Data
-import config from './config.json';
+import config from '../config.json';
 
 // Classes - Default Presentation Set
-export default class DefaultPresenter implements IPresenter {
-    readonly config: IPresenterConfig;
+export default class DefaultPresenter implements Presenter {
+    readonly config: PresenterConfig;
 
     constructor() {
-        this.config = config as IPresenterConfig;
+        // @ts-expect-error
+        this.config = config as PresenterConfig;
     }
 
-    list(path: string = ''): IPresenterItemConfig[] {
+    list(path: string = ''): PresenterItemConfig[] {
         const pathSegments = path.split('/');
+        // @ts-expect-error
         let items = this.config.index;
         for (let segmentIndex = 1; segmentIndex < pathSegments.length; segmentIndex++) {
+            // @ts-expect-error
             const childItem = items.find((item) => item.name === pathSegments[segmentIndex]);
             if (childItem && childItem.typeId === 'folder') {
                 items = childItem.items || [];
