@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.529",
+    "version": "0.1.530",
     "peerDependencies": {
         "@datapos/datapos-shared": "^0.3.27"
     },
@@ -39,12 +39,13 @@
         "format": "prettier --write *.ts",
         "lint": "npx eslint **/*.ts",
         "publishToNPM": "echo \"***** PUBLISH TO NPM SCRIPT NOT IMPLEMENTED. *****\"",
-        "release": "npm run syncWithGitHub && npm run build && npm run uploadPlugin",
+        "release": "npm run syncWithGitHub && npm run build && npm run uploadModuleToR2 && npm run uploadModuleConfig",
         "syncWithGitHub": "npm run bumpVersion && npm run buildConfig && node -e \"import('@datapos/datapos-development').then(m => m.syncWithGitHub())\"",
         "test": "echo \"***** TEST SCRIPT NOT IMPLEMENTED. *****\"",
         "updateDependencies": "npm run updateDevelopment && npm run updateShared",
         "updateDevelopment": "npm install --save-dev @datapos/datapos-development@latest",
         "updateShared": "npm install @datapos/datapos-shared@latest",
-        "uploadPlugin": "node -e \"require('@datapos/datapos-operations/scriptHelpers').uploadPlugin()\""
+        "uploadModuleConfig": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleConfig())\"",
+        "uploadModuleToR2": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleToR2('datapos-presenter-default.es.js', 'datapos-engine-eu/contexts/datapos-context-default.es.js'))\""
     }
 }
