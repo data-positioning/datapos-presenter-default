@@ -11,7 +11,7 @@ export default defineConfig({
             entry: resolve('src/index.ts'),
             name: 'DataPosDefaultPresenter',
             formats: ['es'],
-            fileName: (format) => `${config.id}-${format}.js`
+            fileName: (format) => `${config.id}.${format}.js`
         },
         target: 'ESNext'
         // rollupOptions: {
