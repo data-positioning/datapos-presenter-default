@@ -2,11 +2,9 @@
 import type { Axis, ChartCallbackFunction, ChartOptions, LegendOptions, Options, SubtitleOptions, TitleOptions, XAxisOptions, YAxisOptions } from 'highcharts';
 import type { Presenter, PresenterConfig, PresenterItemConfig, PresenterLocalisedConfig } from '@datapos/datapos-shared';
 // import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions } from 'highcharts';
-
-// Dependencies - Data
 import config from '../config.json';
 
-// Classes - Default Presentation
+// Classes - Default Presenter
 export default class DefaultPresenter implements Presenter {
     readonly config: PresenterConfig;
 
@@ -14,10 +12,15 @@ export default class DefaultPresenter implements Presenter {
         this.config = config as PresenterConfig;
     }
 
+    getIndex(): PresenterItemConfig[] {
+        // @ts-expect-error
+        return this.config.presentations;
+    }
+
     list(path: string = ''): PresenterItemConfig[] {
         const pathSegments = path.split('/');
         // @ts-expect-error
-        let items = this.config.index;
+        let items = this.config.presentations;
         for (let segmentIndex = 1; segmentIndex < pathSegments.length; segmentIndex++) {
             // @ts-expect-error
             const childItem = items.find((item) => item.name === pathSegments[segmentIndex]);
