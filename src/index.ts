@@ -32,7 +32,9 @@ export default class DefaultPresenter implements Presenter {
     }
 
     async render(id: string, renderTo: string | HTMLElement): Promise<void> {
-        const Highcharts = (await import('highcharts')).default;
+        // const Highcharts = (await import('highcharts')).default;
+        const url = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
+        const Highcharts = (await import(/* @vite-ignore */ url)).default;
 
         new Highcharts.Chart(renderTo, {
             chart: { type: 'bar' },
