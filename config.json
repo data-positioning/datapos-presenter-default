@@ -8,10 +8,10 @@
     },
     "statusId": "alpha",
     "typeId": "presenter",
-    "version": "0.1.538",
+    "version": "0.1.539",
     "presentations": [
         {
-            "name": "customerServices",
+            "name": "cs",
             "label": {
                 "en": "Customer Services"
             },
@@ -19,7 +19,7 @@
             "items": []
         },
         {
-            "name": "financialManagement",
+            "name": "fm",
             "label": {
                 "en": "Financial Management"
             },
@@ -27,14 +27,14 @@
             "items": []
         },
         {
-            "name": "humanResources",
+            "name": "hr",
             "label": {
                 "en": "Human Resources"
             },
             "typeId": "folder",
             "items": [
                 {
-                    "name": "workforce",
+                    "name": "hr_wf",
                     "label": {
                         "en": "Workforce"
                     },
@@ -99,7 +99,7 @@
                     ]
                 },
                 {
-                    "name": "recruitmentOnboarding",
+                    "name": "hr_ro",
                     "label": {
                         "en": "Recruitment & Onboarding"
                     },
@@ -107,7 +107,7 @@
                     "items": []
                 },
                 {
-                    "name": "learning",
+                    "name": "hr_ln",
                     "label": {
                         "en": "Learning"
                     },
@@ -115,15 +115,37 @@
                     "items": []
                 },
                 {
-                    "name": "talentManagement",
+                    "name": "hr_tm",
                     "label": {
                         "en": "Talent Management"
                     },
                     "typeId": "folder",
-                    "items": []
+                    "items": [
+                        {
+                            "id": "hr_tm_exp",
+                            "en": {
+                                "label": "Experience"
+                            },
+                            "items": []
+                        },
+                        {
+                            "id": "hr_tm_mgt",
+                            "en": {
+                                "label": "Management"
+                            },
+                            "items": []
+                        },
+                        {
+                            "id": "hr_tm_src",
+                            "en": {
+                                "label": "Sourcing"
+                            },
+                            "items": []
+                        }
+                    ]
                 },
                 {
-                    "name": "attendance",
+                    "name": "hr_at",
                     "label": {
                         "en": "Attendance"
                     },
@@ -131,7 +153,7 @@
                     "items": []
                 },
                 {
-                    "name": "compensation",
+                    "name": "hr_cp",
                     "label": {
                         "en": "Compensation"
                     },
@@ -141,7 +163,7 @@
             ]
         },
         {
-            "name": "inventoryManagement",
+            "name": "im",
             "label": {
                 "en": "Inventory Management"
             },
@@ -149,7 +171,7 @@
             "items": []
         },
         {
-            "name": "orderManagement",
+            "name": "om",
             "label": {
                 "en": "Order Management"
             },
@@ -157,14 +179,14 @@
             "items": []
         },
         {
-            "name": "salesManagement",
+            "name": "sm",
             "label": {
                 "en": "Sales Management"
             },
             "typeId": "folder",
             "items": [
                 {
-                    "name": "salesManagementContacts",
+                    "name": "sm_ct",
                     "label": {
                         "en": "Contacts"
                     },
@@ -172,7 +194,7 @@
                     "items": []
                 },
                 {
-                    "name": "salesManagementLeads",
+                    "name": "sm_ld",
                     "label": {
                         "en": "Leads"
                     },
@@ -180,7 +202,7 @@
                     "items": []
                 },
                 {
-                    "name": "salesManagemenOpportunities",
+                    "name": "sm_op",
                     "label": {
                         "en": "Opportunities"
                     },
@@ -190,7 +212,7 @@
             ]
         },
         {
-            "name": "socialNetworking",
+            "name": "sn",
             "label": {
                 "en": "Social Networking"
             },
@@ -198,7 +220,7 @@
             "items": []
         },
         {
-            "name": "workManagement",
+            "name": "wm",
             "label": {
                 "en": "Work Management"
             },
