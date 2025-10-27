@@ -89,7 +89,7 @@ Some additional text here.
         console.log(1111, frontmatter, markdown);
 
         const processedMarkdown = markdown.replace(/\{\{(\w+)\}\}/g, (_, key) => {
-            return frontmatter[key] ?? `{{${key}}}`;
+            return frontmatter[key].en ?? `{{${key}}}`;
         });
         console.log(2222, processedMarkdown);
 
