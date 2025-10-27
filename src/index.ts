@@ -60,29 +60,29 @@ export default class DefaultPresenter implements Presenter {
         }
 
         const rawFile = `---
-            title: Physical Headcount
-            focus: hr
-            model: wrkFor
-            ---
+title: Physical Headcount
+focus: hr
+model: wrkFor
+---
 
-            # {{title}}
+# {{title}}
 
-            ## Q2 Overview
+## Q2 Overview
 
-            This quarter saw significant revenue growth.
+This quarter saw significant revenue growth.
 
-            \`\`\`chart
-            {
-                "chart": { "type": "column" },
-                "title": { "text": "Quarterly Revenue" },
-                "xAxis": { "categories": ["Q1", "Q2", "Q3"] },
-                "yAxis": { "title": { "text": "Revenue" } },
-                "series": [{ "name": "Revenue", "data": [100, 140, 180] }]
-            }
-            \`\`\`
+\`\`\`chart
+{
+    "chart": { "type": "column" },
+    "title": { "text": "Quarterly Revenue" },
+    "xAxis": { "categories": ["Q1", "Q2", "Q3"] },
+    "yAxis": { "title": { "text": "Revenue" } },
+    "series": [{ "name": "Revenue", "data": [100, 140, 180] }]
+}
+\`\`\`
 
-            Some additional text here.
-            `;
+Some additional text here.
+`;
 
         const { data: frontmatter, content: markdown } = matter(rawFile);
         console.log(1111, frontmatter, markdown);
