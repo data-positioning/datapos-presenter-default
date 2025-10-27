@@ -4,6 +4,7 @@ import type { Presenter, PresenterConfig, PresenterItemConfig, PresenterLocalise
 // import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions } from 'highcharts';
 import config from '../config.json';
 
+import { Buffer } from 'buffer';
 import MarkdownIt from 'markdown-it';
 import matter from 'gray-matter';
 
@@ -51,6 +52,12 @@ export default class DefaultPresenter implements Presenter {
         //         { name: 'John', data: [5, 7, 3] }
         //     ]
         // } as Options);
+
+        if (typeof window !== 'undefined' && !window.Buffer) {
+            console.log('aaaa');
+            window.Buffer = Buffer;
+            console.log('bbbb', window.Buffer);
+        }
 
         const rawFile = `---
             title: Physical Headcount
