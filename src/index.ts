@@ -57,11 +57,14 @@ export default class DefaultPresenter implements Presenter {
 
         const rawFile = `---
 title: Physical Headcount
+description: This is a description...
 focus: hr
 model: wrkFor
 ---
 
 # {{title}}
+
+{{description}}
 
 ## Q2 Overview
 
