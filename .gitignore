@@ -1,4 +1,5 @@
 dist
+dist-scripts
 node_modules
 *.local
 **/.DS_Store

@@ -8,7 +8,6 @@ async function constructPresentationConfig() {
             const itemPath = `${dirPath}/${itemName}`;
             const stats = await fs.stat(itemPath);
             if (stats.isDirectory()) {
-                console.log(itemPath, 'Directory');
                 const childItem = { id: itemName, typeId: 'folder', children: [] };
                 presentationItem.children.push(childItem);
                 await constructPresentationItems(itemPath, childItem);
@@ -16,7 +15,6 @@ async function constructPresentationConfig() {
             else {
                 const childItem = { id: itemName, typeId: 'file' };
                 presentationItem.children?.push(childItem);
-                console.log(itemPath, 'FILE');
             }
         }
     }
