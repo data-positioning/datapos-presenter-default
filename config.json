@@ -8,7 +8,7 @@
     },
     "statusId": "alpha",
     "typeId": "presenter",
-    "version": "0.1.539",
+    "version": "0.1.540",
     "presentations": [
         {
             "name": "cs",
@@ -41,56 +41,56 @@
                     "typeId": "folder",
                     "items": [
                         {
-                            "name": "physicalHeadcount",
+                            "name": "hr_wf_physicalHeadcount",
                             "label": {
                                 "en": "Physical Headcount"
                             },
                             "typeId": "presentation"
                         },
                         {
-                            "name": "averageHeadcount",
+                            "name": "hr_wf_averageHeadcount",
                             "label": {
                                 "en": "Average Headcount"
                             },
                             "typeId": "presentation"
                         },
                         {
-                            "name": "hiresTerminations",
+                            "name": "hr_wf_hiresTerminations",
                             "label": {
                                 "en": "Hires & Terminations"
                             },
                             "typeId": "presentation"
                         },
                         {
-                            "name": "fteHeadcount",
+                            "name": "hr_wf_fteHeadcount",
                             "label": {
                                 "en": "Full-Time Equivalent Headcount"
                             },
                             "typeId": "presentation"
                         },
                         {
-                            "name": "movements",
+                            "name": "hr_wf_movements",
                             "label": {
                                 "en": "Movements (Entry, Internal & Exit)"
                             },
                             "typeId": "presentation"
                         },
                         {
-                            "name": "movementFlows",
+                            "name": "hr_wf_movementFlows",
                             "label": {
                                 "en": "Movement Flows"
                             },
                             "typeId": "presentation"
                         },
                         {
-                            "name": "employeeProfiles",
+                            "name": "hr_wf_employeeProfiles",
                             "label": {
                                 "en": "Employee Profiles"
                             },
                             "typeId": "presentation"
                         },
                         {
-                            "name": "headcountSummary",
+                            "name": "hr_wf_headcountSummary",
                             "label": {
                                 "en": "Headcount Summary"
                             },
