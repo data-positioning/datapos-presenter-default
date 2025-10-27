@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.547",
+    "version": "0.1.548",
     "peerDependencies": {
         "@datapos/datapos-shared": "^0.3.63"
     },
@@ -27,6 +27,7 @@
         "npm-check-updates": "^19.1.1",
         "prettier": "^3.6.2",
         "retire": "^5.3.0",
+        "ts-node": "^10.9.2",
         "typescript": "^5.9.3",
         "vite": "^7.1.12",
         "vite-plugin-dts": "^4.5.4",
@@ -34,8 +35,11 @@
     },
     "scripts": {
         "audit": "npm audit",
+        "prebuild1": "node --import 'data:text/javascript,import { register } from \"node:module\"; import { pathToFileURL } from \"node:url\"; register(\"ts-node/esm\", pathToFileURL(\"./\"));' scripts/prebuild.ts",
+        "prebuild": "tsc -p tsconfig.scripts.json && node dist-scripts/prebuild.js",
         "build": "npx vite build",
         "buildConfig": "node -e \"import('@datapos/datapos-development').then(m => m.buildConfig())\"",
+        "buildPresentersIndex": "node -e \"import('@datapos/datapos-development').then(m => m.buildPublicDirectoryIndex('presentations'))\"",
         "bumpVersion": "node -e \"import('@datapos/datapos-development').then(m => m.bumpVersion())\"",
         "check": "npm outdated; npm-check-updates -i && retire",
         "compile": "node -e \"require('@datapos/datapos-operations/scriptHelpers').compilePresenter()\"",
