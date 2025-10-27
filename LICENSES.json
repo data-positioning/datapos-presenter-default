@@ -1,0 +1,23 @@
+{
+    "buffer@6.0.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/feross/buffer",
+        "licenseFile": "node_modules/buffer/LICENSE",
+        "licenseUrl": "https://github.com/feross/buffer/raw/master/LICENSE",
+        "parents": "datapos-presenter-default"
+    },
+    "gray-matter@4.0.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/jonschlinkert/gray-matter",
+        "licenseFile": "node_modules/gray-matter/LICENSE",
+        "licenseUrl": "https://github.com/jonschlinkert/gray-matter/raw/master/LICENSE",
+        "parents": "datapos-presenter-default"
+    },
+    "markdown-it@14.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/markdown-it/markdown-it",
+        "licenseFile": "node_modules/markdown-it/LICENSE",
+        "licenseUrl": "https://github.com/markdown-it/markdown-it/raw/master/LICENSE",
+        "parents": "datapos-presenter-default"
+    }
+}

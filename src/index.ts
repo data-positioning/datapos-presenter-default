@@ -56,8 +56,10 @@ export default class DefaultPresenter implements Presenter {
         if (typeof window !== 'undefined' && !window.Buffer) window.Buffer = Buffer;
 
         const rawFile = `---
-title: Physical Headcount
-description: This is a description...
+title: 
+    en: Physical Headcount
+description:
+    en: This is a description...
 focus: hr
 model: wrkFor
 ---

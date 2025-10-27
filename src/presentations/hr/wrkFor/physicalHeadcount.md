@@ -1,6 +1,8 @@
 ---
-title: Physical Headcount
-description: This is a description...
+title:
+    en: Physical Headcount
+description:
+    en: This is a description...
 ---
 
 # {{title}}

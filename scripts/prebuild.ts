@@ -30,4 +30,5 @@ async function constructPresentationConfig() {
     console.log(JSON.stringify(topPresentationItem, undefined, 4));
 }
 
+// Pre-build Processing
 constructPresentationConfig();
