@@ -2,23 +2,23 @@
 import { promises as fs } from 'fs';
 
 // Declarations
-type PresentationItem = FolderItem | FileItem;
-type FolderItem = { id: string; typeId: 'folder'; children: PresentationItem[] };
-type FileItem = { id: string; typeId: 'file' };
+type PresentationItem = PresentationFolderItem | PresentationFileItem;
+type PresentationFolderItem = { id: string; typeId: 'folder'; children: PresentationItem[] };
+type PresentationFileItem = { id: string; typeId: 'file' };
 
-//
+// Operations - Construct presentation configuration.
 async function constructPresentationConfig() {
-    async function constructPresentationItems(dirPath: string, presentationItem: FolderItem) {
+    async function constructPresentationItems(dirPath: string, presentationItem: PresentationFolderItem) {
         const dirItems = await fs.readdir(dirPath);
         for (const itemName of dirItems) {
             const itemPath = `${dirPath}/${itemName}`;
             const stats = await fs.stat(itemPath);
             if (stats.isDirectory()) {
-                const childItem: FolderItem = { id: itemName, typeId: 'folder', children: [] };
+                const childItem: PresentationFolderItem = { id: itemName, typeId: 'folder', children: [] };
                 presentationItem.children.push(childItem);
                 await constructPresentationItems(itemPath, childItem);
             } else {
-                const childItem: FileItem = { id: itemName, typeId: 'file' };
+                const childItem: PresentationFileItem = { id: itemName, typeId: 'file' };
                 presentationItem.children?.push(childItem);
             }
         }
