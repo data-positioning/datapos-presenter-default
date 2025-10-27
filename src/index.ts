@@ -37,10 +37,10 @@ export default class DefaultPresenter implements Presenter {
         return items;
     }
 
-    async render(id: string, renderTo: string | HTMLElement): Promise<void> {
-        // // const Highcharts = (await import('highcharts')).default;
-        // const url = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
-        // const Highcharts = (await import(/* @vite-ignore */ url)).default;
+    async render(id: string, renderTo: HTMLElement): Promise<void> {
+        // const Highcharts = (await import('highcharts')).default;
+        const url = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
+        const Highcharts = (await import(/* @vite-ignore */ url)).default;
 
         // new Highcharts.Chart(renderTo, {
         //     chart: { type: 'bar' },
@@ -53,11 +53,7 @@ export default class DefaultPresenter implements Presenter {
         //     ]
         // } as Options);
 
-        if (typeof window !== 'undefined' && !window.Buffer) {
-            console.log('aaaa');
-            window.Buffer = Buffer;
-            console.log('bbbb', window.Buffer);
-        }
+        if (typeof window !== 'undefined' && !window.Buffer) window.Buffer = Buffer;
 
         const rawFile = `---
 title: Physical Headcount
@@ -104,5 +100,18 @@ Some additional text here.
 
         const html = md.render(processedMarkdown);
         console.log(3333, html);
+        renderTo.innerHTML = html;
+
+        for (const chartEl of renderTo.querySelectorAll('.chart')) {
+            const text = decodeURIComponent((chartEl as HTMLElement).dataset.code);
+            try {
+                const options = JSON.parse(text);
+                chartEl.textContent = '';
+                Highcharts.chart(chartEl, options);
+            } catch (err) {
+                console.error('Highcharts parse error:', err);
+                chartEl.textContent = 'Invalid chart JSON';
+            }
+        }
     }
 }
