@@ -57,8 +57,6 @@ export default class DefaultPresenter implements Presenter {
                     case 'data': {
                         const dataId = attributes.split(' ')[0];
                         const dataOptions = JSON.parse(options);
-
-                        console.log(`Processing data block '${dataId}'...`, dataOptions);
                         series = dataOptions.series;
                         return '<!-- No content -->';
                     }
