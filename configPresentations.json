@@ -1,0 +1,14 @@
+{
+    "hr/wrkFor/physicalHeadcount": {
+        "label": { "en": "Physical Headcount" },
+        "description": { "en": "This is a description..." },
+        "order": 1,
+        "content": "---\nlabel:\n    en: Physical Headcount\ndescription:\n    en: This is a description...\norder: 1\n---\n\n# {{label}}\n\n{{description}}\n\n## Q2 Overview\n\nThis quarter saw significant revenue growth.\n\n```chart\n{\n    \"chart\": { \"type\": \"column\" },\n    \"title\": { \"text\": \"{{label}}\" },\n    \"xAxis\": { \"categories\": [\"Q1\", \"Q2\", \"Q3\"] },\n    \"yAxis\": { \"title\": { \"text\": \"Revenue\" } },\n    \"series\": [{ \"name\": \"Revenue\", \"data\": [100, 140, 180] }]\n}\n```\n\nSome additional text here.\n"
+    },
+    "hr/wrkFor/physicalHeadcount2": {
+        "label": { "en": "Physical Headcount" },
+        "description": { "en": "This is a description..." },
+        "order": 1,
+        "content": "---\nlabel:\n    en: Physical Headcount\ndescription:\n    en: This is a description...\norder: 1\n---\n\n```data\nsetSeries([{ \"name\": \"Revenue\", \"data\": [100, 140, 180] }])\n```\n\n# {{label}}\n\n{{description}}\n\n## Q2 Overview\n\nThis quarter saw significant revenue growth.\n\n```visual\n{\n    typeId: 'highchartsChart',\n    options: {\n        \"chart\": { \"type\": \"column\" },\n        \"title\": { \"text\": \"{{label}}\" },\n        \"xAxis\": { \"categories\": [\"Q1\", \"Q2\", \"Q3\"] },\n        \"yAxis\": { \"title\": { \"text\": \"Revenue\" } },\n        \"series\": series\n    }\n}\n```\n\nSome additional text here.\n"
+    }
+}

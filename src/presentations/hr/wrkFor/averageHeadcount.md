@@ -1,7 +1,7 @@
 ---
 label:
-    en: Headcount Summary
+    en: Average Headcount
 description:
     en: This is a description...
-order: 7
+order: 2
 ---
