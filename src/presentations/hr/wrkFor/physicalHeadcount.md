@@ -8,7 +8,7 @@ order: 1
 
 ```data default
 {
-    series: [{ "name": "Revenue", "data": [100, 140, 180] }]
+    "series": [{ "name": "Revenue", "data": [100, 140, 180] }]
 }
 ```
 
