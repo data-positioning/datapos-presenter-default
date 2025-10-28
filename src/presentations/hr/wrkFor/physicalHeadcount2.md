@@ -6,7 +6,7 @@ description:
 order: 1
 ---
 
-```data
+```data {1,3} title="example.js" hl_lines="2 4"
 setSeries([{ "name": "Revenue", "data": [100, 140, 180] }])
 ```
 
@@ -18,7 +18,7 @@ setSeries([{ "name": "Revenue", "data": [100, 140, 180] }])
 
 This quarter saw significant revenue growth.
 
-```visual
+```visual type="highchartsChart"
 {
     typeId: 'highchartsChart',
     options: {

@@ -39,76 +39,36 @@ export default class DefaultPresenter implements Presenter {
     }
 
     async render(id: string, renderTo: HTMLElement): Promise<void> {
-        // const Highcharts = (await import('highcharts')).default;
-        const url = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
-        const Highcharts = (await import(/* @vite-ignore */ url)).default;
-
-        // new Highcharts.Chart(renderTo, {
-        //     chart: { type: 'bar' },
-        //     title: { text: 'Fruit Consumption' },
-        //     xAxis: { categories: ['Apples', 'Bananas', 'Oranges'] },
-        //     yAxis: { title: { text: 'Fruit eaten' } },
-        //     series: [
-        //         { name: 'Jane', data: [1, 0, 4] },
-        //         { name: 'John', data: [5, 7, 3] }
-        //     ]
-        // } as Options);
+        const downloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
+        const Highcharts = (await import(/* @vite-ignore */ downloadURL)).default;
 
         if (typeof window !== 'undefined' && !window.Buffer) window.Buffer = Buffer;
 
-        //         const rawFile = `---
-        // title:
-        //     en: Physical Headcount
-        // description:
-        //     en: This is a description...
-        // focus: hr
-        // model: wrkFor
-        // ---
-
-        // # {{title}}
-
-        // {{description}}
-
-        // ## Q2 Overview
-
-        // This quarter saw significant revenue growth.
-
-        // \`\`\`chart
-        // {
-        //     "chart": { "type": "column" },
-        //     "title": { "text": "{{title}}" },
-        //     "xAxis": { "categories": ["Q1", "Q2", "Q3"] },
-        //     "yAxis": { "title": { "text": "Revenue" } },
-        //     "series": [{ "name": "Revenue", "data": [100, 140, 180] }]
-        // }
-        // \`\`\`
-
-        // Some additional text here.
-        // `;
-
-        const presentationId = 'hr/wrkFor/physicalHeadcount';
+        const presentationId = 'hr/wrkFor/physicalHeadcount2';
         const rawFile = configPresentations[presentationId];
 
         const { data: frontmatter, content: markdown } = matter(rawFile);
-        console.log(1111, frontmatter, markdown);
-
         const processedMarkdown = markdown.replace(/\{\{(\w+)\}\}/g, (_, key) => {
             return frontmatter[key].en ?? `{{${key}}}`;
         });
-        console.log(2222, processedMarkdown);
-
         const md = new MarkdownIt({
-            highlight: (str, lang) => {
-                if (lang === 'json' || lang === 'chart') {
-                    const id = `chart-${Math.random().toString(36).slice(2)}`;
-                    return `<div class="chart" data-id="${id}" data-code="${encodeURIComponent(str)}"></div>`;
+            highlight: (str, lang, attrs) => {
+                console.log(attrs);
+                switch (lang) {
+                    case 'data':
+                        console.log('data', attrs);
+                        return '';
+                    case 'visual':
+                        console.log('visual', attrs);
+                        const id = `chart-${Math.random().toString(36).slice(2)}`;
+                        return `<div class="chart" data-id="${id}" data-code="${encodeURIComponent(str)}"></div>`;
+                    default:
+                        console.log('other');
+                        return '';
                 }
-                return '';
             }
         });
-
         const html = md.render(processedMarkdown);
-        console.log(3333, html);
         renderTo.innerHTML = html;
 
         for (const chartEl of renderTo.querySelectorAll('.chart')) {
