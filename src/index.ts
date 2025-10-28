@@ -53,7 +53,6 @@ export default class DefaultPresenter implements Presenter {
         });
         const md = new MarkdownIt({
             highlight: (str, lang, attrs) => {
-                console.log(attrs);
                 switch (lang) {
                     case 'data':
                         console.log('data', attrs);

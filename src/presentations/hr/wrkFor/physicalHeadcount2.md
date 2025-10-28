@@ -6,7 +6,7 @@ description:
 order: 1
 ---
 
-```data {1,3} title="example.js" hl_lines="2 4"
+```data default
 setSeries([{ "name": "Revenue", "data": [100, 140, 180] }])
 ```
 
@@ -18,16 +18,13 @@ setSeries([{ "name": "Revenue", "data": [100, 140, 180] }])
 
 This quarter saw significant revenue growth.
 
-```visual type="highchartsChart"
+```visual highchartsChart
 {
-    typeId: 'highchartsChart',
-    options: {
-        "chart": { "type": "column" },
-        "title": { "text": "{{label}}" },
-        "xAxis": { "categories": ["Q1", "Q2", "Q3"] },
-        "yAxis": { "title": { "text": "Revenue" } },
-        "series": series
-    }
+    "chart": { "type": "column" },
+    "title": { "text": "{{label}}" },
+    "xAxis": { "categories": ["Q1", "Q2", "Q3"] },
+    "yAxis": { "title": { "text": "Revenue" } },
+    "series": [{ "name": "Revenue", "data": [100, 140, 180] }]
 }
 ```
 
