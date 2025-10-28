@@ -50,6 +50,7 @@ export default class DefaultPresenter implements Presenter {
         const processedMarkdown = markdown.replace(/\{\{(\w+)\}\}/g, (_, key) => {
             return frontmatter[key].en ?? `{{${key}}}`;
         });
+        let series;
         const markdownParser = new markdownIt({
             highlight: (options, blockName, attributes) => {
                 switch (blockName) {
@@ -58,6 +59,7 @@ export default class DefaultPresenter implements Presenter {
                         const dataOptions = JSON.parse(options);
 
                         console.log(`Processing data block '${dataId}'...`, dataOptions);
+                        series = dataOptions.series;
                         return '<!-- No content -->';
                     }
                     case 'visual': {
@@ -77,6 +79,7 @@ export default class DefaultPresenter implements Presenter {
             const datasetOptions = decodeURIComponent((chartEl as HTMLElement).dataset.options);
             try {
                 const options = JSON.parse(datasetOptions);
+                options.series = series;
                 chartEl.textContent = '';
                 Highcharts.chart(chartEl, options);
             } catch (err) {
