@@ -14,9 +14,13 @@ type PresentationThing = { label: Record<string, string>; description: Record<st
 async function constructPresentationConfig() {
     const topPath = 'src/presentations';
     const topPresentationItem: PresentationItem = { id: 'top', typeId: 'folder', children: [] };
-    const presentationMap = {};
+    const presentationMap: Record<string, PresentationThing> = {};
     await constructPresentationItems(topPath, topPresentationItem, presentationMap);
     await fs.writeFile('./configPresentations.json', JSON.stringify(presentationMap));
+
+    const config = await JSON.parse(await fs.readFile('config.json', 'utf8'));
+    config.presentations = Object.entries(presentationMap).map((item) => ({ path: item[0], label: item[1].label, description: item[1].description, order: item[1].order }));
+    await fs.writeFile('config.json', JSON.stringify(config, undefined, 4));
 
     // Utilities - Construct presentation item.
     async function constructPresentationItems(dirPath: string, presentationItem: PresentationFolderItem, presentationMap: Record<string, PresentationThing>) {
@@ -34,11 +38,12 @@ async function constructPresentationConfig() {
                 if (!itemContent) continue;
                 const things = dirPath.substring(topPath.length + 1).split('/');
                 const { data: frontmatter, content: markdown } = matter(itemContent);
+                console.log(markdown);
                 presentationMap[`${things.join('/')}/${path.basename(itemPath, '.md')}`] = {
                     label: frontmatter.label,
                     description: frontmatter.description,
                     order: frontmatter.order,
-                    content: itemContent // TODO: Can we remove all padding such as "\n  "?
+                    content: itemContent // TODO: Can we remove all padding such as "\n  "? Maybe 'dedent' on frontmatter? Parse and stringify on JSON?
                 };
                 const childItem: PresentationFileItem = { id: itemName, typeId: 'file' };
                 presentationItem.children?.push(childItem);

@@ -8,224 +8,87 @@
     },
     "statusId": "alpha",
     "typeId": "presenter",
-    "version": "0.1.556",
+    "version": "0.1.557",
     "presentations": [
         {
-            "name": "cs",
+            "path": "hr/wrkFor/averageHeadcount",
             "label": {
-                "en": "Customer Services"
+                "en": "Average Headcount"
             },
-            "typeId": "folder",
-            "items": []
+            "description": {
+                "en": "This is a description..."
+            },
+            "order": 2
         },
         {
-            "name": "fm",
+            "path": "hr/wrkFor/ftes",
             "label": {
-                "en": "Financial Management"
+                "en": "Full-Time Equivalents"
             },
-            "typeId": "folder",
-            "items": []
+            "description": {
+                "en": "This is a description..."
+            },
+            "order": 4
         },
         {
-            "name": "hr",
+            "path": "hr/wrkFor/headcountSummary",
             "label": {
-                "en": "Human Resources"
+                "en": "Headcount Summary"
             },
-            "typeId": "folder",
-            "items": [
-                {
-                    "name": "hr_wf",
-                    "label": {
-                        "en": "Workforce"
-                    },
-                    "typeId": "folder",
-                    "items": [
-                        {
-                            "name": "hr_wf_physicalHeadcount",
-                            "label": {
-                                "en": "Physical Headcount"
-                            },
-                            "typeId": "presentation"
-                        },
-                        {
-                            "name": "hr_wf_averageHeadcount",
-                            "label": {
-                                "en": "Average Headcount"
-                            },
-                            "typeId": "presentation"
-                        },
-                        {
-                            "name": "hr_wf_hiresTerminations",
-                            "label": {
-                                "en": "Hires & Terminations"
-                            },
-                            "typeId": "presentation"
-                        },
-                        {
-                            "name": "hr_wf_fteHeadcount",
-                            "label": {
-                                "en": "Full-Time Equivalent Headcount"
-                            },
-                            "typeId": "presentation"
-                        },
-                        {
-                            "name": "hr_wf_movements",
-                            "label": {
-                                "en": "Movements (Entry, Internal & Exit)"
-                            },
-                            "typeId": "presentation"
-                        },
-                        {
-                            "name": "hr_wf_movementFlows",
-                            "label": {
-                                "en": "Movement Flows"
-                            },
-                            "typeId": "presentation"
-                        },
-                        {
-                            "name": "hr_wf_employeeProfiles",
-                            "label": {
-                                "en": "Employee Profiles"
-                            },
-                            "typeId": "presentation"
-                        },
-                        {
-                            "name": "hr_wf_headcountSummary",
-                            "label": {
-                                "en": "Headcount Summary"
-                            },
-                            "typeId": "presentation"
-                        }
-                    ]
-                },
-                {
-                    "name": "hr_ro",
-                    "label": {
-                        "en": "Recruitment & Onboarding"
-                    },
-                    "typeId": "folder",
-                    "items": []
-                },
-                {
-                    "name": "hr_ln",
-                    "label": {
-                        "en": "Learning"
-                    },
-                    "typeId": "folder",
-                    "items": []
-                },
-                {
-                    "name": "hr_tm",
-                    "label": {
-                        "en": "Talent Management"
-                    },
-                    "typeId": "folder",
-                    "items": [
-                        {
-                            "id": "hr_tm_exp",
-                            "en": {
-                                "label": "Experience"
-                            },
-                            "items": []
-                        },
-                        {
-                            "id": "hr_tm_mgt",
-                            "en": {
-                                "label": "Management"
-                            },
-                            "items": []
-                        },
-                        {
-                            "id": "hr_tm_src",
-                            "en": {
-                                "label": "Sourcing"
-                            },
-                            "items": []
-                        }
-                    ]
-                },
-                {
-                    "name": "hr_at",
-                    "label": {
-                        "en": "Attendance"
-                    },
-                    "typeId": "folder",
-                    "items": []
-                },
-                {
-                    "name": "hr_cp",
-                    "label": {
-                        "en": "Compensation"
-                    },
-                    "typeId": "folder",
-                    "items": []
-                }
-            ]
+            "description": {
+                "en": "This is a description..."
+            },
+            "order": 7
         },
         {
-            "name": "im",
+            "path": "hr/wrkFor/hiresTerminations",
             "label": {
-                "en": "Inventory Management"
+                "en": "Hires & Terminations"
             },
-            "typeId": "folder",
-            "items": []
+            "description": {
+                "en": "This is a description..."
+            },
+            "order": 3
         },
         {
-            "name": "om",
+            "path": "hr/wrkFor/movementFlows",
             "label": {
-                "en": "Order Management"
+                "en": "Movement Flows"
             },
-            "typeId": "folder",
-            "items": []
+            "description": {
+                "en": "This is a description..."
+            },
+            "order": 6
         },
         {
-            "name": "sm",
+            "path": "hr/wrkFor/movements",
             "label": {
-                "en": "Sales Management"
+                "en": "Movements (Entry, Internal & Exit)"
             },
-            "typeId": "folder",
-            "items": [
-                {
-                    "name": "sm_ct",
-                    "label": {
-                        "en": "Contacts"
-                    },
-                    "typeId": "folder",
-                    "items": []
-                },
-                {
-                    "name": "sm_ld",
-                    "label": {
-                        "en": "Leads"
-                    },
-                    "typeId": "folder",
-                    "items": []
-                },
-                {
-                    "name": "sm_op",
-                    "label": {
-                        "en": "Opportunities"
-                    },
-                    "typeId": "folder",
-                    "items": []
-                }
-            ]
+            "description": {
+                "en": "This is a description..."
+            },
+            "order": 5
         },
         {
-            "name": "sn",
+            "path": "hr/wrkFor/physicalHeadcount",
             "label": {
-                "en": "Social Networking"
+                "en": "Physical Headcount"
             },
-            "typeId": "folder",
-            "items": []
+            "description": {
+                "en": "This is a description..."
+            },
+            "order": 1
         },
         {
-            "name": "wm",
+            "path": "hr/wrkFor/physicalHeadcount2",
             "label": {
-                "en": "Work Management"
+                "en": "Physical Headcount"
             },
-            "typeId": "folder",
-            "items": []
+            "description": {
+                "en": "This is a description..."
+            },
+            "order": 1
         }
     ]
 }
