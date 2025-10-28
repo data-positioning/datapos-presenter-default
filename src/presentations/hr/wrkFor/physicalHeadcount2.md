@@ -18,7 +18,7 @@ setSeries([{ "name": "Revenue", "data": [100, 140, 180] }])
 
 This quarter saw significant revenue growth.
 
-```visual highchartsChart
+```visual highcharts-chart
 {
     "chart": { "type": "column" },
     "title": { "text": "{{label}}" },

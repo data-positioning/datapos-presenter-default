@@ -54,29 +54,34 @@ export default class DefaultPresenter implements Presenter {
         const md = new MarkdownIt({
             highlight: (str, lang, attrs) => {
                 switch (lang) {
-                    case 'data':
-                        return '<!-- This does nothing -->';
-                    case 'visual':
-                        const id = `chart-${Math.random().toString(36).slice(2)}`;
-                        return `<div class="chart" data-id="${id}" data-code="${encodeURIComponent(str)}"></div>`;
+                    case 'data': {
+                        const dataId = attrs[0];
+                        console.log(`Processing data block ${dataId}...`);
+                        return '<!-- No content -->';
+                    }
+                    case 'visual': {
+                        const typeId = attrs[0];
+                        const id = `${typeId}-${Math.random().toString(36).slice(2)}`;
+                        return `<div class="${typeId}" data-id="${id}" data-code="${encodeURIComponent(str)}"></div>`;
+                    }
                     default:
-                        return '<!-- This does nothing -->';
+                        return '<!-- No content -->';
                 }
             }
         });
         const html = md.render(processedMarkdown);
         renderTo.innerHTML = html;
 
-        // for (const chartEl of renderTo.querySelectorAll('.chart')) {
-        //     const text = decodeURIComponent((chartEl as HTMLElement).dataset.code);
-        //     try {
-        //         const options = JSON.parse(text);
-        //         chartEl.textContent = '';
-        //         Highcharts.chart(chartEl, options);
-        //     } catch (err) {
-        //         console.error('Highcharts parse error:', err);
-        //         chartEl.textContent = 'Invalid chart JSON';
-        //     }
-        // }
+        for (const chartEl of renderTo.querySelectorAll('.highcharts-chart')) {
+            const text = decodeURIComponent((chartEl as HTMLElement).dataset.code);
+            try {
+                const options = JSON.parse(text);
+                chartEl.textContent = '';
+                Highcharts.chart(chartEl, options);
+            } catch (err) {
+                console.error('Highcharts parse error:', err);
+                chartEl.textContent = 'Invalid chart JSON';
+            }
+        }
     }
 }
