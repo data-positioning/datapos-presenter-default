@@ -55,14 +55,11 @@ export default class DefaultPresenter implements Presenter {
             highlight: (str, lang, attrs) => {
                 switch (lang) {
                     case 'data':
-                        console.log('data', attrs);
                         return '';
                     case 'visual':
-                        console.log('visual', attrs);
                         const id = `chart-${Math.random().toString(36).slice(2)}`;
                         return `<div class="chart" data-id="${id}" data-code="${encodeURIComponent(str)}"></div>`;
                     default:
-                        console.log('other');
                         return '';
                 }
             }
@@ -70,16 +67,16 @@ export default class DefaultPresenter implements Presenter {
         const html = md.render(processedMarkdown);
         renderTo.innerHTML = html;
 
-        for (const chartEl of renderTo.querySelectorAll('.chart')) {
-            const text = decodeURIComponent((chartEl as HTMLElement).dataset.code);
-            try {
-                const options = JSON.parse(text);
-                chartEl.textContent = '';
-                Highcharts.chart(chartEl, options);
-            } catch (err) {
-                console.error('Highcharts parse error:', err);
-                chartEl.textContent = 'Invalid chart JSON';
-            }
-        }
+        // for (const chartEl of renderTo.querySelectorAll('.chart')) {
+        //     const text = decodeURIComponent((chartEl as HTMLElement).dataset.code);
+        //     try {
+        //         const options = JSON.parse(text);
+        //         chartEl.textContent = '';
+        //         Highcharts.chart(chartEl, options);
+        //     } catch (err) {
+        //         console.error('Highcharts parse error:', err);
+        //         chartEl.textContent = 'Invalid chart JSON';
+        //     }
+        // }
     }
 }
