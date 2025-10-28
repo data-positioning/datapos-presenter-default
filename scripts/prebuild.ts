@@ -16,6 +16,7 @@ async function constructPresentationConfig() {
     const topPresentationItem: PresentationItem = { id: 'top', typeId: 'folder', children: [] };
     const presentationMap: Record<string, PresentationThing> = {};
     await constructPresentationItems(topPath, topPresentationItem, presentationMap);
+
     await fs.writeFile('./configPresentations.json', JSON.stringify(presentationMap));
 
     const config = await JSON.parse(await fs.readFile('config.json', 'utf8'));
@@ -38,7 +39,6 @@ async function constructPresentationConfig() {
                 if (!itemContent) continue;
                 const things = dirPath.substring(topPath.length + 1).split('/');
                 const { data: frontmatter, content: markdown } = matter(itemContent);
-                console.log(markdown);
                 presentationMap[`${things.join('/')}/${path.basename(itemPath, '.md')}`] = {
                     label: frontmatter.label,
                     description: frontmatter.description,

@@ -3,6 +3,7 @@ import type { Axis, ChartCallbackFunction, ChartOptions, LegendOptions, Options,
 import type { Presenter, PresenterConfig, PresenterItemConfig, PresenterLocalisedConfig } from '@datapos/datapos-shared';
 // import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions } from 'highcharts';
 import config from '../config.json';
+import configPresentations from '../configPresentations.json';
 
 import { Buffer } from 'buffer';
 import MarkdownIt from 'markdown-it';
@@ -55,35 +56,38 @@ export default class DefaultPresenter implements Presenter {
 
         if (typeof window !== 'undefined' && !window.Buffer) window.Buffer = Buffer;
 
-        const rawFile = `---
-title: 
-    en: Physical Headcount
-description:
-    en: This is a description...
-focus: hr
-model: wrkFor
----
+        //         const rawFile = `---
+        // title:
+        //     en: Physical Headcount
+        // description:
+        //     en: This is a description...
+        // focus: hr
+        // model: wrkFor
+        // ---
 
-# {{title}}
+        // # {{title}}
 
-{{description}}
+        // {{description}}
 
-## Q2 Overview
+        // ## Q2 Overview
 
-This quarter saw significant revenue growth.
+        // This quarter saw significant revenue growth.
 
-\`\`\`chart
-{
-    "chart": { "type": "column" },
-    "title": { "text": "{{title}}" },
-    "xAxis": { "categories": ["Q1", "Q2", "Q3"] },
-    "yAxis": { "title": { "text": "Revenue" } },
-    "series": [{ "name": "Revenue", "data": [100, 140, 180] }]
-}
-\`\`\`
+        // \`\`\`chart
+        // {
+        //     "chart": { "type": "column" },
+        //     "title": { "text": "{{title}}" },
+        //     "xAxis": { "categories": ["Q1", "Q2", "Q3"] },
+        //     "yAxis": { "title": { "text": "Revenue" } },
+        //     "series": [{ "name": "Revenue", "data": [100, 140, 180] }]
+        // }
+        // \`\`\`
 
-Some additional text here.
-`;
+        // Some additional text here.
+        // `;
+
+        const presentationId = 'hr/wrkFor/physicalHeadcount';
+        const rawFile = configPresentations[presentationId];
 
         const { data: frontmatter, content: markdown } = matter(rawFile);
         console.log(1111, frontmatter, markdown);
