@@ -55,12 +55,12 @@ export default class DefaultPresenter implements Presenter {
             highlight: (str, lang, attrs) => {
                 switch (lang) {
                     case 'data':
-                        return undefined;
+                        return '<!-- This does nothing -->';
                     case 'visual':
                         const id = `chart-${Math.random().toString(36).slice(2)}`;
                         return `<div class="chart" data-id="${id}" data-code="${encodeURIComponent(str)}"></div>`;
                     default:
-                        return undefined;
+                        return '<!-- This does nothing -->';
                 }
             }
         });
