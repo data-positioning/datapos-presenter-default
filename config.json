@@ -8,7 +8,7 @@
     },
     "statusId": "alpha",
     "typeId": "presenter",
-    "version": "0.1.569",
+    "version": "0.1.570",
     "presentations": [
         {
             "path": "hr/wrkFor/averageHeadcount",
@@ -72,16 +72,6 @@
         },
         {
             "path": "hr/wrkFor/physicalHeadcount",
-            "label": {
-                "en": "Physical Headcount"
-            },
-            "description": {
-                "en": "This is a description..."
-            },
-            "order": 1
-        },
-        {
-            "path": "hr/wrkFor/physicalHeadcount2",
             "label": {
                 "en": "Physical Headcount"
             },
