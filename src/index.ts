@@ -55,12 +55,12 @@ export default class DefaultPresenter implements Presenter {
             highlight: (str, lang, attrs) => {
                 switch (lang) {
                     case 'data': {
-                        const dataId = attrs[0];
+                        const dataId = attrs.split(' ')[0];
                         console.log(`Processing data block ${dataId}...`);
                         return '<!-- No content -->';
                     }
                     case 'visual': {
-                        const typeId = attrs[0];
+                        const typeId = attrs.split(' ')[0];
                         const id = `${typeId}-${Math.random().toString(36).slice(2)}`;
                         return `<div class="${typeId}" data-id="${id}" data-code="${encodeURIComponent(str)}"></div>`;
                     }
