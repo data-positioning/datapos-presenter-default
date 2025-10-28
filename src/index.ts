@@ -6,7 +6,7 @@ import config from '../config.json';
 import configPresentations from '../configPresentations.json';
 
 import { Buffer } from 'buffer';
-import MarkdownIt from 'markdown-it';
+import markdownIt from 'markdown-it';
 import matter from 'gray-matter';
 
 // Classes - Default Presenter
@@ -38,44 +38,45 @@ export default class DefaultPresenter implements Presenter {
         return items;
     }
 
-    async render(id: string, renderTo: HTMLElement): Promise<void> {
+    async render(presentationPath: keyof typeof configPresentations, renderTo: HTMLElement): Promise<void> {
         const downloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
         const Highcharts = (await import(/* @vite-ignore */ downloadURL)).default;
 
         if (typeof window !== 'undefined' && !window.Buffer) window.Buffer = Buffer;
 
-        const presentationId = 'hr/wrkFor/physicalHeadcount2';
-        const rawFile = configPresentations[presentationId];
+        const rawFile = configPresentations[presentationPath];
 
         const { data: frontmatter, content: markdown } = matter(rawFile);
         const processedMarkdown = markdown.replace(/\{\{(\w+)\}\}/g, (_, key) => {
             return frontmatter[key].en ?? `{{${key}}}`;
         });
-        const md = new MarkdownIt({
-            highlight: (str, lang, attrs) => {
-                switch (lang) {
+        const markdownParser = new markdownIt({
+            highlight: (options, blockName, attributes) => {
+                switch (blockName) {
                     case 'data': {
-                        const dataId = attrs.split(' ')[0];
-                        console.log(`Processing data block ${dataId}...`);
+                        const dataId = attributes.split(' ')[0];
+                        const dataOptions = JSON.parse(options);
+
+                        console.log(`Processing data block '${dataId}'...`, dataOptions);
                         return '<!-- No content -->';
                     }
                     case 'visual': {
-                        const typeId = attrs.split(' ')[0];
-                        const id = `${typeId}-${Math.random().toString(36).slice(2)}`;
-                        return `<div class="${typeId}" data-id="${id}" data-code="${encodeURIComponent(str)}"></div>`;
+                        const typeId = attributes.split(' ')[0];
+                        const dataId = `${typeId}-${Math.random().toString(36).slice(2)}`;
+                        return `<div class="${typeId}" data-id="${dataId}" data-options="${encodeURIComponent(options)}"></div>`;
                     }
                     default:
                         return '<!-- No content -->';
                 }
             }
         });
-        const html = md.render(processedMarkdown);
+        const html = markdownParser.render(processedMarkdown);
         renderTo.innerHTML = html;
 
         for (const chartEl of renderTo.querySelectorAll('.highcharts-chart')) {
-            const text = decodeURIComponent((chartEl as HTMLElement).dataset.code);
+            const datasetOptions = decodeURIComponent((chartEl as HTMLElement).dataset.options);
             try {
-                const options = JSON.parse(text);
+                const options = JSON.parse(datasetOptions);
                 chartEl.textContent = '';
                 Highcharts.chart(chartEl, options);
             } catch (err) {

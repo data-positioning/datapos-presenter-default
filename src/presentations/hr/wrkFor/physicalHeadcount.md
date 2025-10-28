@@ -6,6 +6,12 @@ description:
 order: 1
 ---
 
+```data default
+{
+    series: [{ "name": "Revenue", "data": [100, 140, 180] }]
+}
+```
+
 # {{label}}
 
 {{description}}
@@ -14,7 +20,7 @@ order: 1
 
 This quarter saw significant revenue growth.
 
-```chart
+```visual highcharts-chart
 {
     "chart": { "type": "column" },
     "title": { "text": "{{label}}" },
