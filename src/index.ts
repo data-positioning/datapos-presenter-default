@@ -57,8 +57,7 @@ export default class DefaultPresenter implements Presenter {
                     case 'data':
                         return '';
                     case 'visual':
-                        const id = `chart-${Math.random().toString(36).slice(2)}`;
-                        return `<div class="chart" data-id="${id}" data-code="${encodeURIComponent(str)}"></div>`;
+                        return '';
                     default:
                         return '';
                 }
