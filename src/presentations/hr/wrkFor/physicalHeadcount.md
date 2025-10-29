@@ -6,7 +6,7 @@ description:
 order: 1
 ---
 
-```data default
+```datapos-data default
 {
     "series": [{ "name": "Revenue", "data": [100, 140, 180] }]
 }
@@ -20,7 +20,7 @@ order: 1
 
 This quarter saw significant revenue growth.
 
-```visual highcharts-chart
+```datapos-visual highcharts-chart
 {
     "chart": { "type": "column" },
     "title": { "text": "{{label}}" },
@@ -28,5 +28,28 @@ This quarter saw significant revenue growth.
     "yAxis": { "title": { "text": "Revenue" } }
 }
 ```
+
+Ordered Points:
+
+1. Ordered point 1
+1. Ordered point 2
+1. Ordered point 3
+
+Unordered Points:
+
+- Unordered point 1
+- Unordered point 2
+- Unordered point 3
+
+```javascript
+let index = 1;
+for(const item from items) {
+    console.log(index, item);
+}
+```
+
+> This is a multi-line blockquote.
+> Each line starts with a `>` symbol.
+> You can even include **Markdown** formatting.
 
 Some additional text here.

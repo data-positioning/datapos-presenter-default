@@ -50,50 +50,33 @@ export default class DefaultPresenter implements Presenter {
         const processedMarkdown = markdown.replace(/\{\{(\w+)\}\}/g, (_, key) => {
             return frontmatter[key].en ?? `{{${key}}}`;
         });
+
         let series;
-        const markdownParser = new markdownIt({
-            highlight: (options, blockName, attributes) => {
-                console.log(1111, blockName);
-                switch (blockName) {
-                    case 'data': {
-                        const dataId = attributes.split(' ')[0];
-                        const dataOptions = JSON.parse(options);
-                        series = dataOptions.series;
-                        return '<span/>';
-                    }
-                    case 'visual': {
-                        console.log(2222);
-                        const typeId = attributes.split(' ')[0];
-                        const dataId = `${typeId}-${Math.random().toString(36).slice(2)}`;
-                        return `<div class="${typeId}" data-id="${dataId}" data-options="${encodeURIComponent(options)}"></div>`;
-                    }
-                    default:
-                        return '<span/>';
-                }
-            }
-        }); // Override the fence (code block) renderer
+        const markdownParser = new markdownIt();
         markdownParser.renderer.rules.fence = (tokens, idx, options, env, self) => {
+            console.log(11111, tokens, idx, options, env, self);
             const token = tokens[idx];
             const infoSegments = token.info.split(' ');
+            const blockName = infoSegments[0].trim();
             const content = token.content;
 
-            console.log(idx, token, token.info, token.content);
+            console.log(blockName, content);
 
-            let highlighted;
-
-            // Use the highlight function from options if it exists
-            if (options.highlight) {
-                try {
-                    highlighted = options.highlight(content, infoSegments[0], infoSegments[1]);
-                } catch (err) {
-                    highlighted = markdownParser.utils.escapeHtml(content);
+            switch (blockName) {
+                case 'datapos-data': {
+                    const dataId = infoSegments[1].trim();
+                    const dataOptions = JSON.parse(content);
+                    series = dataOptions.series;
+                    return '';
                 }
-            } else {
-                highlighted = markdownParser.utils.escapeHtml(content);
+                case 'datapos-visual': {
+                    const typeId = infoSegments[1].trim();
+                    // const dataId = `${typeId}-${Math.random().toString(36).slice(2)}`;
+                    return `<div class="${blockName}-${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
+                }
+                default:
+                    return `<pre><code class="language-${blockName}">${content}</code></pre>`;
             }
-
-            // Return with your custom wrapper instead of <pre><code>
-            return `<div class="my-code-block" data-lang="${infoSegments[0]}">${highlighted}</div>\n`;
         };
         const html = markdownParser.render(processedMarkdown);
         renderTo.innerHTML = html;
