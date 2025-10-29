@@ -71,11 +71,25 @@ export default class DefaultPresenter implements Presenter {
             }
         }); // Override the fence (code block) renderer
         markdownParser.renderer.rules.fence = (tokens, idx, options, env, self) => {
-            console.log(4444, tokens, idx, options, env, self);
             const token = tokens[idx];
             const langName = token.info.trim();
             const content = token.content;
-            return content;
+
+            let highlighted;
+
+            // Use the highlight function from options if it exists
+            if (options.highlight) {
+                try {
+                    highlighted = options.highlight(content, langName, '');
+                } catch (err) {
+                    highlighted = markdownParser.utils.escapeHtml(content);
+                }
+            } else {
+                highlighted = markdownParser.utils.escapeHtml(content);
+            }
+
+            // Return with your custom wrapper instead of <pre><code>
+            return `<div class="my-code-block" data-lang="${langName}">${highlighted}</div>\n`;
         };
         const html = markdownParser.render(processedMarkdown);
         renderTo.innerHTML = html;
