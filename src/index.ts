@@ -81,7 +81,7 @@ export default class DefaultPresenter implements Presenter {
         const html = markdownParser.render(processedMarkdown);
         renderTo.innerHTML = html;
 
-        for (const chartEl of renderTo.querySelectorAll('.highcharts-chart')) {
+        for (const chartEl of renderTo.querySelectorAll('.datapos-visual-highcharts-chart')) {
             const datasetOptions = decodeURIComponent((chartEl as HTMLElement).dataset.options);
             try {
                 const options = JSON.parse(datasetOptions);
