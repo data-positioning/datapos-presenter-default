@@ -77,6 +77,8 @@ export default class DefaultPresenter implements Presenter {
             const langName = token.info.trim();
             const content = token.content;
 
+            console.log(idx, token, token.info, token.content);
+
             let highlighted;
 
             // Use the highlight function from options if it exists
