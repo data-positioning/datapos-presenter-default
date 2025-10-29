@@ -53,6 +53,7 @@ export default class DefaultPresenter implements Presenter {
         let series;
         const markdownParser = new markdownIt({
             highlight: (options, blockName, attributes) => {
+                console.log(1111, blockName);
                 switch (blockName) {
                     case 'data': {
                         const dataId = attributes.split(' ')[0];
@@ -61,6 +62,7 @@ export default class DefaultPresenter implements Presenter {
                         return '<span/>';
                     }
                     case 'visual': {
+                        console.log(2222);
                         const typeId = attributes.split(' ')[0];
                         const dataId = `${typeId}-${Math.random().toString(36).slice(2)}`;
                         return `<div class="${typeId}" data-id="${dataId}" data-options="${encodeURIComponent(options)}"></div>`;
