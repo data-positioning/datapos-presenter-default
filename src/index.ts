@@ -69,7 +69,13 @@ export default class DefaultPresenter implements Presenter {
                         return '<span/>';
                 }
             }
-        });
+        }); // Override the fence (code block) renderer
+        markdownParser.renderer.rules.fence = (tokens, idx, options, env, self) => {
+            const token = tokens[idx];
+            const langName = token.info.trim();
+            const content = token.content;
+            return content;
+        };
         const html = markdownParser.render(processedMarkdown);
         renderTo.innerHTML = html;
 
