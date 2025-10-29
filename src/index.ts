@@ -74,7 +74,7 @@ export default class DefaultPresenter implements Presenter {
         }); // Override the fence (code block) renderer
         markdownParser.renderer.rules.fence = (tokens, idx, options, env, self) => {
             const token = tokens[idx];
-            const langName = token.info.trim();
+            const infoSegments = token.info.split(' ');
             const content = token.content;
 
             console.log(idx, token, token.info, token.content);
@@ -84,7 +84,7 @@ export default class DefaultPresenter implements Presenter {
             // Use the highlight function from options if it exists
             if (options.highlight) {
                 try {
-                    highlighted = options.highlight(content, langName, '');
+                    highlighted = options.highlight(content, infoSegments[0], infoSegments[1]);
                 } catch (err) {
                     highlighted = markdownParser.utils.escapeHtml(content);
                 }
@@ -93,7 +93,7 @@ export default class DefaultPresenter implements Presenter {
             }
 
             // Return with your custom wrapper instead of <pre><code>
-            return `<div class="my-code-block" data-lang="${langName}">${highlighted}</div>\n`;
+            return `<div class="my-code-block" data-lang="${infoSegments[0]}">${highlighted}</div>\n`;
         };
         const html = markdownParser.render(processedMarkdown);
         renderTo.innerHTML = html;
