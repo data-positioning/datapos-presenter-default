@@ -58,7 +58,7 @@ export default class DefaultPresenter implements Presenter {
                         const dataId = attributes.split(' ')[0];
                         const dataOptions = JSON.parse(options);
                         series = dataOptions.series;
-                        return '<!-- No content -->';
+                        return '<span/>';
                     }
                     case 'visual': {
                         const typeId = attributes.split(' ')[0];
@@ -66,7 +66,7 @@ export default class DefaultPresenter implements Presenter {
                         return `<div class="${typeId}" data-id="${dataId}" data-options="${encodeURIComponent(options)}"></div>`;
                     }
                     default:
-                        return '<!-- No content -->';
+                        return '<span/>';
                 }
             }
         });
