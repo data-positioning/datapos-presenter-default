@@ -71,6 +71,7 @@ export default class DefaultPresenter implements Presenter {
             }
         }); // Override the fence (code block) renderer
         markdownParser.renderer.rules.fence = (tokens, idx, options, env, self) => {
+            console.log(4444, tokens, idx, options, env, self);
             const token = tokens[idx];
             const langName = token.info.trim();
             const content = token.content;
