@@ -54,13 +54,10 @@ export default class DefaultPresenter implements Presenter {
         let series;
         const markdownParser = new markdownIt();
         markdownParser.renderer.rules.fence = (tokens, idx, options, env, self) => {
-            console.log(11111, tokens, idx, options, env, self);
             const token = tokens[idx];
             const infoSegments = token.info.split(' ');
             const blockName = infoSegments[0].trim();
             const content = token.content;
-
-            console.log(blockName, content);
 
             switch (blockName) {
                 case 'datapos-data': {
