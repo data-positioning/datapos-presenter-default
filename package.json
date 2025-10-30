@@ -3,13 +3,12 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.595",
+    "version": "0.1.596",
     "peerDependencies": {
         "@datapos/datapos-shared": "^0.3.63"
     },
     "dependencies": {
-        "buffer": "^6.0.3",
-        "gray-matter": "^4.0.3",
+        "front-matter": "^4.0.2",
         "markdown-it": "^14.1.0"
     },
     "devDependencies": {

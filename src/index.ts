@@ -5,9 +5,8 @@ import type { Presenter, PresenterConfig, PresenterItemConfig, PresenterLocalise
 import config from '../config.json';
 import configPresentations from '../configPresentations.json';
 
-import { Buffer } from 'buffer';
+import frontMatter from 'front-matter';
 import markdownIt from 'markdown-it';
-import matter from 'gray-matter';
 
 // Classes - Default Presenter
 export default class DefaultPresenter implements Presenter {
@@ -42,13 +41,22 @@ export default class DefaultPresenter implements Presenter {
         const downloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
         const Highcharts = (await import(/* @vite-ignore */ downloadURL)).default;
 
-        if (typeof window !== 'undefined' && !window.Buffer) window.Buffer = Buffer;
+        // if (typeof window !== 'undefined' && !window.Buffer) window.Buffer = Buffer;
+        // const { data: frontmatter, content: markdown } = matter(rawFile);
 
         const rawFile = configPresentations[presentationPath];
+        var content = frontMatter<{ label: Record<string, string>; description: Record<string, string>; order: number }>(rawFile.content);
+        console.log(content);
 
-        const { data: frontmatter, content: markdown } = matter(rawFile);
-        const processedMarkdown = markdown.replace(/\{\{(\w+)\}\}/g, (_, key) => {
-            return frontmatter[key].en ?? `{{${key}}}`;
+        const processedMarkdown = content.body.replace(/\{\{(\w+)\}\}/g, (_, key: keyof typeof content.attributes) => {
+            switch (key) {
+                case 'label':
+                    return content.attributes[key].en ?? `{{${key}}}`;
+                case 'description':
+                    return content.attributes[key].en ?? `{{${key}}}`;
+                default:
+                    return String(content.attributes[key]) ?? `{{${key}}}`;
+            }
         });
 
         let series;

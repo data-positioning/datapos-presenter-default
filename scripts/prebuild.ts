@@ -1,6 +1,6 @@
 // Dependencies
 import { promises as fs } from 'fs';
-import matter from 'gray-matter';
+import frontMatter from 'front-matter';
 import path from 'path';
 
 // Declarations
@@ -38,11 +38,12 @@ async function constructPresentationConfig() {
                 const itemContent = await fs.readFile(itemPath, 'utf8');
                 if (!itemContent) continue;
                 const things = dirPath.substring(topPath.length + 1).split('/');
-                const { data: frontmatter, content: markdown } = matter(itemContent);
+                var content = frontMatter<{ label: Record<string, string>; description: Record<string, string>; order: number }>(itemContent);
+                console.log(content);
                 presentationMap[`${things.join('/')}/${path.basename(itemPath, '.md')}`] = {
-                    label: frontmatter.label,
-                    description: frontmatter.description,
-                    order: frontmatter.order,
+                    label: content.attributes.label,
+                    description: content.attributes.description,
+                    order: content.attributes.order,
                     content: itemContent // TODO: Can we remove all padding such as "\n  "? Maybe 'dedent' on frontmatter? Parse and stringify on JSON?
                 };
                 const childItem: PresentationFileItem = { id: itemName, typeId: 'file' };
