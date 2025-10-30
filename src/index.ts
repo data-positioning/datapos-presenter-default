@@ -25,6 +25,7 @@ function buildMeasureMap(data: Record<string, number>[], measures: Measure[]): M
 }
 
 function buildEmptyMeasureValueMap(measures: Measure[]): MeasureValueMap {
+    // @ts-ignore
     return measures.reduce((result, measure) => ({ ...result, [measure.id]: [] }), {});
 }
 
