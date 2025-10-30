@@ -42,6 +42,12 @@ Unordered Points:
 - Unordered point 2
 - Unordered point 3
 
+| Name  | Age | City      |
+| ----- | --- | --------- |
+| Alice | 25  | New York  |
+| Bob   | 30  | San Diego |
+| Carol | 28  | Chicago   |
+
 ```javascript
 let index = 1;
 for(const item from items) {
