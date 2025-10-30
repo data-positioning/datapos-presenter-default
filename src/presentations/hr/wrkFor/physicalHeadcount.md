@@ -20,6 +20,8 @@ Human Resources - Workforce
 
 Measures the number of people employed by one or more organizations at specific points in time. These points in time are defined in terms of reporting periods, such as weeks, months, quarters, or years. The most frequently used points are period opening, starting, ending, and closing.
 
+Physical headcount measures the actual number of people being counted at a fixed point in time. Please see ... and ... for measures that report headcount capacity across time. There are two versions ... opening / closing and starting / ending ...
+
 ## Opening/Closing Headcount
 
 Quantifies the variation in physical headcount between the opening and closing of specific reporting periods.
