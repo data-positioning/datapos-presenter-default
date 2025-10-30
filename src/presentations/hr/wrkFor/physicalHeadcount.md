@@ -42,7 +42,7 @@ Quantifies the variation in physical headcount between the starting and ending o
 
 ```datapos-visual highcharts-chart
 {
-    "chart": { "type": "line" },
+    "chart": { "type": "line" , otherTypes: ["area", "bar", "column", "radar", "range", "values"]},
     "plotOptions": { "series": { "borderColor": "#333" }},
     "series": [
         { "measureId": "startingHeadcount", "name": "Starting", "data": [1105, 1111, 1109, 1132, 1130, 1151, 1174, 1174, 1192, 1190, 1189, 1214]},
