@@ -26,7 +26,7 @@ This quarter saw significant revenue growth.
     "title": { "text": "{{label}}" },
     "xAxis": { "categories": ["Q1", "Q2", "Q3"] },
     "yAxis": { "title": { "text": "Revenue" } },
-    "plotOptions": { "series": { "borderColor": "red" }}
+    "plotOptions": { "series": { "borderColor": "#333" }}
 }
 ```
 
