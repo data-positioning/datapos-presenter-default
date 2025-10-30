@@ -40,12 +40,19 @@ Describe opening/closing headcounts...
 
 Quantifies the variation in physical headcount between the starting and ending of specific reporting periods.
 
-<VisualContainer class="datapos-wide" :configs="startEndConfigs">
-    <template #default="{ activeTabId }">
-        <div v-if="activeTabId === 'values'" ref="startEndView" style="height: 100%"/>
-        <div v-if="activeTabId === 'range'" ref="startEndView" class="datapos-no-toggle-columnrange-visibility" style="height: 100%"/>
-    </template>
-</VisualContainer>
+```datapos-visual highcharts-chart
+{
+    "chart": { "type": "line" },
+    "plotOptions": { "series": { "borderColor": "#333" }},
+    "series": [
+        { "measureId": "startingHeadcount", "name": "Starting", "data": [1105, 1111, 1109, 1132, 1130, 1151, 1174, 1174, 1192, 1190, 1189, 1214]},
+        { "measureId": "endingHeadcount", "name": "Ending", "data": [1112, 1110, 1134, 1134, 1136, 1176, 1177, 1176, 1192, 1189, 1217, 1217]}
+    ],
+    "title": { "text": "Starting/Ending Headcount" },
+    "xAxis": { "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
+    "yAxis": { "title": { "text": "Headcount" } }
+}
+```
 
 Describe starting ending headcounts...
 
