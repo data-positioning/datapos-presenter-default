@@ -44,22 +44,21 @@ export default class DefaultPresenter implements Presenter {
         // if (typeof window !== 'undefined' && !window.Buffer) window.Buffer = Buffer;
         // const { data: frontmatter, content: markdown } = matter(rawFile);
 
-        const rawFile = configPresentations[presentationPath];
+        const presentation = configPresentations[presentationPath];
         // var content = frontMatter<{ label: Record<string, string>; description: Record<string, string>; order: number }>(rawFile.content);
-        console.log(rawFile.content);
-        console.log(333, rawFile);
+        console.log(presentation.content);
+        console.log(333, presentation);
 
-        // const processedMarkdown = rawFile.content.replace(/\{\{(\w+)\}\}/g, (_, key: keyof typeof content.attributes) => {
-        //     switch (key) {
-        //         case 'label':
-        //             return content.attributes[key].en ?? `{{${key}}}`;
-        //         case 'description':
-        //             return content.attributes[key].en ?? `{{${key}}}`;
-        //         default:
-        //             return String(content.attributes[key]) ?? `{{${key}}}`;
-        //     }
-        // });
-        const processedMarkdown = rawFile.content;
+        const processedMarkdown = presentation.content.replace(/\{\{(\w+)\}\}/g, (_, key: keyof typeof presentation.attributes) => {
+            switch (key) {
+                case 'label':
+                    return presentation.attributes[key].en ?? `{{${key}}}`;
+                case 'description':
+                    return presentation.attributes[key].en ?? `{{${key}}}`;
+                default:
+                    return String(presentation.attributes[key]) ?? `{{${key}}}`;
+            }
+        });
 
         let series;
         const markdownParser = new markdownIt();
