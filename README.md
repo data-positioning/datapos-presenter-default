@@ -6,7 +6,7 @@ A TypeScript library that implements the default presenter.
 
 ## Installation
 
-When released this presenter is uploaded to the Data Positioning engine cloud and a message identifying the new version is sent to all browser apps. There is no need to install this presenter.
+There’s no need to install this presenter manually. Once released, it’s uploaded to the Data Positioning Engine cloud and becomes instantly available to all new instances of the browser app. A notification about the new version is also sent to all existing browser apps.
 
 ## Repository Management Commands
 
