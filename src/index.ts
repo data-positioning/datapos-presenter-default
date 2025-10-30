@@ -114,7 +114,7 @@ export default class DefaultPresenter implements Presenter {
             const datasetOptions = decodeURIComponent((chartEl as HTMLElement).dataset.options);
             try {
                 const options = JSON.parse(datasetOptions);
-                options.series = series;
+                // options.series = series;
                 chartEl.textContent = '';
                 Highcharts.chart(chartEl, options);
             } catch (err) {
