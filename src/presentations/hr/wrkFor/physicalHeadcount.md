@@ -6,12 +6,6 @@ description:
 order: 1
 ---
 
-```datapos-data default
-{
-    "series": [{ "name": "Revenue", "data": [100, 140, 180] }]
-}
-```
-
 # {{label}}
 
 Human Resources - Workforce
@@ -26,23 +20,14 @@ Physical headcount measures the actual number of people being counted at a fixed
 
 Quantifies the variation in physical headcount between the opening and closing of specific reporting periods.
 
-<VisualContainer class="datapos-extended" :configs="openCloseConfigs" v-on:tabSelectionChanged="openCloseIsAnimated = false">
-    <template #default="{ activeTabId }">
-        <div v-if="activeTabId === 'values'" ref="openCloseView" style="height: 100%"/>
-        <div v-if="activeTabId === 'range'" ref="openCloseView" class="datapos-no-toggle-columnrange-visibility" style="height: 100%"/>
-        <div v-if="activeTabId === 'area'" ref="openCloseView" style="height: 100%" />
-        <div v-if="activeTabId === 'column'" ref="openCloseView" style="height: 100%" />
-        <div v-if="activeTabId === 'radar'" ref="openCloseView" style="height: 100%" />
-    </template>
-</VisualContainer>
-
 ```datapos-visual highcharts-chart
 {
-    "chart": { "type": "column" },
-    "title": { "text": "{{label}}" },
+    "chart": { "type": "line" },
+    "plotOptions": { "series": { "borderColor": "#333" }}
+    "series": [{ measureId: 'openingHeadcount' }, { measureId: 'closingHeadcount' }],
+    "title": { "text": "Opening/Closing Headcount" },
     "xAxis": { "categories": ["Q1", "Q2", "Q3"] },
     "yAxis": { "title": { "text": "Revenue" } },
-    "plotOptions": { "series": { "borderColor": "#333" }}
 }
 ```
 
