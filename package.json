@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.588",
+    "version": "0.1.589",
     "peerDependencies": {
         "@datapos/datapos-shared": "^0.3.63"
     },
@@ -51,6 +51,6 @@
         "updateDevelopment": "npm install --save-dev @datapos/datapos-development@latest",
         "updateShared": "npm install @datapos/datapos-shared@latest",
         "uploadModuleConfig": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleConfig())\"",
-        "uploadModuleToR2": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleToR2('datapos-presenter-default.es.js', 'datapos-engine-eu/presenters/datapos-presenters-default.es.js'))\""
+        "uploadModuleToR2": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleToR2('datapos-presenter-default.es.js', 'datapos-engine-eu/presenters/datapos-presenter-default.es.js'))\""
     }
 }
