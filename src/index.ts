@@ -38,17 +38,7 @@ export default class DefaultPresenter implements Presenter {
     }
 
     async render(presentationPath: keyof typeof configPresentations, renderTo: HTMLElement): Promise<void> {
-        const downloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
-        const Highcharts = (await import(/* @vite-ignore */ downloadURL)).default;
-
-        // if (typeof window !== 'undefined' && !window.Buffer) window.Buffer = Buffer;
-        // const { data: frontmatter, content: markdown } = matter(rawFile);
-
         const presentation = configPresentations[presentationPath];
-        // var content = frontMatter<{ label: Record<string, string>; description: Record<string, string>; order: number }>(rawFile.content);
-        console.log(presentation.content);
-        console.log(333, presentation);
-
         const processedMarkdown = presentation.content.replace(/\{\{(\w+)\}\}/g, (_, key: keyof typeof presentation.attributes) => {
             switch (key) {
                 case 'label':
@@ -62,12 +52,11 @@ export default class DefaultPresenter implements Presenter {
 
         let series;
         const markdownParser = new markdownIt();
-        markdownParser.renderer.rules.fence = (tokens, idx, options, env, self) => {
-            const token = tokens[idx];
+        markdownParser.renderer.rules.fence = (tokens, index) => {
+            const token = tokens[index];
             const infoSegments = token.info.split(' ');
             const blockName = infoSegments[0].trim();
             const content = token.content;
-
             switch (blockName) {
                 case 'datapos-data': {
                     const dataId = infoSegments[1].trim();
@@ -87,6 +76,8 @@ export default class DefaultPresenter implements Presenter {
         const html = markdownParser.render(processedMarkdown);
         renderTo.innerHTML = html;
 
+        const downloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
+        const Highcharts = (await import(/* @vite-ignore */ downloadURL)).default;
         for (const chartEl of renderTo.querySelectorAll('.datapos-visual-highcharts-chart')) {
             const datasetOptions = decodeURIComponent((chartEl as HTMLElement).dataset.options);
             try {
