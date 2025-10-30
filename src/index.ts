@@ -5,7 +5,7 @@ import type { Presenter, PresenterConfig, PresenterItemConfig, PresenterLocalise
 import config from '../config.json';
 import configPresentations from '../configPresentations.json';
 
-import frontMatter from 'front-matter';
+// import frontMatter from 'front-matter';
 import markdownIt from 'markdown-it';
 
 // Classes - Default Presenter
@@ -45,19 +45,21 @@ export default class DefaultPresenter implements Presenter {
         // const { data: frontmatter, content: markdown } = matter(rawFile);
 
         const rawFile = configPresentations[presentationPath];
-        var content = frontMatter<{ label: Record<string, string>; description: Record<string, string>; order: number }>(rawFile.content);
-        console.log(content);
+        // var content = frontMatter<{ label: Record<string, string>; description: Record<string, string>; order: number }>(rawFile.content);
+        console.log(rawFile.content);
+        console.log(333, rawFile);
 
-        const processedMarkdown = content.body.replace(/\{\{(\w+)\}\}/g, (_, key: keyof typeof content.attributes) => {
-            switch (key) {
-                case 'label':
-                    return content.attributes[key].en ?? `{{${key}}}`;
-                case 'description':
-                    return content.attributes[key].en ?? `{{${key}}}`;
-                default:
-                    return String(content.attributes[key]) ?? `{{${key}}}`;
-            }
-        });
+        // const processedMarkdown = rawFile.content.replace(/\{\{(\w+)\}\}/g, (_, key: keyof typeof content.attributes) => {
+        //     switch (key) {
+        //         case 'label':
+        //             return content.attributes[key].en ?? `{{${key}}}`;
+        //         case 'description':
+        //             return content.attributes[key].en ?? `{{${key}}}`;
+        //         default:
+        //             return String(content.attributes[key]) ?? `{{${key}}}`;
+        //     }
+        // });
+        const processedMarkdown = rawFile.content;
 
         let series;
         const markdownParser = new markdownIt();

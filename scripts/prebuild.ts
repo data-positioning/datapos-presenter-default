@@ -44,7 +44,7 @@ async function constructPresentationConfig() {
                     label: content.attributes.label,
                     description: content.attributes.description,
                     order: content.attributes.order,
-                    content: itemContent // TODO: Can we remove all padding such as "\n  "? Maybe 'dedent' on frontmatter? Parse and stringify on JSON?
+                    content: content.body // TODO: Can we remove all padding such as "\n  "? Maybe 'dedent' on frontmatter? Parse and stringify on JSON?
                 };
                 const childItem: PresentationFileItem = { id: itemName, typeId: 'file' };
                 presentationItem.children?.push(childItem);
