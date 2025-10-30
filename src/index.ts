@@ -108,8 +108,6 @@ export default class DefaultPresenter implements Presenter {
             { id: 'startingEndingHeadcounts', source: (row) => buildBarRange(row.openingHeadcount + row.startingHires, row.closingHeadcount + row.endingTerminations, 0) }
         ]);
 
-        console.log(1111, measureValueMap);
-
         const downloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
         const Highcharts = (await import(/* @vite-ignore */ downloadURL)).default;
         for (const chartEl of renderTo.querySelectorAll('.datapos-visual-highcharts-chart')) {
