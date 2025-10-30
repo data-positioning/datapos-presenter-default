@@ -24,7 +24,7 @@ Quantifies the variation in physical headcount between the opening and closing o
 {
     "chart": { "type": "line" },
     "plotOptions": { "series": { "borderColor": "#333" }}
-    "series": [{ measureId: 'openingHeadcount' }, { measureId: 'closingHeadcount' }],
+    "series": [{ "measureId": "openingHeadcount" }, { "measureId": "closingHeadcount" }],
     "title": { "text": "Opening/Closing Headcount" },
     "xAxis": { "categories": ["Q1", "Q2", "Q3"] },
     "yAxis": { "title": { "text": "Revenue" } },

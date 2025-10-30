@@ -8,7 +8,7 @@
     },
     "statusId": "alpha",
     "typeId": "presenter",
-    "version": "0.1.602",
+    "version": "0.1.603",
     "presentations": [
         {
             "path": "hr/wrkFor/averageHeadcount",
