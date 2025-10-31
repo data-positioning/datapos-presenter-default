@@ -113,7 +113,7 @@ export default class DefaultPresenter implements Presenter {
 
         const downloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
         const Highcharts = (await import(/* @vite-ignore */ downloadURL)).default;
-        for (const chartEl of renderTo.querySelectorAll('.datapos-visual-highcharts-chart')) {
+        for (const chartEl of renderTo.querySelectorAll('.datapos-highcharts-chart')) {
             const datasetOptions = decodeURIComponent((chartEl as HTMLElement).dataset.options);
             try {
                 const options = JSON.parse(datasetOptions);
