@@ -80,11 +80,13 @@ export default class DefaultPresenter implements Presenter {
         const html = markdownParser.render(processedMarkdown);
         renderTo.innerHTML = html;
 
-        const baseDownloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
+        const coreDownloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
         const moreDownloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts-more.src.js';
-        const Highcharts = (await import(/* @vite-ignore */ baseDownloadURL)).default;
+        const Highcharts = (await import(/* @vite-ignore */ coreDownloadURL)).default;
         const HighchartsMore = (await import(/* @vite-ignore */ moreDownloadURL)).default;
-        Highcharts(HighchartsMore);
+        console.log(1111, Highcharts);
+        console.log(2222, HighchartsMore);
+        HighchartsMore(Highcharts);
         for (const element of renderTo.querySelectorAll('.datapos-highcharts-chart')) {
             const datasetOptions = decodeURIComponent((element as HTMLElement).dataset.options);
             try {
