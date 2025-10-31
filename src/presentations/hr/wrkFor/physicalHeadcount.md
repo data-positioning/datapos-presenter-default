@@ -22,7 +22,7 @@ Quantifies the variation in physical headcount between the opening and closing o
 
 ```json datapos-highcharts-chart
 {
-    "chart": { "type": "line", "otherTypes": ["area", "bar", "column", "radar", "range", "values"] },
+    "chart": { "type": "line", "otherTypes": ["area", "bar", "barRange", "column", "columnRange", "radar", "values"] },
     "plotOptions": { "series": { "borderColor": "#333" } },
     "series": [
         { "measureId": "openingHeadcount", "name": "Opening", "data": [1105, 1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213] },
@@ -42,7 +42,7 @@ Quantifies the variation in physical headcount between the starting and ending o
 
 ```json datapos-highcharts-chart
 {
-    "chart": { "type": "line", "otherTypes": ["area", "bar", "column", "radar", "range", "values"] },
+    "chart": { "type": "line", "otherTypes": ["area", "bar", "barRange", "column", "columnRange", "radar", "values"] },
     "plotOptions": { "series": { "borderColor": "#333" } },
     "series": [
         { "measureId": "startingHeadcount", "name": "Starting", "data": [1105, 1111, 1109, 1132, 1130, 1151, 1174, 1174, 1192, 1190, 1189, 1214] },
