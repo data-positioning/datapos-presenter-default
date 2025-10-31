@@ -60,11 +60,48 @@ Describe starting ending headcounts...
 
 ...
 
-<VisualContainer class="datapos-full" :configs="comparisonConfigs">
-    <template #default="{ activeTabId }">
-        <div ref="comparisonView" class="datapos-no-toggle-columnrange-visibility" style="height: 100%"/>
-    </template>
-</VisualContainer>
+```json datapos-highcharts-chart
+{
+    "chart": { "type": "columnrange" },
+    "accessibility": { "description": "Image description: A column range chart compares the... " },
+    "title": { "text": "Temperature variation by month" },
+    "subtitle": {
+        "text": "Observed in Vik i Sogn, Norway, 2023 |  Source: <a href='https://www.vikjavev.no/ver/' target='_blank'>Vikjavev</a>"
+    },
+    "xAxis": {
+        "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    },
+    "yAxis": {
+        "title": { "text": "Temperature ( °C )" }
+    },
+    "tooltip": { "valueSuffix": "°C" },
+    "plotOptions": {
+        "columnrange": { "borderRadius": "50%", "dataLabels": { "enabled": true, "format": "{y}°C" } }
+    },
+    "legend": {
+        "enabled": false
+    },
+    "series": [
+        {
+            "name": "Temperatures",
+            "data": [
+                [-9.5, 8.0],
+                [-7.8, 8.3],
+                [-13.1, 9.2],
+                [-4.4, 15.7],
+                [-1.0, 20.8],
+                [3.1, 28.4],
+                [8.9, 27.0],
+                [9.6, 23.0],
+                [4.9, 19.3],
+                [-5.2, 11.6],
+                [-10.5, 12.0],
+                [-12.1, 8.5]
+            ]
+        }
+    ]
+}
+```
 
 Describe opening/closing starting/ending comparison...
 
