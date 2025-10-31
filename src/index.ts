@@ -84,7 +84,7 @@ export default class DefaultPresenter implements Presenter {
         const moreDownloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts-more.src.js';
         const Highcharts = (await import(/* @vite-ignore */ baseDownloadURL)).default;
         const HighchartsMore = (await import(/* @vite-ignore */ moreDownloadURL)).default;
-        HighchartsMore(HighchartsMore);
+        Highcharts(HighchartsMore);
         for (const element of renderTo.querySelectorAll('.datapos-highcharts-chart')) {
             const datasetOptions = decodeURIComponent((element as HTMLElement).dataset.options);
             try {
