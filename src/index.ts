@@ -82,19 +82,14 @@ export default class DefaultPresenter implements Presenter {
 
         const coreDownloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
         const moreDownloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts-more.src.js';
-        const Highcharts = await import(/* @vite-ignore */ coreDownloadURL);
-        const HighchartsModule = Highcharts.default;
-        const HighchartsMore = (await import(/* @vite-ignore */ moreDownloadURL)).default;
-        console.log(1111, Highcharts);
-        console.log(2222, HighchartsMore);
-        // HighchartsMore(HighchartsModule);
-        console.log(3333);
+        const Highcharts = (await import(/* @vite-ignore */ coreDownloadURL)).default;
+        (await import(/* @vite-ignore */ moreDownloadURL)).default;
         for (const element of renderTo.querySelectorAll('.datapos-highcharts-chart')) {
             const datasetOptions = decodeURIComponent((element as HTMLElement).dataset.options);
             try {
                 const options = JSON.parse(datasetOptions);
                 element.textContent = '';
-                HighchartsModule.chart(element, options);
+                Highcharts.chart(element, options);
             } catch (err) {
                 console.error('Highcharts parse error:', err);
                 element.textContent = 'Invalid chart JSON';
