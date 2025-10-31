@@ -87,6 +87,7 @@ export default class DefaultPresenter implements Presenter {
         console.log(1111, Highcharts);
         console.log(2222, HighchartsMore);
         HighchartsMore(Highcharts);
+        console.log(3333);
         for (const element of renderTo.querySelectorAll('.datapos-highcharts-chart')) {
             const datasetOptions = decodeURIComponent((element as HTMLElement).dataset.options);
             try {
