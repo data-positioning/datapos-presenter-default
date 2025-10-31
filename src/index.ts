@@ -17,7 +17,7 @@ export default class DefaultPresenter implements Presenter {
     readonly tools: PresenterTools;
 
     constructor(tools: PresenterTools) {
-        console.log(7777, tools);
+        console.log(7777, String(tools.markdownIt));
         this.config = config as PresenterConfig;
         this.tools = tools;
         this.sampleData = useSampleData();
