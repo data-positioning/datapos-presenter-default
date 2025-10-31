@@ -62,7 +62,7 @@ export default class DefaultPresenter implements Presenter {
         // Construct markdown parser.
         console.log(8888, this.tools);
         console.log(9999, this.tools.markdownIt);
-        const markdownParser = this.tools.markdownIt();
+        const markdownParser = new this.tools.markdownIt();
         markdownParser.renderer.rules.fence = (tokens, index) => {
             const token = tokens[index];
             const infoSegments = token.info.split(' ');
