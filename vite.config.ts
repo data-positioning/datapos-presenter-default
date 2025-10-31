@@ -1,10 +1,10 @@
-// Dependencies - Vendor
+// Dependencies - Vendor.
 import config from './config.json';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { resolve } from 'path';
 
-// Configuration
+// Exposures - Configuration.
 export default defineConfig({
     build: {
         lib: {
@@ -12,9 +12,6 @@ export default defineConfig({
             name: 'DataPosDefaultPresenter',
             formats: ['es'],
             fileName: (format) => `${config.id}.${format}.js`
-        },
-        rollupOptions: {
-            external: ['markdown-it']
         },
         target: 'ESNext'
         // rollupOptions: {
