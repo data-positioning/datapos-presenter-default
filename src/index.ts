@@ -78,8 +78,8 @@ export default class DefaultPresenter implements Presenter {
         markdownParser.renderer.rules.fence = (tokens, index) => {
             const token = tokens[index];
             const infoSegments = token.info.split(' ');
-            const langName = infoSegments[0].trim();
-            const typeId = infoSegments[1].trim();
+            const langName = infoSegments[0]?.trim() ?? undefined;
+            const typeId = infoSegments[1]?.trim() ?? undefined;
             const content = token.content;
             switch (typeId) {
                 // case 'datapos-data': {
