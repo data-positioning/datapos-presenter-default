@@ -6,7 +6,9 @@ import config from '../config.json';
 import configPresentations from '../configPresentations.json';
 import markdownIt from 'markdown-it';
 
-import headcountForCalendarYear from './sampleData/headcountForCalendarYear.json';
+import { useSampleData } from './sampleData/useSampleData';
+
+const sampleData = useSampleData();
 
 type ColorConfig = { border: string; fillOpaque?: string; fillTranslucent: string };
 type Measure = { id: string; source?: (row: Record<string, number>) => number };
@@ -71,42 +73,42 @@ export default class DefaultPresenter implements Presenter {
             }
         });
 
-        let series;
+        // let series;
         const markdownParser = new markdownIt();
         markdownParser.renderer.rules.fence = (tokens, index) => {
             const token = tokens[index];
             const infoSegments = token.info.split(' ');
-            const blockName = infoSegments[0].trim();
+            const langName = infoSegments[0].trim();
+            const typeId = infoSegments[1].trim();
             const content = token.content;
-            switch (blockName) {
-                case 'datapos-data': {
-                    const dataId = infoSegments[1].trim();
-                    const dataOptions = JSON.parse(content);
-                    series = dataOptions.series;
-                    return '';
-                }
-                case 'datapos-visual': {
-                    const typeId = infoSegments[1].trim();
+            switch (typeId) {
+                // case 'datapos-data': {
+                //     // const dataId = infoSegments[1].trim();
+                //     const dataOptions = JSON.parse(content);
+                //     series = dataOptions.series;
+                //     return '';
+                // }
+                case 'datapos-highcharts-chart': {
                     // const dataId = `${typeId}-${Math.random().toString(36).slice(2)}`;
-                    return `<div class="${blockName}-${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
+                    return `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
                 }
                 default:
-                    return `<pre><code class="language-${blockName}">${content}</code></pre>`;
+                    return `<pre><code class="language-${langName}">${content}</code></pre>`;
             }
         };
         const html = markdownParser.render(processedMarkdown);
         renderTo.innerHTML = html;
 
-        const measureValueMap = buildMeasureMap(headcountForCalendarYear.months, [
-            { id: 'openingHeadcount' },
-            { id: 'startingHeadcount', source: (row) => row.openingHeadcount + row.startingHires },
-            { id: 'endingHeadcount', source: (row) => row.closingHeadcount + row.endingTerminations },
-            { id: 'closingHeadcount' },
-            // @ts-expect-error
-            { id: 'openingClosingHeadcounts', source: (row) => buildBarRange(row.openingHeadcount, row.closingHeadcount) },
-            // @ts-expect-error
-            { id: 'startingEndingHeadcounts', source: (row) => buildBarRange(row.openingHeadcount + row.startingHires, row.closingHeadcount + row.endingTerminations, 0) }
-        ]);
+        // const measureValueMap = buildMeasureMap(headcountForCalendarYear.months, [
+        //     { id: 'openingHeadcount' },
+        //     { id: 'startingHeadcount', source: (row) => row.openingHeadcount + row.startingHires },
+        //     { id: 'endingHeadcount', source: (row) => row.closingHeadcount + row.endingTerminations },
+        //     { id: 'closingHeadcount' },
+        //     // @ts-expect-error
+        //     { id: 'openingClosingHeadcounts', source: (row) => buildBarRange(row.openingHeadcount, row.closingHeadcount) },
+        //     // @ts-expect-error
+        //     { id: 'startingEndingHeadcounts', source: (row) => buildBarRange(row.openingHeadcount + row.startingHires, row.closingHeadcount + row.endingTerminations, 0) }
+        // ]);
 
         const downloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
         const Highcharts = (await import(/* @vite-ignore */ downloadURL)).default;

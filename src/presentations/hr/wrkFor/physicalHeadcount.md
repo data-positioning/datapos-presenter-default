@@ -20,13 +20,13 @@ Physical headcount measures the actual number of people being counted at a fixed
 
 Quantifies the variation in physical headcount between the opening and closing of specific reporting periods.
 
-```datapos-visual highcharts-chart
+```json datapos-highcharts-chart
 {
     "chart": { "type": "line", "otherTypes": ["area", "bar", "column", "radar", "range", "values"] },
-    "plotOptions": { "series": { "borderColor": "#333" }},
+    "plotOptions": { "series": { "borderColor": "#333" } },
     "series": [
-        { "measureId": "openingHeadcount", "name": "Opening", "data": [1105, 1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213]},
-        { "measureId": "closingHeadcount", "name": "Closing", "data": [1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213, 1211]}
+        { "measureId": "openingHeadcount", "name": "Opening", "data": [1105, 1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213] },
+        { "measureId": "closingHeadcount", "name": "Closing", "data": [1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213, 1211] }
     ],
     "title": { "text": "Opening/Closing Headcount" },
     "xAxis": { "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
@@ -40,13 +40,13 @@ Describe opening/closing headcounts...
 
 Quantifies the variation in physical headcount between the starting and ending of specific reporting periods.
 
-```datapos-visual highcharts-chart
+```json datapos-highcharts-chart
 {
-    "chart": { "type": "line" , "otherTypes": ["area", "bar", "column", "radar", "range", "values"]},
-    "plotOptions": { "series": { "borderColor": "#333" }},
+    "chart": { "type": "line", "otherTypes": ["area", "bar", "column", "radar", "range", "values"] },
+    "plotOptions": { "series": { "borderColor": "#333" } },
     "series": [
-        { "measureId": "startingHeadcount", "name": "Starting", "data": [1105, 1111, 1109, 1132, 1130, 1151, 1174, 1174, 1192, 1190, 1189, 1214]},
-        { "measureId": "endingHeadcount", "name": "Ending", "data": [1112, 1110, 1134, 1134, 1136, 1176, 1177, 1176, 1192, 1189, 1217, 1217]}
+        { "measureId": "startingHeadcount", "name": "Starting", "data": [1105, 1111, 1109, 1132, 1130, 1151, 1174, 1174, 1192, 1190, 1189, 1214] },
+        { "measureId": "endingHeadcount", "name": "Ending", "data": [1112, 1110, 1134, 1134, 1136, 1176, 1177, 1176, 1192, 1189, 1217, 1217] }
     ],
     "title": { "text": "Starting/Ending Headcount" },
     "xAxis": { "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
