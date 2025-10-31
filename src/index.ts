@@ -62,6 +62,8 @@ export default class DefaultPresenter implements Presenter {
 
     async render(presentationPath: keyof typeof configPresentations, renderTo: HTMLElement): Promise<void> {
         const presentation = configPresentations[presentationPath];
+
+        // Substitute arguments in content.
         const processedMarkdown = presentation.content.replace(/\{\{(\w+)\}\}/g, (_, key: keyof typeof presentation.attributes) => {
             switch (key) {
                 case 'label':
@@ -73,7 +75,7 @@ export default class DefaultPresenter implements Presenter {
             }
         });
 
-        // let series;
+        // Construct markdown parser.
         const markdownParser = new markdownIt();
         markdownParser.renderer.rules.fence = (tokens, index) => {
             const token = tokens[index];
@@ -83,12 +85,6 @@ export default class DefaultPresenter implements Presenter {
             const typeId = infoSegments[1]?.trim() ?? undefined;
             const content = token.content;
             switch (typeId) {
-                // case 'datapos-data': {
-                //     // const dataId = infoSegments[1].trim();
-                //     const dataOptions = JSON.parse(content);
-                //     series = dataOptions.series;
-                //     return '';
-                // }
                 case 'datapos-highcharts-chart': {
                     // const dataId = `${typeId}-${Math.random().toString(36).slice(2)}`;
                     return `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
@@ -97,19 +93,10 @@ export default class DefaultPresenter implements Presenter {
                     return `<pre><code class="language-${langName}">${content}</code></pre>`;
             }
         };
+
+        // Render html from markdown and inset into  placeholder element.
         const html = markdownParser.render(processedMarkdown);
         renderTo.innerHTML = html;
-
-        // const measureValueMap = buildMeasureMap(headcountForCalendarYear.months, [
-        //     { id: 'openingHeadcount' },
-        //     { id: 'startingHeadcount', source: (row) => row.openingHeadcount + row.startingHires },
-        //     { id: 'endingHeadcount', source: (row) => row.closingHeadcount + row.endingTerminations },
-        //     { id: 'closingHeadcount' },
-        //     // @ts-expect-error
-        //     { id: 'openingClosingHeadcounts', source: (row) => buildBarRange(row.openingHeadcount, row.closingHeadcount) },
-        //     // @ts-expect-error
-        //     { id: 'startingEndingHeadcounts', source: (row) => buildBarRange(row.openingHeadcount + row.startingHires, row.closingHeadcount + row.endingTerminations, 0) }
-        // ]);
 
         const downloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
         const Highcharts = (await import(/* @vite-ignore */ downloadURL)).default;

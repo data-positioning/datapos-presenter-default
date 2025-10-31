@@ -13,6 +13,9 @@ export default defineConfig({
             formats: ['es'],
             fileName: (format) => `${config.id}.${format}.js`
         },
+        rollupOptions: {
+            external: ['markdown-it']
+        },
         target: 'ESNext'
         // rollupOptions: {
         //     output: {
