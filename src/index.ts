@@ -17,7 +17,6 @@ export default class DefaultPresenter implements Presenter {
     readonly tools: PresenterTools;
 
     constructor(tools: PresenterTools) {
-        console.log(7777, String(tools.markdownIt));
         this.config = config as PresenterConfig;
         this.tools = tools;
         this.sampleData = useSampleData();
@@ -60,13 +59,10 @@ export default class DefaultPresenter implements Presenter {
         });
 
         // Construct markdown parser.
-        console.log(8888, String(this.tools));
-        console.log(9999, String(this.tools.markdownIt));
         const markdownParser = new this.tools.markdownIt();
         markdownParser.renderer.rules.fence = (tokens, index) => {
             const token = tokens[index];
             const infoSegments = token.info.split(' ');
-            console.log(4444, infoSegments);
             const langName = infoSegments[0]?.trim() ?? undefined;
             const typeId = infoSegments[1]?.trim() ?? undefined;
             const content = token.content;
@@ -86,16 +82,15 @@ export default class DefaultPresenter implements Presenter {
 
         const downloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
         const Highcharts = (await import(/* @vite-ignore */ downloadURL)).default;
-        for (const chartEl of renderTo.querySelectorAll('.datapos-highcharts-chart')) {
-            const datasetOptions = decodeURIComponent((chartEl as HTMLElement).dataset.options);
+        for (const element of renderTo.querySelectorAll('.datapos-highcharts-chart')) {
+            const datasetOptions = decodeURIComponent((element as HTMLElement).dataset.options);
             try {
                 const options = JSON.parse(datasetOptions);
-                // options.series = series;
-                chartEl.textContent = '';
-                Highcharts.chart(chartEl, options);
+                element.textContent = '';
+                Highcharts.chart(element, options);
             } catch (err) {
                 console.error('Highcharts parse error:', err);
-                chartEl.textContent = 'Invalid chart JSON';
+                element.textContent = 'Invalid chart JSON';
             }
         }
     }
