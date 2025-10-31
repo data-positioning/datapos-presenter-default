@@ -82,8 +82,9 @@ export default class DefaultPresenter implements Presenter {
 
         const coreDownloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts.src.js';
         const moreDownloadURL = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/highcharts-more.src.js';
-        const Highcharts = (await import(/* @vite-ignore */ coreDownloadURL)).default;
-        const HighchartsMore = await import(/* @vite-ignore */ moreDownloadURL);
+        const Highcharts = await import(/* @vite-ignore */ coreDownloadURL);
+        const HighchartsModule = Highcharts.default;
+        const HighchartsMore = (await import(/* @vite-ignore */ moreDownloadURL)).default;
         console.log(1111, Highcharts);
         console.log(2222, HighchartsMore);
         HighchartsMore(Highcharts);
@@ -93,7 +94,7 @@ export default class DefaultPresenter implements Presenter {
             try {
                 const options = JSON.parse(datasetOptions);
                 element.textContent = '';
-                Highcharts.chart(element, options);
+                HighchartsModule.chart(element, options);
             } catch (err) {
                 console.error('Highcharts parse error:', err);
                 element.textContent = 'Invalid chart JSON';
