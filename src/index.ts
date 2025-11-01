@@ -129,7 +129,6 @@ export default class DefaultPresenter implements Presenter {
             try {
                 const visualOptions = JSON.parse(datasetOptions) as VisualOptions;
                 const tabBarElement = document.createElement('div');
-                // Object.assign(tabBarElement.style, { display: 'flex', 'column-gap': '8px' });
                 tabBarElement.className = 'dp-tab-bar';
                 const viewContainerElement = document.createElement('div');
                 let defaultCategory = undefined;
