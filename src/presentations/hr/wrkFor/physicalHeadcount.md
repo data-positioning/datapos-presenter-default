@@ -20,20 +20,6 @@ Physical headcount measures the actual number of people being counted at a fixed
 
 Quantifies the variation in physical headcount between the opening and closing of specific reporting periods.
 
-```json
-{
-    "chart": { "type": "line", "otherTypes": ["area", "bar", "barRange", "column", "columnRange", "radar", "values"] },
-    "plotOptions": { "series": { "borderColor": "#333" } },
-    "series": [
-        { "measureId": "openingHeadcount", "name": "Opening", "data": [1105, 1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213] },
-        { "measureId": "closingHeadcount", "name": "Closing", "data": [1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213, 1211] }
-    ],
-    "title": { "text": "Opening/Closing Headcount" },
-    "xAxis": { "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
-    "yAxis": { "title": { "text": "Headcount" } }
-}
-```
-
 ```json datapos-visual
 {
     "content": {
@@ -62,20 +48,6 @@ Describe opening/closing headcounts...
 
 Quantifies the variation in physical headcount between the starting and ending of specific reporting periods.
 
-```json
-{
-    "chart": { "type": "line", "otherTypes": ["area", "bar", "barRange", "column", "columnRange", "radar", "values"] },
-    "plotOptions": { "series": { "borderColor": "#333" } },
-    "series": [
-        { "measureId": "startingHeadcount", "name": "Starting", "data": [1105, 1111, 1109, 1132, 1130, 1151, 1174, 1174, 1192, 1190, 1189, 1214] },
-        { "measureId": "endingHeadcount", "name": "Ending", "data": [1112, 1110, 1134, 1134, 1136, 1176, 1177, 1176, 1192, 1189, 1217, 1217] }
-    ],
-    "title": { "text": "Starting/Ending Headcount" },
-    "xAxis": { "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
-    "yAxis": { "title": { "text": "Headcount" } }
-}
-```
-
 ```json datapos-visual
 {
     "content": {
@@ -103,49 +75,6 @@ Describe starting ending headcounts...
 ## Headcount Range Comparisons
 
 ...
-
-```json
-{
-    "chart": { "type": "columnrange" },
-    "accessibility": { "description": "Image description: A column range chart compares the... " },
-    "title": { "text": "Temperature variation by month" },
-    "subtitle": {
-        "text": "Observed in Vik i Sogn, Norway, 2023 |  Source: <a href='https://www.vikjavev.no/ver/' target='_blank'>Vikjavev</a>"
-    },
-    "xAxis": {
-        "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    },
-    "yAxis": {
-        "title": { "text": "Temperature ( °C )" }
-    },
-    "tooltip": { "valueSuffix": "°C" },
-    "plotOptions": {
-        "columnrange": { "borderRadius": "50%", "dataLabels": { "enabled": true, "format": "{y}°C" } }
-    },
-    "legend": {
-        "enabled": false
-    },
-    "series": [
-        {
-            "name": "Temperatures",
-            "data": [
-                [-9.5, 8.0],
-                [-7.8, 8.3],
-                [-13.1, 9.2],
-                [-4.4, 15.7],
-                [-1.0, 20.8],
-                [3.1, 28.4],
-                [8.9, 27.0],
-                [9.6, 23.0],
-                [4.9, 19.3],
-                [-5.2, 11.6],
-                [-10.5, 12.0],
-                [-12.1, 8.5]
-            ]
-        }
-    ]
-}
-```
 
 Describe opening/closing starting/ending comparison...
 
