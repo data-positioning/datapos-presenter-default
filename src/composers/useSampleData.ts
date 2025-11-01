@@ -1,5 +1,5 @@
-// Dependencies - Data
-import headcountForCalendarYear from '../sampleData/headcountForCalendarYear.json';
+// Dependencies - Data.
+import headcountForCalendarYear from '@/sampleData/headcountForCalendarYear.json';
 
 // Types
 type MonthData = Record<string, number>;

@@ -1,16 +1,20 @@
 // Dependencies - Vendor.
+import type * as HighchartsType from 'highcharts';
 import type { Axis, ChartCallbackFunction, ChartOptions, LegendOptions, Options, SubtitleOptions, TitleOptions, XAxisOptions, YAxisOptions } from 'highcharts';
 import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions } from 'highcharts';
 
 // Dependencies - Framework.
-import { VisualContentOptions } from '..';
+import { useSampleData } from './useSampleData';
+import type { VisualContentOptions } from '@/index';
 
 // Constants
 const downloadURLPrefix = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/';
 
 // Module Variables
-let Highcharts: typeof import('highcharts') | undefined = undefined;
+let Highcharts: typeof HighchartsType | undefined = undefined;
 let highchartsMoreLoaded = false;
+
+const { getMeasureValues } = useSampleData();
 
 // Composables - Use highcharts.
 export function useHighcharts() {
@@ -21,8 +25,10 @@ export function useHighcharts() {
             chart: { type: type.id },
             plotOptions: { series: { borderColor: '#333' } },
             series: [
-                { type: type.id, name: 'Opening', data: [1105, 1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213] },
-                { type: type.id, name: 'Closing', data: [1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213, 1211] }
+                // { type: type.id, name: 'Opening', data: [1105, 1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213] },
+                // { type: type.id, name: 'Closing', data: [1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213, 1211] }
+                { type: type.id, name: 'Opening', data: getMeasureValues(['startingHeadcount']) },
+                { type: type.id, name: 'Closing', data: getMeasureValues(['endingHeadcount']) }
             ],
             title: { text: content.title.text },
             xAxis: { categories: content.data.categoryLabels },

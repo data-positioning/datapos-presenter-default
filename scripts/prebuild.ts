@@ -1,4 +1,4 @@
-// Dependencies
+// Dependencies - Vendor.
 import { promises as fs } from 'fs';
 import frontMatter from 'front-matter';
 import path from 'path';

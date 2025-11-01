@@ -1,5 +1,5 @@
 // Dependencies - Framework.
-import { VisualContentOptions } from '..';
+import type { VisualContentOptions } from '@/index';
 
 // Composables - Use data table.
 export function useDataTable() {

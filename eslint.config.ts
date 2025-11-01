@@ -1,10 +1,12 @@
+// Dependencies
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tseslintParser from '@typescript-eslint/parser';
 import importPlugin from 'eslint-plugin-import';
 
+// Configuration
 export default [
     {
-        files: ['vite.config.ts', 'src/*.ts'],
+        files: ['vite.config.ts', 'src/**/*.ts'],
         languageOptions: { parser: tseslintParser, parserOptions: { project: './tsconfig.json' } },
         plugins: {
             '@typescript-eslint': tseslint,

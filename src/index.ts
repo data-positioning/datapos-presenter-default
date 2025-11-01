@@ -1,11 +1,11 @@
 // Dependencies - Framework.
-import { useDataTable } from './composers/useDataTable';
-import { useHighcharts } from './composers/useHighcharts';
+import { useDataTable } from '@/composers/useDataTable';
+import { useHighcharts } from '@/composers/useHighcharts';
 import type { Presenter, PresenterConfig, PresenterItemConfig, PresenterLocalisedConfig, PresenterTools } from '@datapos/datapos-shared';
 
 // Dependencies - Data.
-import config from '../config.json';
-import configPresentations from '../configPresentations.json';
+import config from '~/config.json';
+import configPresentations from '~/configPresentations.json';
 
 // Types
 type VisualOptions = {
