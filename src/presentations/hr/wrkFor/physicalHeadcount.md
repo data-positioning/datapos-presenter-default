@@ -42,8 +42,8 @@ Quantifies the variation in physical headcount between the opening and closing o
             "name": "Headcount",
             "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
             "measures": [
-                { "id": "openingHeadcount", "name": "Starting" },
-                { "id": "closingHeadcount", "name": "Ending" }
+                { "id": "openingHeadcount", "name": "Opening" },
+                { "id": "closingHeadcount", "name": "Closing" }
             ]
         }
     },
@@ -73,6 +73,28 @@ Quantifies the variation in physical headcount between the starting and ending o
     "title": { "text": "Starting/Ending Headcount" },
     "xAxis": { "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
     "yAxis": { "title": { "text": "Headcount" } }
+}
+```
+
+```json datapos-visual
+{
+    "content": {
+        "title": { "text": "Starting/Ending Headcount" },
+        "data": {
+            "name": "Headcount",
+            "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            "measures": [
+                { "id": "startingHeadcount", "name": "Starting" },
+                { "id": "endingHeadcount", "name": "Ending" }
+            ]
+        }
+    },
+    "views": [
+        { "category": { "id": "cartesian" }, "types": [{ "id": "area" }, { "id": "bar" }, { "id": "column" }, { "id": "line", "default": true }] },
+        { "category": { "id": "polar" }, "types": [{ "id": "area" }, { "id": "column" }, { "id": "line" }] },
+        { "category": { "id": "range" }, "types": [{ "id": "bar" }, { "id": "column" }] },
+        { "category": { "id": "values" } }
+    ]
 }
 ```
 

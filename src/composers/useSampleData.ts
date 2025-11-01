@@ -18,7 +18,7 @@ export function useSampleData() {
             case 'startingHeadcount':
                 return month.openingHeadcount + month.startingHires;
             case 'endingHeadcount':
-                return month.closingHeadcount + month.endingHires;
+                return month.closingHeadcount + month.endingTerminations;
             default:
                 return month[id] ?? 0;
         }
