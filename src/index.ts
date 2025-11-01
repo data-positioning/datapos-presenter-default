@@ -116,13 +116,14 @@ export default class DefaultPresenter implements Presenter {
                 // Highcharts.chart(element, options);
                 const tabBarElement = document.createElement('div');
                 Object.assign(tabBarElement.style, { display: 'flex', 'column-gap': '8px' });
+                const viewContainerElement = document.createElement('div');
                 for (const view of visualOptions.views) {
                     switch (view.category.id) {
                         case 'cartesian':
                             for (const type of (view as CartesianCategory).types) {
                                 const element = document.createElement('div');
                                 element.textContent = typeMap[`${view.category.id}_${type.id}`].label['en-gb'];
-                                element.addEventListener('click', () => console.log(view.category.id, type.id));
+                                element.addEventListener('click', () => this.renderCartesianChart(type.id, viewContainerElement));
                                 tabBarElement.appendChild(element);
                             }
                             break;
@@ -130,23 +131,36 @@ export default class DefaultPresenter implements Presenter {
                             for (const type of (view as RangeCategory).types) {
                                 const element = document.createElement('div');
                                 element.textContent = typeMap[`${view.category.id}_${type.id}`].label['en-gb'];
-                                element.addEventListener('click', () => console.log(view.category.id, type.id));
+                                element.addEventListener('click', () => this.renderRangeChart(type.id, viewContainerElement));
                                 tabBarElement.appendChild(element);
                             }
                             break;
                         case 'values':
                             const element = document.createElement('div');
                             element.textContent = typeMap[view.category.id].label['en-gb'];
-                            element.addEventListener('click', () => console.log(view.category.id));
+                            element.addEventListener('click', () => this.renderValues(viewContainerElement));
                             tabBarElement.appendChild(element);
                             break;
                     }
                 }
                 visualElements.appendChild(tabBarElement);
+                visualElements.appendChild(viewContainerElement);
             } catch (error) {
                 console.error(error);
                 visualElements.textContent = 'Invalid options.';
             }
         }
+    }
+
+    private renderCartesianChart(typeId: string, element: HTMLElement) {
+        element.textContent = 'Cartesian chart goes here...';
+    }
+
+    private renderRangeChart(typeId: string, element: HTMLElement) {
+        element.textContent = 'Range chart goes here...';
+    }
+
+    private renderValues(element: HTMLElement) {
+        element.textContent = 'Values table goes here...';
     }
 }
