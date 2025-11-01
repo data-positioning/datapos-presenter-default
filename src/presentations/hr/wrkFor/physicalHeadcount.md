@@ -126,7 +126,7 @@ Describe opening/closing starting/ending comparison...
 
 ## Explanatory Notes
 
-![](./hc.svg)
+! [](./hc.svg)
 
 Changes in headcount during a period obviously imply that people are joining and leaving the workforce.
 
