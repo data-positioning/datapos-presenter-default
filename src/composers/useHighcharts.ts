@@ -15,32 +15,26 @@ let highchartsMoreLoaded = false;
 // Composables - Use highcharts.
 export function useHighcharts() {
     // Operations - Render cartesian chart.
-    async function renderCartesianChart(type: { id: string }, content: VisualContentOptions, element: HTMLElement): Promise<void> {
+    async function renderCartesianChart(type: { id: 'area' | 'bar' | 'column' | 'line' | 'radar' }, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await loadHighchartsCore();
+        const chart = type.id === 'radar' ? { polar: true } : { type: type.id };
         const options: Options = {
-            chart: { type: 'line' },
+            chart,
             plotOptions: { series: { borderColor: '#333' } },
             series: [
-                { type: 'line', name: 'Opening', data: [1105, 1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213] },
-                { type: 'line', name: 'Closing', data: [1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213, 1211] }
+                { type: type.id, name: 'Opening', data: [1105, 1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213] },
+                { type: type.id, name: 'Closing', data: [1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213, 1211] }
             ],
-            title: { text: 'Opening/Closing Headcount' },
-            xAxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] },
-            yAxis: { title: { text: 'Headcount' } }
+            title: { text: content.title.text },
+            xAxis: { categories: content.data.categoryLabels },
+            yAxis: { title: { text: content.data.name } }
         };
-        element.textContent = '';
         Highcharts.chart(element, options);
     }
 
     // Operations - Render range chart.
     async function renderRangeChart(type: { id: string }, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await Promise.all([loadHighchartsCore(), loadHighchartsMore()]);
-
-        // for (const series of options.series) {
-        //     (series as SeriesLineOptions).data = this.sampleData.getMeasureValues(series.measureId);
-        // }
-        // element.textContent = '';
-        // Highcharts.chart(element, options);
 
         element.textContent = `${type.id} range chart goes here...`;
     }
