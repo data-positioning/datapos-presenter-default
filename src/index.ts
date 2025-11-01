@@ -36,20 +36,21 @@ type ValuesCategory = {
     category: { id: 'values'; default?: boolean };
 };
 
-export type ViewType = { label: Record<string, string>; options: { type: string; inverted?: boolean } };
+export type ViewType = { label: Record<string, string>; options: { highchartsType: string; inverted?: boolean } };
 
 // Constants
 const viewTypeMap: Record<string, ViewType> = {
-    cartesian_area: { label: { 'en-gb': 'Area' }, options: { type: 'area' } },
-    cartesian_bar: { label: { 'en-gb': 'Bar' }, options: { type: 'bar' } },
-    cartesian_column: { label: { 'en-gb': 'Column' }, options: { type: 'column' } },
-    cartesian_line: { label: { 'en-gb': 'Line' }, options: { type: 'line' } },
-    polar_area: { label: { 'en-gb': 'Radar (Area)' }, options: { type: 'area' } },
-    polar_column: { label: { 'en-gb': 'Radar (Column)' }, options: { type: 'column' } },
-    polar_line: { label: { 'en-gb': 'Radar (Line)' }, options: { type: 'line' } },
-    range_bar: { label: { 'en-gb': 'Range (Bar)' }, options: { type: 'columnrange', inverted: true } },
-    range_column: { label: { 'en-gb': 'Range (Column)' }, options: { type: 'columnrange' } },
-    values: { label: { 'en-gb': 'Values' }, options: { type: 'simple' } }
+    cartesian_area: { label: { 'en-gb': 'Area' }, options: { highchartsType: 'area' } },
+    cartesian_bar: { label: { 'en-gb': 'Bar' }, options: { highchartsType: 'bar' } },
+    cartesian_column: { label: { 'en-gb': 'Column' }, options: { highchartsType: 'column' } },
+    cartesian_line: { label: { 'en-gb': 'Line' }, options: { highchartsType: 'line' } },
+    polar_area: { label: { 'en-gb': 'Radar (Area)' }, options: { highchartsType: 'area' } },
+    polar_column: { label: { 'en-gb': 'Radar (Column)' }, options: { highchartsType: 'column' } },
+    polar_line: { label: { 'en-gb': 'Radar (Line)' }, options: { highchartsType: 'line' } },
+    range_area: { label: { 'en-gb': 'Range (Area)' }, options: { highchartsType: 'arearange' } },
+    range_bar: { label: { 'en-gb': 'Range (Bar)' }, options: { highchartsType: 'columnrange', inverted: true } },
+    range_column: { label: { 'en-gb': 'Range (Column)' }, options: { highchartsType: 'columnrange' } },
+    values: { label: { 'en-gb': 'Values' }, options: { highchartsType: 'simple' } }
 };
 
 // Classes - Default Presenter

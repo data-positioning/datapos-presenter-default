@@ -23,10 +23,10 @@ export function useHighcharts() {
         await loadHighchartsCore();
         const series: SeriesOptionsType[] = [];
         for (const measure of content.data.measures) {
-            series.push({ type: type.id, name: measure.name, data: getMeasureValues([measure.id]) });
+            series.push({ type: viewType.options.highchartsType, name: measure.name, data: getMeasureValues([measure.id]) });
         }
         const options: Options = {
-            chart: { type: viewType.options.type },
+            chart: { type: viewType.options.highchartsType },
             plotOptions: { series: { borderColor: '#333' } },
             series,
             title: { text: content.title.text },
@@ -40,7 +40,7 @@ export function useHighcharts() {
         await Promise.all([loadHighchartsCore(), loadHighchartsMore()]);
         const series: SeriesOptionsType[] = [];
         for (const measure of content.data.measures) {
-            series.push({ type: type.id, name: measure.name, data: getMeasureValues([measure.id]) });
+            series.push({ type: viewType.options.highchartsType, name: measure.name, data: getMeasureValues([measure.id]) });
         }
         const options: Options = {
             chart: { polar: true },
@@ -57,9 +57,9 @@ export function useHighcharts() {
     async function renderRangeChart(type: { id: string }, viewType: ViewType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await Promise.all([loadHighchartsCore(), loadHighchartsMore()]);
         const series: SeriesOptionsType[] = [];
-        series.push({ type: 'arearange', name: 'Unknown', data: getMeasureValues([content.data.measures[0].id, content.data.measures[1].id]) });
+        series.push({ type: viewType.options.highchartsType, name: 'Unknown', data: getMeasureValues([content.data.measures[0].id, content.data.measures[1].id]) });
         const options: Options = {
-            chart: { type: 'arearange', inverted: viewType.options.inverted },
+            chart: { type: viewType.options.highchartsType, inverted: viewType.options.inverted },
             plotOptions: { series: { borderColor: '#333' } },
             series,
             title: { text: content.title.text },
