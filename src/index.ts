@@ -42,7 +42,9 @@ const viewTypeMap: Record<string, { label: Record<string, string> }> = {
     cartesian_bar: { label: { 'en-gb': 'Bar' } },
     cartesian_column: { label: { 'en-gb': 'Column' } },
     cartesian_line: { label: { 'en-gb': 'Line' } },
-    cartesian_radar: { label: { 'en-gb': 'Radar' } },
+    polar_area: { label: { 'en-gb': 'Radar (Area)' } },
+    polar_column: { label: { 'en-gb': 'Radar (Column)' } },
+    polar_line: { label: { 'en-gb': 'Radar (Line)' } },
     range_bar: { label: { 'en-gb': 'Range (Bar)' } },
     range_column: { label: { 'en-gb': 'Range (Column)' } },
     values: { label: { 'en-gb': 'Values' } }
@@ -145,7 +147,7 @@ export default class DefaultPresenter implements Presenter {
                             }
                             break;
                         case 'polar':
-                            for (const type of (view as CartesianCategory).types) {
+                            for (const type of (view as PolarCategory).types) {
                                 if (!defaultType || type.default) {
                                     defaultCategory = category;
                                     defaultType = type;
