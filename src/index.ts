@@ -36,7 +36,11 @@ type ValuesCategory = {
     category: { id: 'values'; default?: boolean };
 };
 
-export type ViewType = { label: Record<string, string>; options: { highchartsType: string; inverted?: boolean } };
+type ViewType = CartesianType | PolarType | RangeType | ValuesType;
+export type CartesianType = { label: Record<string, string>; options: { highchartsType: 'area' | 'bar' | 'column' | 'line'; inverted?: boolean } };
+export type PolarType = { label: Record<string, string>; options: { highchartsType: 'area' | 'column' | 'line'; inverted?: boolean } };
+export type RangeType = { label: Record<string, string>; options: { highchartsType: 'arearange' | 'columnrange'; inverted?: boolean } };
+export type ValuesType = { label: Record<string, string>; options: {} };
 
 // Constants
 const viewTypeMap: Record<string, ViewType> = {
@@ -50,7 +54,7 @@ const viewTypeMap: Record<string, ViewType> = {
     range_area: { label: { 'en-gb': 'Range (Area)' }, options: { highchartsType: 'arearange' } },
     range_bar: { label: { 'en-gb': 'Range (Bar)' }, options: { highchartsType: 'columnrange', inverted: true } },
     range_column: { label: { 'en-gb': 'Range (Column)' }, options: { highchartsType: 'columnrange' } },
-    values: { label: { 'en-gb': 'Values' }, options: { highchartsType: 'simple' } }
+    values: { label: { 'en-gb': 'Values' }, options: {} }
 };
 
 // Classes - Default Presenter
@@ -143,10 +147,10 @@ export default class DefaultPresenter implements Presenter {
                                     defaultCategory = category;
                                     defaultType = type;
                                 }
-                                const viewType = viewTypeMap[`${category.id}_${type.id}`];
+                                const viewType = viewTypeMap[`${category.id}_${type.id}`] as CartesianType;
                                 const element = document.createElement('div');
                                 element.textContent = viewType.label['en-gb'];
-                                element.addEventListener('click', () => this.highcharts.renderCartesianChart(type, viewType, visualOptions.content, viewContainerElement));
+                                element.addEventListener('click', () => this.highcharts.renderCartesianChart(viewType, visualOptions.content, viewContainerElement));
                                 tabBarElement.appendChild(element);
                             }
                             break;
@@ -156,10 +160,10 @@ export default class DefaultPresenter implements Presenter {
                                     defaultCategory = category;
                                     defaultType = type;
                                 }
-                                const viewType = viewTypeMap[`${category.id}_${type.id}`];
+                                const viewType = viewTypeMap[`${category.id}_${type.id}`] as PolarType;
                                 const element = document.createElement('div');
                                 element.textContent = viewType.label['en-gb'];
-                                element.addEventListener('click', () => this.highcharts.renderPolarChart(type, viewType, visualOptions.content, viewContainerElement));
+                                element.addEventListener('click', () => this.highcharts.renderPolarChart(viewType, visualOptions.content, viewContainerElement));
                                 tabBarElement.appendChild(element);
                             }
                             break;
@@ -169,10 +173,10 @@ export default class DefaultPresenter implements Presenter {
                                     defaultCategory = category;
                                     defaultType = type;
                                 }
-                                const viewType = viewTypeMap[`${category.id}_${type.id}`];
+                                const viewType = viewTypeMap[`${category.id}_${type.id}`] as RangeType;
                                 const element = document.createElement('div');
                                 element.textContent = viewType.label['en-gb'];
-                                element.addEventListener('click', () => this.highcharts.renderRangeChart(type, viewType, visualOptions.content, viewContainerElement));
+                                element.addEventListener('click', () => this.highcharts.renderRangeChart(viewType, visualOptions.content, viewContainerElement));
                                 tabBarElement.appendChild(element);
                             }
                             break;
@@ -181,7 +185,7 @@ export default class DefaultPresenter implements Presenter {
                                 defaultCategory = category;
                                 defaultType = undefined;
                             }
-                            const viewType = viewTypeMap[category.id];
+                            const viewType = viewTypeMap[category.id] as ValuesType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
                             element.addEventListener('click', () => this.dataTable.render(viewType, visualOptions.content, viewContainerElement));
@@ -196,7 +200,7 @@ export default class DefaultPresenter implements Presenter {
                     this.dataTable.render(viewType, visualOptions.content, viewContainerElement);
                 } else {
                     const viewType = viewTypeMap[`${defaultCategory.id}_${defaultType.id}`];
-                    this.highcharts.renderCartesianChart(defaultType, viewType, visualOptions.content, viewContainerElement);
+                    this.highcharts.renderCartesianChart(viewType, visualOptions.content, viewContainerElement);
                 }
             } catch (error) {
                 console.error(error);

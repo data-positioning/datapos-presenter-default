@@ -5,7 +5,7 @@ import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, 
 
 // Dependencies - Framework.
 import { useSampleData } from './useSampleData';
-import type { ViewType, VisualContentOptions } from '@/index';
+import type { CartesianType, PolarType, RangeType, VisualContentOptions } from '@/index';
 
 // Constants
 const downloadURLPrefix = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/';
@@ -19,14 +19,14 @@ const { getMeasureValues } = useSampleData();
 // Composables - Use highcharts.
 export function useHighcharts() {
     // Operations - Render cartesian chart.
-    async function renderCartesianChart(type: { id: 'area' | 'bar' | 'column' | 'line' }, viewType: ViewType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
+    async function renderCartesianChart(type: CartesianType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await loadHighchartsCore();
         const series: SeriesOptionsType[] = [];
         for (const measure of content.data.measures) {
-            series.push({ type: viewType.options.highchartsType, name: measure.name, data: getMeasureValues([measure.id]) });
+            series.push({ type: type.options.highchartsType, name: measure.name, data: getMeasureValues([measure.id]) });
         }
         const options: Options = {
-            chart: { type: viewType.options.highchartsType },
+            chart: { type: type.options.highchartsType },
             plotOptions: { series: { borderColor: '#333' } },
             series,
             title: { text: content.title.text },
@@ -36,11 +36,11 @@ export function useHighcharts() {
         Highcharts.chart(element, options);
     }
     // Operations - Render polar chart.
-    async function renderPolarChart(type: { id: 'area' | 'column' | 'line' }, viewType: ViewType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
+    async function renderPolarChart(type: PolarType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await Promise.all([loadHighchartsCore(), loadHighchartsMore()]);
         const series: SeriesOptionsType[] = [];
         for (const measure of content.data.measures) {
-            series.push({ type: viewType.options.highchartsType, name: measure.name, data: getMeasureValues([measure.id]) });
+            series.push({ type: type.options.highchartsType, name: measure.name, data: getMeasureValues([measure.id]) });
         }
         const options: Options = {
             chart: { polar: true },
@@ -54,12 +54,12 @@ export function useHighcharts() {
     }
 
     // Operations - Render range chart.
-    async function renderRangeChart(type: { id: string }, viewType: ViewType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
+    async function renderRangeChart(type: RangeType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await Promise.all([loadHighchartsCore(), loadHighchartsMore()]);
         const series: SeriesOptionsType[] = [];
-        series.push({ type: viewType.options.highchartsType, name: 'Unknown', data: getMeasureValues([content.data.measures[0].id, content.data.measures[1].id]) });
+        series.push({ type: type.options.highchartsType, name: 'Unknown', data: getMeasureValues([content.data.measures[0].id, content.data.measures[1].id]) });
         const options: Options = {
-            chart: { type: viewType.options.highchartsType, inverted: viewType.options.inverted },
+            chart: { type: type.options.highchartsType, inverted: type.options.inverted },
             plotOptions: { series: { borderColor: '#333' } },
             series,
             title: { text: content.title.text },
