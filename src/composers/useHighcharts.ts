@@ -57,9 +57,9 @@ export function useHighcharts() {
     async function renderRangeChart(type: { id: string }, viewType: ViewType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await Promise.all([loadHighchartsCore(), loadHighchartsMore()]);
         const series: SeriesOptionsType[] = [];
-        series.push({ type: 'columnrange', name: 'Unknown', data: getMeasureValues([content.data.measures[0].id, content.data.measures[1].id]) });
+        series.push({ type: 'arearange', name: 'Unknown', data: getMeasureValues([content.data.measures[0].id, content.data.measures[1].id]) });
         const options: Options = {
-            chart: { type: 'columnrange', inverted: viewType.options.inverted },
+            chart: { type: 'arearange', inverted: viewType.options.inverted },
             plotOptions: { series: { borderColor: '#333' } },
             series,
             title: { text: content.title.text },
@@ -90,48 +90,3 @@ export function useHighcharts() {
     // Exposures
     return { renderCartesianChart, renderPolarChart, renderRangeChart };
 }
-
-/*
-```json
-{
-    "chart": { "type": "columnrange" },
-    "accessibility": { "description": "Image description: A column range chart compares the... " },
-    "title": { "text": "Temperature variation by month" },
-    "subtitle": {
-        "text": "Observed in Vik i Sogn, Norway, 2023 |  Source: <a href='https://www.vikjavev.no/ver/' target='_blank'>Vikjavev</a>"
-    },
-    "xAxis": {
-        "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    },
-    "yAxis": {
-        "title": { "text": "Temperature ( °C )" }
-    },
-    "tooltip": { "valueSuffix": "°C" },
-    "plotOptions": {
-        "columnrange": { "borderRadius": "50%", "dataLabels": { "enabled": true, "format": "{y}°C" } }
-    },
-    "legend": {
-        "enabled": false
-    },
-    "series": [
-        {
-            "name": "Temperatures",
-            "data": [
-                [-9.5, 8.0],
-                [-7.8, 8.3],
-                [-13.1, 9.2],
-                [-4.4, 15.7],
-                [-1.0, 20.8],
-                [3.1, 28.4],
-                [8.9, 27.0],
-                [9.6, 23.0],
-                [4.9, 19.3],
-                [-5.2, 11.6],
-                [-10.5, 12.0],
-                [-12.1, 8.5]
-            ]
-        }
-    ]
-}
-```
-*/
