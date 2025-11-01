@@ -26,7 +26,7 @@ Quantifies the variation in physical headcount between the opening and closing o
         "title": { "text": "Opening/Closing Headcount" },
         "data": {
             "name": "Headcount",
-            "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            "categoryLabels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
             "measures": [
                 { "id": "openingHeadcount", "name": "Opening" },
                 { "id": "closingHeadcount", "name": "Closing" }
@@ -54,7 +54,7 @@ Quantifies the variation in physical headcount between the starting and ending o
         "title": { "text": "Starting/Ending Headcount" },
         "data": {
             "name": "Headcount",
-            "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            "categoryLabels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
             "measures": [
                 { "id": "startingHeadcount", "name": "Starting" },
                 { "id": "endingHeadcount", "name": "Ending" }
