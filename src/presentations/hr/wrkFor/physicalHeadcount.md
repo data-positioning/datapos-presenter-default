@@ -37,13 +37,13 @@ Quantifies the variation in physical headcount between the opening and closing o
 ```json datapos-visual
 {
     "content": {
-        "title": { "text": "Starting/Ending Headcount" },
+        "title": { "text": "Opening/Closing Headcount" },
         "data": {
             "name": "Headcount",
             "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
             "measures": [
-                { "id": "startingHeadcount", "name": "Starting" },
-                { "id": "endingHeadcount", "name": "Ending" }
+                { "id": "openingHeadcount", "name": "Starting" },
+                { "id": "closingHeadcount", "name": "Ending" }
             ]
         }
     },
