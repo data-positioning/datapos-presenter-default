@@ -15,12 +15,10 @@ let highchartsMoreLoaded = false;
 // Composables - Use highcharts.
 export function useHighcharts() {
     // Operations - Render cartesian chart.
-    async function renderCartesianChart(type: { id: 'area' | 'bar' | 'column' | 'line' | 'radar' }, content: VisualContentOptions, element: HTMLElement): Promise<void> {
+    async function renderCartesianChart(type: { id: 'area' | 'bar' | 'column' | 'line' }, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await loadHighchartsCore();
-        await Promise.all([loadHighchartsCore(), loadHighchartsMore()]);
-        const chart = type.id === 'radar' ? { polar: true } : { type: type.id };
         const options: Options = {
-            chart,
+            chart: { type: type.id },
             plotOptions: { series: { borderColor: '#333' } },
             series: [
                 { type: type.id, name: 'Opening', data: [1105, 1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213] },
