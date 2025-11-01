@@ -8,42 +8,19 @@ import config from '~/config.json';
 import configPresentations from '~/configPresentations.json';
 
 // Types
-type VisualOptions = {
-    content: VisualContentOptions;
-    views: [CartesianCategory | PolarCategory | RangeCategory | ValuesCategory];
-};
-export type VisualContentOptions = {
-    title: { text: string };
-    data: {
-        name: string;
-        categoryLabels: string[];
-        measures: { id: string; name: string }[];
-    };
-};
-type CartesianCategory = {
-    category: { id: 'cartesian' };
-    types: { id: 'area' | 'bar' | 'column' | 'line'; default?: boolean }[];
-};
-type PolarCategory = {
-    category: { id: 'polar' };
-    types: { id: 'area' | 'column' | 'line'; default?: boolean }[];
-};
-type RangeCategory = {
-    category: { id: 'range' };
-    types: { id: 'bar' | 'column'; default?: boolean }[];
-};
-type ValuesCategory = {
-    category: { id: 'values'; default?: boolean };
-};
-
-type ViewType = CartesianType | PolarType | RangeType | ValuesType;
+type VisualOptions = { content: VisualContentOptions; views: [CartesianCategory | PolarCategory | RangeCategory | ValuesCategory] };
+export type VisualContentOptions = { title: { text: string }; data: { name: string; categoryLabels: string[]; measures: { id: string; name: string }[] } };
+type CartesianCategory = { category: { id: 'cartesian' }; types: { id: 'area' | 'bar' | 'column' | 'line'; default?: boolean }[] };
+type PolarCategory = { category: { id: 'polar' }; types: { id: 'area' | 'column' | 'line'; default?: boolean }[] };
+type RangeCategory = { category: { id: 'range' }; types: { id: 'bar' | 'column'; default?: boolean }[] };
+type ValuesCategory = { category: { id: 'values'; default?: boolean } };
 export type CartesianType = { label: Record<string, string>; options: { highchartsType: 'area' | 'bar' | 'column' | 'line'; inverted?: boolean } };
 export type PolarType = { label: Record<string, string>; options: { highchartsType: 'area' | 'column' | 'line'; inverted?: boolean } };
 export type RangeType = { label: Record<string, string>; options: { highchartsType: 'arearange' | 'columnrange'; inverted?: boolean } };
 export type ValuesType = { label: Record<string, string>; options: {} };
 
 // Constants
-const viewTypeMap: Record<string, ViewType> = {
+const viewTypeMap: Record<string, CartesianType | PolarType | RangeType | ValuesType> = {
     cartesian_area: { label: { 'en-gb': 'Area' }, options: { highchartsType: 'area' } },
     cartesian_bar: { label: { 'en-gb': 'Bar' }, options: { highchartsType: 'bar' } },
     cartesian_column: { label: { 'en-gb': 'Column' }, options: { highchartsType: 'column' } },
