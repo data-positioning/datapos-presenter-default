@@ -126,11 +126,9 @@ Area, bar and radar versions are also possible.
 
 The actual (physical) number of people in the workforce at a specific point in time. Values are calculated in terms of reporting periods (days, shifts, rotations, pay periods, weeks, fortnights, 4 week durations, months, quarters, years...). Opening/closing values represent the headcount as a period opens (bring forward) and closes (carry forward). Starting/ending values represent the headcount at the point the period starts and ends.
 
-```javascript
 const items = [];
 let count = 0;
 for (const item of items) {
-    count++;
+count++;
 }
 console.log(count);
-```
