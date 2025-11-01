@@ -21,15 +21,14 @@ export function useHighcharts() {
     // Operations - Render cartesian chart.
     async function renderCartesianChart(type: { id: 'area' | 'bar' | 'column' | 'line' }, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await loadHighchartsCore();
+        const series = [];
+        for (const measure of content.data.measures) {
+            series.push({ type: type.id, name: measure.name, data: getMeasureValues([measure.id]) });
+        }
         const options: Options = {
             chart: { type: type.id },
             plotOptions: { series: { borderColor: '#333' } },
-            series: [
-                // { type: type.id, name: 'Opening', data: [1105, 1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213] },
-                // { type: type.id, name: 'Closing', data: [1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213, 1211] }
-                { type: type.id, name: 'Opening', data: getMeasureValues(['openingHeadcount']) },
-                { type: type.id, name: 'Closing', data: getMeasureValues(['closingHeadcount']) }
-            ],
+            series,
             title: { text: content.title.text },
             xAxis: { categories: content.data.categoryLabels },
             yAxis: { title: { text: content.data.name } }
