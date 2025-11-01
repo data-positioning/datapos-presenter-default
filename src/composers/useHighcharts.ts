@@ -30,6 +30,22 @@ export function useHighcharts() {
         };
         Highcharts.chart(element, options);
     }
+    // Operations - Render polar chart.
+    async function renderPolarChart(type: { id: 'area' | 'column' | 'line' }, content: VisualContentOptions, element: HTMLElement): Promise<void> {
+        await loadHighchartsCore();
+        const options: Options = {
+            chart: { polar: true },
+            plotOptions: { series: { borderColor: '#333' } },
+            series: [
+                { type: type.id, name: 'Opening', data: [1105, 1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213] },
+                { type: type.id, name: 'Closing', data: [1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213, 1211] }
+            ],
+            title: { text: content.title.text },
+            xAxis: { categories: content.data.categoryLabels },
+            yAxis: { title: { text: content.data.name } }
+        };
+        Highcharts.chart(element, options);
+    }
 
     // Operations - Render range chart.
     async function renderRangeChart(type: { id: string }, content: VisualContentOptions, element: HTMLElement): Promise<void> {
@@ -56,5 +72,5 @@ export function useHighcharts() {
     }
 
     // Exposures
-    return { renderCartesianChart, renderRangeChart };
+    return { renderCartesianChart, renderPolarChart, renderRangeChart };
 }

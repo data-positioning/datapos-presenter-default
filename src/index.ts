@@ -10,7 +10,7 @@ import configPresentations from '../configPresentations.json';
 // Types
 type VisualOptions = {
     content: VisualContentOptions;
-    views: [CartesianCategory | RangeCategory | ValuesCategory];
+    views: [CartesianCategory | PolarCategory | RangeCategory | ValuesCategory];
 };
 export type VisualContentOptions = {
     title: { text: string };
@@ -23,6 +23,10 @@ export type VisualContentOptions = {
 type CartesianCategory = {
     category: { id: 'cartesian' };
     types: { id: 'area' | 'bar' | 'column' | 'line'; default?: boolean }[];
+};
+type PolarCategory = {
+    category: { id: 'polar' };
+    types: { id: 'area' | 'column' | 'line'; default?: boolean }[];
 };
 type RangeCategory = {
     category: { id: 'range' };
@@ -137,6 +141,18 @@ export default class DefaultPresenter implements Presenter {
                                 const element = document.createElement('div');
                                 element.textContent = viewTypeMap[`${category.id}_${type.id}`].label['en-gb'];
                                 element.addEventListener('click', () => this.highcharts.renderCartesianChart(type, visualOptions.content, viewContainerElement));
+                                tabBarElement.appendChild(element);
+                            }
+                            break;
+                        case 'polar':
+                            for (const type of (view as CartesianCategory).types) {
+                                if (!defaultType || type.default) {
+                                    defaultCategory = category;
+                                    defaultType = type;
+                                }
+                                const element = document.createElement('div');
+                                element.textContent = viewTypeMap[`${category.id}_${type.id}`].label['en-gb'];
+                                element.addEventListener('click', () => this.highcharts.renderPolarChart(type, visualOptions.content, viewContainerElement));
                                 tabBarElement.appendChild(element);
                             }
                             break;

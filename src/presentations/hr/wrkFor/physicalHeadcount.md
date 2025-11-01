@@ -48,7 +48,8 @@ Quantifies the variation in physical headcount between the opening and closing o
         }
     },
     "views": [
-        { "category": { "id": "cartesian" }, "types": [{ "id": "area" }, { "id": "bar" }, { "id": "column" }, { "id": "line", "default": true }, { "id": "radar" }] },
+        { "category": { "id": "cartesian" }, "types": [{ "id": "area" }, { "id": "bar" }, { "id": "column" }, { "id": "line", "default": true }] },
+        { "category": { "id": "polar" }, "types": [{ "id": "area" }, { "id": "column" }, { "id": "line" }] },
         { "category": { "id": "range" }, "types": [{ "id": "bar" }, { "id": "column" }] },
         { "category": { "id": "values" } }
     ]
