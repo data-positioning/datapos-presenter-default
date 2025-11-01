@@ -153,11 +153,11 @@ export default class DefaultPresenter implements Presenter {
     }
 
     private renderCartesianChart(typeId: string, element: HTMLElement) {
-        element.textContent = 'Cartesian chart goes here...';
+        element.textContent = `${typeId} cartesian chart goes here...`;
     }
 
     private renderRangeChart(typeId: string, element: HTMLElement) {
-        element.textContent = 'Range chart goes here...';
+        element.textContent = `${typeId} range chart goes here...`;
     }
 
     private renderValues(element: HTMLElement) {
