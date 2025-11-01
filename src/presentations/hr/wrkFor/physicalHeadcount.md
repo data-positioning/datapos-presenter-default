@@ -36,14 +36,16 @@ Quantifies the variation in physical headcount between the opening and closing o
 
 ```json datapos-highcharts-chart
 {
-    "title": { "text": "Starting/Ending Headcount" },
-    "data": {
-        "name": "Headcount",
-        "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        "measures": [
-            { "id": "startingHeadcount", "name": "Starting" },
-            { "id": "endingHeadcount", "name": "Ending" }
-        ]
+    "content": {
+        "title": { "text": "Starting/Ending Headcount" },
+        "data": {
+            "name": "Headcount",
+            "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            "measures": [
+                { "id": "startingHeadcount", "name": "Starting" },
+                { "id": "endingHeadcount", "name": "Ending" }
+            ]
+        }
     },
     "views": [
         { "category": { "id": "cartesian" }, "types": [{ "id": "area" }, { "id": "bar" }, { "id": "column" }, { "id": "line" }, { "id": "radar" }] },

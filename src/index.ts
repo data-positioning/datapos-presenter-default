@@ -10,11 +10,28 @@ import configPresentations from '../configPresentations.json';
 
 // Types
 type VisualOptions = {
+    content: VisualContentOptions;
     views: [CartesianCategory | RangeCategory | ValuesCategory];
 };
-type CartesianCategory = { category: { id: 'cartesian' }; types: { id: 'area' | 'bar' | 'column' | 'line' | 'radar' }[] };
-type RangeCategory = { category: { id: 'range' }; types: { id: 'bar' | 'column' }[] };
-type ValuesCategory = { category: { id: 'values' } };
+export type VisualContentOptions = {
+    title: { text: string };
+    data: {
+        name: string;
+        categoryLabels: string[];
+        measures: { id: string; name: string }[];
+    };
+};
+type CartesianCategory = {
+    category: { id: 'cartesian' };
+    types: { id: 'area' | 'bar' | 'column' | 'line' | 'radar' }[];
+};
+type RangeCategory = {
+    category: { id: 'range' };
+    types: { id: 'bar' | 'column' }[];
+};
+type ValuesCategory = {
+    category: { id: 'values' };
+};
 
 // Constants
 const viewTypeMap: Record<string, { label: Record<string, string> }> = {
@@ -34,14 +51,12 @@ export default class DefaultPresenter implements Presenter {
     readonly tools: PresenterTools;
     readonly dataTable;
     readonly highcharts;
-    readonly sampleData;
 
     constructor(tools: PresenterTools) {
         this.config = config as PresenterConfig;
         this.tools = tools;
         this.dataTable = useDataTable();
         this.highcharts = useHighcharts();
-        this.sampleData = useSampleData();
     }
 
     getIndex(): PresenterItemConfig[] {
@@ -109,13 +124,15 @@ export default class DefaultPresenter implements Presenter {
                 const tabBarElement = document.createElement('div');
                 Object.assign(tabBarElement.style, { display: 'flex', 'column-gap': '8px' });
                 const viewContainerElement = document.createElement('div');
+                let defaultType;
                 for (const view of visualOptions.views) {
                     switch (view.category.id) {
                         case 'cartesian':
                             for (const type of (view as CartesianCategory).types) {
+                                if (type.id === 'line') defaultType = type;
                                 const element = document.createElement('div');
                                 element.textContent = viewTypeMap[`${view.category.id}_${type.id}`].label['en-gb'];
-                                element.addEventListener('click', () => this.highcharts.renderCartesianChart(type.id, viewContainerElement));
+                                element.addEventListener('click', () => this.highcharts.renderCartesianChart(type, visualOptions.content, viewContainerElement));
                                 tabBarElement.appendChild(element);
                             }
                             break;
@@ -123,21 +140,21 @@ export default class DefaultPresenter implements Presenter {
                             for (const type of (view as RangeCategory).types) {
                                 const element = document.createElement('div');
                                 element.textContent = viewTypeMap[`${view.category.id}_${type.id}`].label['en-gb'];
-                                element.addEventListener('click', () => this.highcharts.renderRangeChart(type.id, viewContainerElement));
+                                element.addEventListener('click', () => this.highcharts.renderRangeChart(type, visualOptions.content, viewContainerElement));
                                 tabBarElement.appendChild(element);
                             }
                             break;
                         case 'values':
                             const element = document.createElement('div');
                             element.textContent = viewTypeMap[view.category.id].label['en-gb'];
-                            element.addEventListener('click', () => this.dataTable.render(viewContainerElement));
+                            element.addEventListener('click', () => this.dataTable.render(visualOptions.content, viewContainerElement));
                             tabBarElement.appendChild(element);
                             break;
                     }
                 }
                 visualElements.appendChild(tabBarElement);
                 visualElements.appendChild(viewContainerElement);
-                this.highcharts.renderCartesianChart('line', viewContainerElement);
+                this.highcharts.renderCartesianChart(defaultType, visualOptions.content, viewContainerElement);
             } catch (error) {
                 console.error(error);
                 visualElements.textContent = 'Invalid options.';
