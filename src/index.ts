@@ -114,17 +114,17 @@ export default class DefaultPresenter implements Presenter {
                 tabBarElement.className = 'dp-tab-bar';
                 const viewContainerElement = document.createElement('div');
                 let defaultCategory = undefined;
-                let defaultType = undefined;
+                let defaultViewType: CartesianType | PolarType | RangeType | ValuesType | undefined = undefined;
                 for (const view of visualOptions.views) {
                     const category = view.category;
                     switch (category.id) {
                         case 'cartesian':
                             for (const type of (view as CartesianCategory).types) {
-                                if (!defaultType || type.default) {
-                                    defaultCategory = category;
-                                    defaultType = type;
-                                }
                                 const viewType = viewTypeMap[`${category.id}_${type.id}`] as CartesianType;
+                                if (!defaultViewType || type.default) {
+                                    defaultCategory = category;
+                                    defaultViewType = viewType;
+                                }
                                 const element = document.createElement('div');
                                 element.textContent = viewType.label['en-gb'];
                                 element.addEventListener('click', () => this.highcharts.renderCartesianChart(viewType, visualOptions.content, viewContainerElement));
@@ -133,11 +133,11 @@ export default class DefaultPresenter implements Presenter {
                             break;
                         case 'polar':
                             for (const type of (view as PolarCategory).types) {
-                                if (!defaultType || type.default) {
-                                    defaultCategory = category;
-                                    defaultType = type;
-                                }
                                 const viewType = viewTypeMap[`${category.id}_${type.id}`] as PolarType;
+                                if (!defaultViewType || type.default) {
+                                    defaultCategory = category;
+                                    defaultViewType = viewType;
+                                }
                                 const element = document.createElement('div');
                                 element.textContent = viewType.label['en-gb'];
                                 element.addEventListener('click', () => this.highcharts.renderPolarChart(viewType, visualOptions.content, viewContainerElement));
@@ -146,11 +146,11 @@ export default class DefaultPresenter implements Presenter {
                             break;
                         case 'range':
                             for (const type of (view as RangeCategory).types) {
-                                if (!defaultType || type.default) {
-                                    defaultCategory = category;
-                                    defaultType = type;
-                                }
                                 const viewType = viewTypeMap[`${category.id}_${type.id}`] as RangeType;
+                                if (!defaultViewType || type.default) {
+                                    defaultCategory = category;
+                                    defaultViewType = viewType;
+                                }
                                 const element = document.createElement('div');
                                 element.textContent = viewType.label['en-gb'];
                                 element.addEventListener('click', () => this.highcharts.renderRangeChart(viewType, visualOptions.content, viewContainerElement));
@@ -158,11 +158,11 @@ export default class DefaultPresenter implements Presenter {
                             }
                             break;
                         case 'values':
-                            if (!defaultType) {
-                                defaultCategory = category;
-                                defaultType = undefined;
-                            }
                             const viewType = viewTypeMap[category.id] as ValuesType;
+                            if (!defaultViewType) {
+                                defaultCategory = category;
+                                defaultViewType = viewType;
+                            }
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
                             element.addEventListener('click', () => this.dataTable.render(viewType, visualOptions.content, viewContainerElement));
@@ -172,12 +172,19 @@ export default class DefaultPresenter implements Presenter {
                 }
                 visualElements.appendChild(tabBarElement);
                 visualElements.appendChild(viewContainerElement);
-                if (defaultCategory.id === 'values') {
-                    const viewType = viewTypeMap[defaultCategory.id];
-                    this.dataTable.render(viewType, visualOptions.content, viewContainerElement);
-                } else {
-                    const viewType = viewTypeMap[`${defaultCategory.id}_${defaultType.id}`];
-                    this.highcharts.renderCartesianChart(viewType, visualOptions.content, viewContainerElement);
+                switch (defaultCategory.id) {
+                    case 'cartesian':
+                        this.highcharts.renderCartesianChart(defaultViewType as CartesianType, visualOptions.content, viewContainerElement);
+                        break;
+                    case 'polar':
+                        this.highcharts.renderPolarChart(defaultViewType as PolarType, visualOptions.content, viewContainerElement);
+                        break;
+                    case 'range':
+                        this.highcharts.renderRangeChart(defaultViewType as RangeType, visualOptions.content, viewContainerElement);
+                        break;
+                    case 'values':
+                        this.dataTable.render(defaultViewType, visualOptions.content, viewContainerElement);
+                        break;
                 }
             } catch (error) {
                 console.error(error);
