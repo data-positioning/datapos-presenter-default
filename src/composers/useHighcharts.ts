@@ -17,6 +17,7 @@ export function useHighcharts() {
     // Operations - Render cartesian chart.
     async function renderCartesianChart(type: { id: 'area' | 'bar' | 'column' | 'line' | 'radar' }, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await loadHighchartsCore();
+        await Promise.all([loadHighchartsCore(), loadHighchartsMore()]);
         const chart = type.id === 'radar' ? { polar: true } : { type: type.id };
         const options: Options = {
             chart,
@@ -35,7 +36,6 @@ export function useHighcharts() {
     // Operations - Render range chart.
     async function renderRangeChart(type: { id: string }, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await Promise.all([loadHighchartsCore(), loadHighchartsMore()]);
-
         element.textContent = `${type.id} range chart goes here...`;
     }
 
