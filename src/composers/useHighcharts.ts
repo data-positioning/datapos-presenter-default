@@ -27,8 +27,8 @@ export function useHighcharts() {
             series: [
                 // { type: type.id, name: 'Opening', data: [1105, 1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213] },
                 // { type: type.id, name: 'Closing', data: [1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213, 1211] }
-                { type: type.id, name: 'Opening', data: getMeasureValues(['startingHeadcount']) },
-                { type: type.id, name: 'Closing', data: getMeasureValues(['endingHeadcount']) }
+                { type: type.id, name: 'Opening', data: getMeasureValues(['openingHeadcount']) },
+                { type: type.id, name: 'Closing', data: getMeasureValues(['closingHeadcount']) }
             ],
             title: { text: content.title.text },
             xAxis: { categories: content.data.categoryLabels },
