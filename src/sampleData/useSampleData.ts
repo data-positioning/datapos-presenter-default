@@ -2,24 +2,26 @@
 import headcountForCalendarYear from './headcountForCalendarYear.json';
 
 // Types
-type MonthData = (typeof headcountForCalendarYear.months)[number];
-type MeasureKey = keyof MonthData;
-
-// Non-Reactive Variables
-const measureValues: Record<string, [number, number?][]> = {};
+type MonthData = Record<string, number>;
 
 // Composables - Use sample data.
 export function useSampleData() {
-    function getMeasureValues(id: MeasureKey): [number, number?][] {
-        const values = measureValues[id];
-        if (values) return values;
-        return calcMeasureValues(id);
+    // Operations - Get measure values.
+    function getMeasureValues(ids: string[]): number[][] {
+        const monthData: MonthData[] = headcountForCalendarYear.months;
+        return monthData.map((month) => ids.map((id) => getMeasureValue(id, month)));
     }
 
-    // Utilities - Calculate measure values.
-    function calcMeasureValues(id: MeasureKey): [number, number?][] {
-        measureValues[id] = headcountForCalendarYear.months.map((month) => [month[id]]);
-        return measureValues[id];
+    // Utilities - Get measure value.
+    function getMeasureValue(id: string, month: MonthData): number {
+        switch (id) {
+            case 'startingHeadcount':
+                return month.openingHeadcount + month.startingHires;
+            case 'endingHeadcount':
+                return month.endingHeadcount + month.endingHires;
+            default:
+                return month[id] ?? 0;
+        }
     }
 
     // Exposures

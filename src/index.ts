@@ -87,15 +87,30 @@ export default class DefaultPresenter implements Presenter {
         const Highcharts = (await import(/* @vite-ignore */ coreDownloadURL)).default;
         await import(/* @vite-ignore */ accessibilityDownloadURL);
         await import(/* @vite-ignore */ moreDownloadURL);
-        for (const element of renderTo.querySelectorAll('.datapos-highcharts-chart')) {
-            const datasetOptions = decodeURIComponent((element as HTMLElement).dataset.options);
+        for (const visualElements of renderTo.querySelectorAll('.datapos-highcharts-chart')) {
+            const datasetOptions = decodeURIComponent((visualElements as HTMLElement).dataset.options);
             try {
-                const options = JSON.parse(datasetOptions);
-                element.textContent = '';
-                Highcharts.chart(element, options);
-            } catch (err) {
-                console.error('Highcharts parse error:', err);
-                element.textContent = 'Invalid chart JSON';
+                type VisualOptions = {
+                    views: [
+                        | { category: { id: 'cartesian' }; types: { id: 'area' | 'bar' | 'column' | 'line' | 'radar' }[] }
+                        | { category: { id: 'range' }; types: { id: 'bar' | 'column' }[] }
+                        | { category: { id: 'values' } }
+                    ];
+                };
+                const visualOptions = JSON.parse(datasetOptions) as VisualOptions;
+                // for (const series of options.series) {
+                //     (series as SeriesLineOptions).data = this.sampleData.getMeasureValues(series.measureId);
+                // }
+                // element.textContent = '';
+                // Highcharts.chart(element, options);
+                for (const view of visualOptions.views) {
+                    const element = document.createElement('div');
+                    element.textContent = view.category.id;
+                    visualElements.appendChild(element);
+                }
+            } catch (error) {
+                console.error(error);
+                visualElements.textContent = 'Invalid options.';
             }
         }
     }

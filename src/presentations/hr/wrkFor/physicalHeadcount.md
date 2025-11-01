@@ -21,16 +21,32 @@ Physical headcount measures the actual number of people being counted at a fixed
 Quantifies the variation in physical headcount between the opening and closing of specific reporting periods.
 
 ```json datapos-highcharts-chart
+// {
+//     "chart": { "type": "line", "otherTypes": ["area", "bar", "barRange", "column", "columnRange", "radar", "values"] },
+//     "plotOptions": { "series": { "borderColor": "#333" } },
+//     "series": [
+//         { "measureId": "openingHeadcount", "name": "Opening", "data": [1105, 1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213] },
+//         { "measureId": "closingHeadcount", "name": "Closing", "data": [1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213, 1211] }
+//     ],
+//     "title": { "text": "Opening/Closing Headcount" },
+//     "xAxis": { "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
+//     "yAxis": { "title": { "text": "Headcount" } }
+// }
 {
-    "chart": { "type": "line", "otherTypes": ["area", "bar", "barRange", "column", "columnRange", "radar", "values"] },
-    "plotOptions": { "series": { "borderColor": "#333" } },
-    "series": [
-        { "measureId": "openingHeadcount", "name": "Opening", "data": [1105, 1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213] },
-        { "measureId": "closingHeadcount", "name": "Closing", "data": [1110, 1109, 1129, 1129, 1134, 1172, 1173, 1176, 1186, 1189, 1213, 1211] }
-    ],
-    "title": { "text": "Opening/Closing Headcount" },
-    "xAxis": { "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
-    "yAxis": { "title": { "text": "Headcount" } }
+    "title": { "text": "Starting/Ending Headcount" },
+    "data": {
+        "name": "Headcount",
+        "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        "measures": [
+            { "id": "startingHeadcount", "name": "Starting" },
+            { "id": "endingHeadcount", "name": "Ending" }
+        ]
+    },
+    "views": [
+        { "category": { "id": "cartesian" }, "types": [{ "id": "area" }, { "id": "bar" }, { "id": "column" }, { "id": "line" }, { "id": "radar" }] },
+        { "category": { "id": "range" }, "types": [{ "id": "bar" }, { "id": "column" }] },
+        { "category": { "id": "values" } }
+    ]
 }
 ```
 
