@@ -1,7 +1,6 @@
 // Dependencies - Framework.
 import { useDataTable } from './composers/useDataTable';
 import { useHighcharts } from './composers/useHighcharts';
-import { useSampleData } from './composers/useSampleData';
 import type { Presenter, PresenterConfig, PresenterItemConfig, PresenterLocalisedConfig, PresenterTools } from '@datapos/datapos-shared';
 
 // Dependencies - Data.
@@ -23,14 +22,14 @@ export type VisualContentOptions = {
 };
 type CartesianCategory = {
     category: { id: 'cartesian' };
-    types: { id: 'area' | 'bar' | 'column' | 'line' | 'radar' }[];
+    types: { id: 'area' | 'bar' | 'column' | 'line' | 'radar'; default?: boolean }[];
 };
 type RangeCategory = {
     category: { id: 'range' };
-    types: { id: 'bar' | 'column' }[];
+    types: { id: 'bar' | 'column'; default?: boolean }[];
 };
 type ValuesCategory = {
-    category: { id: 'values' };
+    category: { id: 'values'; default?: boolean };
 };
 
 // Constants
@@ -104,8 +103,7 @@ export default class DefaultPresenter implements Presenter {
             const typeId = infoSegments[1]?.trim() ?? undefined;
             const content = token.content;
             switch (typeId) {
-                case 'datapos-highcharts-chart': {
-                    // const dataId = `${typeId}-${Math.random().toString(36).slice(2)}`;
+                case 'datapos-visual': {
                     return `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
                 }
                 default:
@@ -117,36 +115,49 @@ export default class DefaultPresenter implements Presenter {
         const html = markdownParser.render(processedMarkdown);
         renderTo.innerHTML = html;
 
-        for (const visualElements of renderTo.querySelectorAll('.datapos-highcharts-chart')) {
+        for (const visualElements of renderTo.querySelectorAll('.datapos-visual')) {
             const datasetOptions = decodeURIComponent((visualElements as HTMLElement).dataset.options);
             try {
                 const visualOptions = JSON.parse(datasetOptions) as VisualOptions;
                 const tabBarElement = document.createElement('div');
                 Object.assign(tabBarElement.style, { display: 'flex', 'column-gap': '8px' });
                 const viewContainerElement = document.createElement('div');
-                let defaultType;
+                let defaultCategory = undefined;
+                let defaultType = undefined;
                 for (const view of visualOptions.views) {
-                    switch (view.category.id) {
+                    const category = view.category;
+                    switch (category.id) {
                         case 'cartesian':
                             for (const type of (view as CartesianCategory).types) {
-                                if (type.id === 'line') defaultType = type;
+                                if (!defaultType || type.default) {
+                                    defaultCategory = category;
+                                    defaultType = type;
+                                }
                                 const element = document.createElement('div');
-                                element.textContent = viewTypeMap[`${view.category.id}_${type.id}`].label['en-gb'];
+                                element.textContent = viewTypeMap[`${category.id}_${type.id}`].label['en-gb'];
                                 element.addEventListener('click', () => this.highcharts.renderCartesianChart(type, visualOptions.content, viewContainerElement));
                                 tabBarElement.appendChild(element);
                             }
                             break;
                         case 'range':
                             for (const type of (view as RangeCategory).types) {
+                                if (!defaultType || type.default) {
+                                    defaultCategory = category;
+                                    defaultType = type;
+                                }
                                 const element = document.createElement('div');
-                                element.textContent = viewTypeMap[`${view.category.id}_${type.id}`].label['en-gb'];
+                                element.textContent = viewTypeMap[`${category.id}_${type.id}`].label['en-gb'];
                                 element.addEventListener('click', () => this.highcharts.renderRangeChart(type, visualOptions.content, viewContainerElement));
                                 tabBarElement.appendChild(element);
                             }
                             break;
                         case 'values':
+                            if (!defaultType) {
+                                defaultCategory = category;
+                                defaultType = undefined;
+                            }
                             const element = document.createElement('div');
-                            element.textContent = viewTypeMap[view.category.id].label['en-gb'];
+                            element.textContent = viewTypeMap[category.id].label['en-gb'];
                             element.addEventListener('click', () => this.dataTable.render(visualOptions.content, viewContainerElement));
                             tabBarElement.appendChild(element);
                             break;
@@ -154,7 +165,11 @@ export default class DefaultPresenter implements Presenter {
                 }
                 visualElements.appendChild(tabBarElement);
                 visualElements.appendChild(viewContainerElement);
-                this.highcharts.renderCartesianChart(defaultType, visualOptions.content, viewContainerElement);
+                if (defaultCategory.id === 'values') {
+                    this.dataTable.render(visualOptions.content, viewContainerElement);
+                } else {
+                    this.highcharts.renderCartesianChart(defaultType, visualOptions.content, viewContainerElement);
+                }
             } catch (error) {
                 console.error(error);
                 visualElements.textContent = 'Invalid options.';
