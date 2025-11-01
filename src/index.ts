@@ -80,6 +80,7 @@ export default class DefaultPresenter implements Presenter {
     }
 
     async render(presentationPath: keyof typeof configPresentations, renderTo: HTMLElement): Promise<void> {
+        // Use presentation path to retrieve presentation.
         const presentation = configPresentations[presentationPath];
 
         // Substitute arguments in content.
