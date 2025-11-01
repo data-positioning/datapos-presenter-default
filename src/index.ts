@@ -122,6 +122,7 @@ export default class DefaultPresenter implements Presenter {
                             for (const type of (view as CartesianCategory).types) {
                                 const element = document.createElement('div');
                                 element.textContent = typeMap[`${view.category.id}_${type.id}`].label['en-gb'];
+                                element.addEventListener('click', () => console.log(view.category.id, type.id));
                                 tabBarElement.appendChild(element);
                             }
                             break;
@@ -129,12 +130,14 @@ export default class DefaultPresenter implements Presenter {
                             for (const type of (view as RangeCategory).types) {
                                 const element = document.createElement('div');
                                 element.textContent = typeMap[`${view.category.id}_${type.id}`].label['en-gb'];
+                                element.addEventListener('click', () => console.log(view.category.id, type.id));
                                 tabBarElement.appendChild(element);
                             }
                             break;
                         case 'values':
                             const element = document.createElement('div');
                             element.textContent = typeMap[view.category.id].label['en-gb'];
+                            element.addEventListener('click', () => console.log(view.category.id));
                             tabBarElement.appendChild(element);
                             break;
                     }
