@@ -104,7 +104,8 @@ export default class DefaultPresenter implements Presenter {
                     cartesian_line: { label: { 'en-gb': 'Line' } },
                     range_bar: { label: { 'en-gb': 'Range (Bar)' } },
                     range_column: { label: { 'en-gb': 'Range (Column)' } },
-                    radar: { label: { 'en-gb': 'Radar' } }
+                    cartesian_radar: { label: { 'en-gb': 'Radar' } },
+                    values: { label: { 'en-gb': 'Values' } }
                 };
 
                 const visualOptions = JSON.parse(datasetOptions) as VisualOptions;
