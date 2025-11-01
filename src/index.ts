@@ -1,24 +1,46 @@
-// Dependencies - Vendor.
-import type { Axis, ChartCallbackFunction, ChartOptions, LegendOptions, Options, SubtitleOptions, TitleOptions, XAxisOptions, YAxisOptions } from 'highcharts';
-import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions } from 'highcharts';
-
 // Dependencies - Framework.
-import { useSampleData } from './sampleData/useSampleData';
+import { useDataTable } from './composers/useDataTable';
+import { useHighcharts } from './composers/useHighcharts';
+import { useSampleData } from './composers/useSampleData';
 import type { Presenter, PresenterConfig, PresenterItemConfig, PresenterLocalisedConfig, PresenterTools } from '@datapos/datapos-shared';
 
 // Dependencies - Data.
 import config from '../config.json';
 import configPresentations from '../configPresentations.json';
 
+// Types
+type VisualOptions = {
+    views: [CartesianCategory | RangeCategory | ValuesCategory];
+};
+type CartesianCategory = { category: { id: 'cartesian' }; types: { id: 'area' | 'bar' | 'column' | 'line' | 'radar' }[] };
+type RangeCategory = { category: { id: 'range' }; types: { id: 'bar' | 'column' }[] };
+type ValuesCategory = { category: { id: 'values' } };
+
+// Constants
+const viewTypeMap: Record<string, { label: Record<string, string> }> = {
+    cartesian_area: { label: { 'en-gb': 'Area' } },
+    cartesian_bar: { label: { 'en-gb': 'Bar' } },
+    cartesian_column: { label: { 'en-gb': 'Column' } },
+    cartesian_line: { label: { 'en-gb': 'Line' } },
+    cartesian_radar: { label: { 'en-gb': 'Radar' } },
+    range_bar: { label: { 'en-gb': 'Range (Bar)' } },
+    range_column: { label: { 'en-gb': 'Range (Column)' } },
+    values: { label: { 'en-gb': 'Values' } }
+};
+
 // Classes - Default Presenter
 export default class DefaultPresenter implements Presenter {
     readonly config: PresenterConfig;
-    readonly sampleData;
     readonly tools: PresenterTools;
+    readonly dataTable;
+    readonly highcharts;
+    readonly sampleData;
 
     constructor(tools: PresenterTools) {
         this.config = config as PresenterConfig;
         this.tools = tools;
+        this.dataTable = useDataTable();
+        this.highcharts = useHighcharts();
         this.sampleData = useSampleData();
     }
 
@@ -80,40 +102,10 @@ export default class DefaultPresenter implements Presenter {
         const html = markdownParser.render(processedMarkdown);
         renderTo.innerHTML = html;
 
-        const downloadURLPrefix = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/';
-        const coreDownloadURL = `${downloadURLPrefix}highcharts.src.js`;
-        const accessibilityDownloadURL = `${downloadURLPrefix}modules/accessibility.src.js`;
-        const moreDownloadURL = `${downloadURLPrefix}highcharts-more.src.js`;
-        const Highcharts = (await import(/* @vite-ignore */ coreDownloadURL)).default;
-        await import(/* @vite-ignore */ accessibilityDownloadURL);
-        await import(/* @vite-ignore */ moreDownloadURL);
         for (const visualElements of renderTo.querySelectorAll('.datapos-highcharts-chart')) {
             const datasetOptions = decodeURIComponent((visualElements as HTMLElement).dataset.options);
             try {
-                type VisualOptions = {
-                    views: [CartesianCategory | RangeCategory | ValuesCategory];
-                };
-                type CartesianCategory = { category: { id: 'cartesian' }; types: { id: 'area' | 'bar' | 'column' | 'line' | 'radar' }[] };
-                type RangeCategory = { category: { id: 'range' }; types: { id: 'bar' | 'column' }[] };
-                type ValuesCategory = { category: { id: 'values' } };
-
-                const typeMap: Record<string, { label: Record<string, string> }> = {
-                    cartesian_area: { label: { 'en-gb': 'Area' } },
-                    cartesian_bar: { label: { 'en-gb': 'Bar' } },
-                    cartesian_column: { label: { 'en-gb': 'Column' } },
-                    cartesian_line: { label: { 'en-gb': 'Line' } },
-                    cartesian_radar: { label: { 'en-gb': 'Radar' } },
-                    range_bar: { label: { 'en-gb': 'Range (Bar)' } },
-                    range_column: { label: { 'en-gb': 'Range (Column)' } },
-                    values: { label: { 'en-gb': 'Values' } }
-                };
-
                 const visualOptions = JSON.parse(datasetOptions) as VisualOptions;
-                // for (const series of options.series) {
-                //     (series as SeriesLineOptions).data = this.sampleData.getMeasureValues(series.measureId);
-                // }
-                // element.textContent = '';
-                // Highcharts.chart(element, options);
                 const tabBarElement = document.createElement('div');
                 Object.assign(tabBarElement.style, { display: 'flex', 'column-gap': '8px' });
                 const viewContainerElement = document.createElement('div');
@@ -122,46 +114,34 @@ export default class DefaultPresenter implements Presenter {
                         case 'cartesian':
                             for (const type of (view as CartesianCategory).types) {
                                 const element = document.createElement('div');
-                                element.textContent = typeMap[`${view.category.id}_${type.id}`].label['en-gb'];
-                                element.addEventListener('click', () => this.renderCartesianChart(type.id, viewContainerElement));
+                                element.textContent = viewTypeMap[`${view.category.id}_${type.id}`].label['en-gb'];
+                                element.addEventListener('click', () => this.highcharts.renderCartesianChart(type.id, viewContainerElement));
                                 tabBarElement.appendChild(element);
                             }
                             break;
                         case 'range':
                             for (const type of (view as RangeCategory).types) {
                                 const element = document.createElement('div');
-                                element.textContent = typeMap[`${view.category.id}_${type.id}`].label['en-gb'];
-                                element.addEventListener('click', () => this.renderRangeChart(type.id, viewContainerElement));
+                                element.textContent = viewTypeMap[`${view.category.id}_${type.id}`].label['en-gb'];
+                                element.addEventListener('click', () => this.highcharts.renderRangeChart(type.id, viewContainerElement));
                                 tabBarElement.appendChild(element);
                             }
                             break;
                         case 'values':
                             const element = document.createElement('div');
-                            element.textContent = typeMap[view.category.id].label['en-gb'];
-                            element.addEventListener('click', () => this.renderValues(viewContainerElement));
+                            element.textContent = viewTypeMap[view.category.id].label['en-gb'];
+                            element.addEventListener('click', () => this.dataTable.render(viewContainerElement));
                             tabBarElement.appendChild(element);
                             break;
                     }
                 }
                 visualElements.appendChild(tabBarElement);
                 visualElements.appendChild(viewContainerElement);
-                this.renderCartesianChart('line', viewContainerElement);
+                this.highcharts.renderCartesianChart('line', viewContainerElement);
             } catch (error) {
                 console.error(error);
                 visualElements.textContent = 'Invalid options.';
             }
         }
-    }
-
-    private renderCartesianChart(typeId: string, element: HTMLElement) {
-        element.textContent = `${typeId} cartesian chart goes here...`;
-    }
-
-    private renderRangeChart(typeId: string, element: HTMLElement) {
-        element.textContent = `${typeId} range chart goes here...`;
-    }
-
-    private renderValues(element: HTMLElement) {
-        element.textContent = 'values table goes here...';
     }
 }
