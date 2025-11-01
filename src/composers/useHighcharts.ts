@@ -37,7 +37,7 @@ export function useHighcharts() {
     }
     // Operations - Render polar chart.
     async function renderPolarChart(type: { id: 'area' | 'column' | 'line' }, viewType: ViewType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
-        await loadHighchartsCore();
+        await Promise.all([loadHighchartsCore(), loadHighchartsMore()]);
         const series: SeriesOptionsType[] = [];
         for (const measure of content.data.measures) {
             series.push({ type: type.id, name: measure.name, data: getMeasureValues([measure.id]) });
