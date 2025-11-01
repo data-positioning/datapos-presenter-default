@@ -1,7 +1,7 @@
 // Dependencies - Vendor.
 import type * as HighchartsType from 'highcharts';
-import type { Axis, ChartCallbackFunction, ChartOptions, LegendOptions, Options, SubtitleOptions, TitleOptions, XAxisOptions, YAxisOptions } from 'highcharts';
-import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesLineOptions } from 'highcharts';
+import type { Axis, ChartCallbackFunction, ChartOptions, LegendOptions, Options, SeriesOptionsType, SubtitleOptions, TitleOptions, XAxisOptions, YAxisOptions } from 'highcharts';
+import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesColumnrangeOptions, SeriesLineOptions } from 'highcharts';
 
 // Dependencies - Framework.
 import { useSampleData } from './useSampleData';
@@ -21,7 +21,7 @@ export function useHighcharts() {
     // Operations - Render cartesian chart.
     async function renderCartesianChart(type: { id: 'area' | 'bar' | 'column' | 'line' }, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await loadHighchartsCore();
-        const series = [];
+        const series: SeriesOptionsType[] = [];
         for (const measure of content.data.measures) {
             series.push({ type: type.id, name: measure.name, data: getMeasureValues([measure.id]) });
         }
@@ -38,7 +38,7 @@ export function useHighcharts() {
     // Operations - Render polar chart.
     async function renderPolarChart(type: { id: 'area' | 'column' | 'line' }, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await loadHighchartsCore();
-        const series = [];
+        const series: SeriesOptionsType[] = [];
         for (const measure of content.data.measures) {
             series.push({ type: type.id, name: measure.name, data: getMeasureValues([measure.id]) });
         }
@@ -56,10 +56,10 @@ export function useHighcharts() {
     // Operations - Render range chart.
     async function renderRangeChart(type: { id: string }, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await Promise.all([loadHighchartsCore(), loadHighchartsMore()]);
-        const series = [];
-        series.push({ type: type.id, name: 'Unknown', data: getMeasureValues([content.data.measures[0].id, content.data.measures[1].id]) });
+        const series: SeriesOptionsType[] = [];
+        series.push({ type: 'columnrange', name: 'Unknown', data: getMeasureValues([content.data.measures[0].id, content.data.measures[1].id]) });
         const options: Options = {
-            chart: { polar: true },
+            chart: { type: 'columnrange' },
             plotOptions: { series: { borderColor: '#333' } },
             series,
             title: { text: content.title.text },
