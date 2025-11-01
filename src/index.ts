@@ -102,9 +102,9 @@ export default class DefaultPresenter implements Presenter {
                     cartesian_bar: { label: { 'en-gb': 'Bar' } },
                     cartesian_column: { label: { 'en-gb': 'Column' } },
                     cartesian_line: { label: { 'en-gb': 'Line' } },
+                    cartesian_radar: { label: { 'en-gb': 'Radar' } },
                     range_bar: { label: { 'en-gb': 'Range (Bar)' } },
                     range_column: { label: { 'en-gb': 'Range (Column)' } },
-                    cartesian_radar: { label: { 'en-gb': 'Radar' } },
                     values: { label: { 'en-gb': 'Values' } }
                 };
 
@@ -134,7 +134,7 @@ export default class DefaultPresenter implements Presenter {
                             break;
                         case 'values':
                             const element = document.createElement('div');
-                            element.textContent = view.category.id;
+                            element.textContent = typeMap[view.category.id].label['en-gb'];
                             tabBarElement.appendChild(element);
                             break;
                     }
