@@ -98,10 +98,12 @@ export default class DefaultPresenter implements Presenter {
                 type ValuesCategory = { category: { id: 'values' } };
 
                 const typeMap: Record<string, { label: Record<string, string> }> = {
-                    area: { label: { 'en-gb': 'Area' } },
-                    bar: { label: { 'en-gb': 'Bar' } },
-                    column: { label: { 'en-gb': 'Column' } },
-                    line: { label: { 'en-gb': 'Line' } },
+                    cartesian_area: { label: { 'en-gb': 'Area' } },
+                    cartesian_bar: { label: { 'en-gb': 'Bar' } },
+                    cartesian_column: { label: { 'en-gb': 'Column' } },
+                    cartesian_line: { label: { 'en-gb': 'Line' } },
+                    range_bar: { label: { 'en-gb': 'Range (Bar)' } },
+                    range_column: { label: { 'en-gb': 'Range (Column)' } },
                     radar: { label: { 'en-gb': 'Radar' } }
                 };
 
@@ -118,14 +120,14 @@ export default class DefaultPresenter implements Presenter {
                         case 'cartesian':
                             for (const type of (view as CartesianCategory).types) {
                                 const element = document.createElement('div');
-                                element.textContent = type.id;
+                                element.textContent = typeMap[`${view.category.id}_${type.id}`].label['en-gb'];
                                 tabBarElement.appendChild(element);
                             }
                             break;
                         case 'range':
                             for (const type of (view as RangeCategory).types) {
                                 const element = document.createElement('div');
-                                element.textContent = typeMap[type.id].label['en-gb'];
+                                element.textContent = typeMap[`${view.category.id}_${type.id}`].label['en-gb'];
                                 tabBarElement.appendChild(element);
                             }
                             break;
