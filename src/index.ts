@@ -22,7 +22,7 @@ export type VisualContentOptions = {
 };
 type CartesianCategory = {
     category: { id: 'cartesian' };
-    types: { id: 'area' | 'bar' | 'column' | 'line' | 'radar'; default?: boolean }[];
+    types: { id: 'area' | 'bar' | 'column' | 'line'; default?: boolean }[];
 };
 type RangeCategory = {
     category: { id: 'range' };
