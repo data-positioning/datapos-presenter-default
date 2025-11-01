@@ -91,23 +91,44 @@ export default class DefaultPresenter implements Presenter {
             const datasetOptions = decodeURIComponent((visualElements as HTMLElement).dataset.options);
             try {
                 type VisualOptions = {
-                    views: [
-                        | { category: { id: 'cartesian' }; types: { id: 'area' | 'bar' | 'column' | 'line' | 'radar' }[] }
-                        | { category: { id: 'range' }; types: { id: 'bar' | 'column' }[] }
-                        | { category: { id: 'values' } }
-                    ];
+                    views: [CartesianCategory | RangeCategory | ValuesCategory];
                 };
+                type CartesianCategory = { category: { id: 'cartesian' }; types: { id: 'area' | 'bar' | 'column' | 'line' | 'radar' }[] };
+                type RangeCategory = { category: { id: 'range' }; types: { id: 'bar' | 'column' }[] };
+                type ValuesCategory = { category: { id: 'values' } };
+
                 const visualOptions = JSON.parse(datasetOptions) as VisualOptions;
                 // for (const series of options.series) {
                 //     (series as SeriesLineOptions).data = this.sampleData.getMeasureValues(series.measureId);
                 // }
                 // element.textContent = '';
                 // Highcharts.chart(element, options);
+                const tabBarElement = document.createElement('div');
+                Object.assign(tabBarElement.style, { display: 'flex' });
                 for (const view of visualOptions.views) {
-                    const element = document.createElement('div');
-                    element.textContent = view.category.id;
-                    visualElements.appendChild(element);
+                    switch (view.category.id) {
+                        case 'cartesian':
+                            for (const type of (view as CartesianCategory).types) {
+                                const element = document.createElement('div');
+                                element.textContent = type.id;
+                                tabBarElement.appendChild(element);
+                            }
+                            break;
+                        case 'range':
+                            for (const type of (view as RangeCategory).types) {
+                                const element = document.createElement('div');
+                                element.textContent = type.id;
+                                tabBarElement.appendChild(element);
+                            }
+                            break;
+                        case 'values':
+                            const element = document.createElement('div');
+                            element.textContent = view.category.id;
+                            tabBarElement.appendChild(element);
+                            break;
+                    }
                 }
+                visualElements.appendChild(tabBarElement);
             } catch (error) {
                 console.error(error);
                 visualElements.textContent = 'Invalid options.';
