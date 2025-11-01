@@ -145,6 +145,7 @@ export default class DefaultPresenter implements Presenter {
                 }
                 visualElements.appendChild(tabBarElement);
                 visualElements.appendChild(viewContainerElement);
+                this.renderCartesianChart('line', viewContainerElement);
             } catch (error) {
                 console.error(error);
                 visualElements.textContent = 'Invalid options.';
@@ -161,6 +162,6 @@ export default class DefaultPresenter implements Presenter {
     }
 
     private renderValues(element: HTMLElement) {
-        element.textContent = 'Values table goes here...';
+        element.textContent = 'values table goes here...';
     }
 }
