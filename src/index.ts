@@ -8,19 +8,19 @@ import config from '~/config.json';
 import configPresentations from '~/configPresentations.json';
 
 // Types
-type VisualOptions = { content: VisualContentOptions; views: [CartesianCategory | PolarCategory | RangeCategory | ValuesCategory] };
+type VisualOptions = { content: VisualContentOptions; views: [CartesianViewCategory | PolarViewCategory | RangeViewCategory | ValuesViewCategory] };
 export type VisualContentOptions = { title: { text: string }; data: { name: string; categoryLabels: string[]; measures: { id: string; name: string }[] } };
-type CartesianCategory = { category: { id: 'cartesian' }; types: { id: 'area' | 'bar' | 'column' | 'line'; default?: boolean }[] };
-type PolarCategory = { category: { id: 'polar' }; types: { id: 'area' | 'column' | 'line'; default?: boolean }[] };
-type RangeCategory = { category: { id: 'range' }; types: { id: 'bar' | 'column'; default?: boolean }[] };
-type ValuesCategory = { category: { id: 'values'; default?: boolean } };
-export type CartesianType = { label: Record<string, string>; options: { highchartsType: 'area' | 'bar' | 'column' | 'line'; inverted?: boolean } };
-export type PolarType = { label: Record<string, string>; options: { highchartsType: 'area' | 'column' | 'line'; inverted?: boolean } };
-export type RangeType = { label: Record<string, string>; options: { highchartsType: 'arearange' | 'columnrange'; inverted?: boolean } };
-export type ValuesType = { label: Record<string, string>; options: {} };
+type CartesianViewCategory = { category: { id: 'cartesian' }; types: { id: 'area' | 'bar' | 'column' | 'line'; default?: boolean }[] };
+type PolarViewCategory = { category: { id: 'polar' }; types: { id: 'area' | 'column' | 'line'; default?: boolean }[] };
+type RangeViewCategory = { category: { id: 'range' }; types: { id: 'bar' | 'column'; default?: boolean }[] };
+type ValuesViewCategory = { category: { id: 'values'; default?: boolean } };
+export type CartesianViewType = { label: Record<string, string>; options: { highchartsType: 'area' | 'bar' | 'column' | 'line'; inverted?: boolean } };
+export type PolarViewType = { label: Record<string, string>; options: { highchartsType: 'area' | 'column' | 'line'; inverted?: boolean } };
+export type RangeViewType = { label: Record<string, string>; options: { highchartsType: 'arearange' | 'columnrange'; inverted?: boolean } };
+export type ValuesViewType = { label: Record<string, string>; options: {} };
 
 // Constants
-const viewTypeMap: Record<string, CartesianType | PolarType | RangeType | ValuesType> = {
+const viewTypeMap: Record<string, CartesianViewType | PolarViewType | RangeViewType | ValuesViewType> = {
     cartesian_area: { label: { 'en-gb': 'Area' }, options: { highchartsType: 'area' } },
     cartesian_bar: { label: { 'en-gb': 'Bar' }, options: { highchartsType: 'bar' } },
     cartesian_column: { label: { 'en-gb': 'Column' }, options: { highchartsType: 'column' } },
@@ -113,16 +113,16 @@ export default class DefaultPresenter implements Presenter {
                 const tabBarElement = document.createElement('div');
                 tabBarElement.className = 'dp-tab-bar';
                 const viewContainerElement = document.createElement('div');
-                let defaultCategory = undefined;
-                let defaultViewType: CartesianType | PolarType | RangeType | ValuesType | undefined = undefined;
+                let defaultViewCategory = undefined;
+                let defaultViewType: CartesianViewType | PolarViewType | RangeViewType | ValuesViewType | undefined = undefined;
                 for (const view of visualOptions.views) {
-                    const category = view.category;
-                    switch (category.id) {
+                    const viewCategory = view.category;
+                    switch (viewCategory.id) {
                         case 'cartesian':
-                            for (const type of (view as CartesianCategory).types) {
-                                const viewType = viewTypeMap[`${category.id}_${type.id}`] as CartesianType;
+                            for (const type of (view as CartesianViewCategory).types) {
+                                const viewType = viewTypeMap[`${viewCategory.id}_${type.id}`] as CartesianViewType;
                                 if (!defaultViewType || type.default) {
-                                    defaultCategory = category;
+                                    defaultViewCategory = viewCategory;
                                     defaultViewType = viewType;
                                 }
                                 const element = document.createElement('div');
@@ -132,10 +132,10 @@ export default class DefaultPresenter implements Presenter {
                             }
                             break;
                         case 'polar':
-                            for (const type of (view as PolarCategory).types) {
-                                const viewType = viewTypeMap[`${category.id}_${type.id}`] as PolarType;
+                            for (const type of (view as PolarViewCategory).types) {
+                                const viewType = viewTypeMap[`${viewCategory.id}_${type.id}`] as PolarViewType;
                                 if (!defaultViewType || type.default) {
-                                    defaultCategory = category;
+                                    defaultViewCategory = viewCategory;
                                     defaultViewType = viewType;
                                 }
                                 const element = document.createElement('div');
@@ -145,10 +145,10 @@ export default class DefaultPresenter implements Presenter {
                             }
                             break;
                         case 'range':
-                            for (const type of (view as RangeCategory).types) {
-                                const viewType = viewTypeMap[`${category.id}_${type.id}`] as RangeType;
+                            for (const type of (view as RangeViewCategory).types) {
+                                const viewType = viewTypeMap[`${viewCategory.id}_${type.id}`] as RangeViewType;
                                 if (!defaultViewType || type.default) {
-                                    defaultCategory = category;
+                                    defaultViewCategory = viewCategory;
                                     defaultViewType = viewType;
                                 }
                                 const element = document.createElement('div');
@@ -158,9 +158,9 @@ export default class DefaultPresenter implements Presenter {
                             }
                             break;
                         case 'values':
-                            const viewType = viewTypeMap[category.id] as ValuesType;
+                            const viewType = viewTypeMap[viewCategory.id] as ValuesViewType;
                             if (!defaultViewType) {
-                                defaultCategory = category;
+                                defaultViewCategory = viewCategory;
                                 defaultViewType = viewType;
                             }
                             const element = document.createElement('div');
@@ -172,18 +172,18 @@ export default class DefaultPresenter implements Presenter {
                 }
                 visualElements.appendChild(tabBarElement);
                 visualElements.appendChild(viewContainerElement);
-                switch (defaultCategory.id) {
+                switch (defaultViewCategory.id) {
                     case 'cartesian':
-                        this.highcharts.renderCartesianChart(defaultViewType as CartesianType, visualOptions.content, viewContainerElement);
+                        this.highcharts.renderCartesianChart(defaultViewType as CartesianViewType, visualOptions.content, viewContainerElement);
                         break;
                     case 'polar':
-                        this.highcharts.renderPolarChart(defaultViewType as PolarType, visualOptions.content, viewContainerElement);
+                        this.highcharts.renderPolarChart(defaultViewType as PolarViewType, visualOptions.content, viewContainerElement);
                         break;
                     case 'range':
-                        this.highcharts.renderRangeChart(defaultViewType as RangeType, visualOptions.content, viewContainerElement);
+                        this.highcharts.renderRangeChart(defaultViewType as RangeViewType, visualOptions.content, viewContainerElement);
                         break;
                     case 'values':
-                        this.dataTable.render(defaultViewType, visualOptions.content, viewContainerElement);
+                        this.dataTable.render(defaultViewType as ValuesViewType, visualOptions.content, viewContainerElement);
                         break;
                 }
             } catch (error) {

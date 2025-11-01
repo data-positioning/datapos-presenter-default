@@ -1,25 +1,26 @@
 // Dependencies - Vendor.
 import type * as HighchartsType from 'highcharts';
-import type { Axis, ChartCallbackFunction, ChartOptions, LegendOptions, Options, SeriesOptionsType, SubtitleOptions, TitleOptions, XAxisOptions, YAxisOptions } from 'highcharts';
-import type { Series, SeriesAreaOptions, SeriesBarOptions, SeriesColumnOptions, SeriesColumnrangeOptions, SeriesLineOptions } from 'highcharts';
+import type { Options, SeriesOptionsType } from 'highcharts';
 
 // Dependencies - Framework.
 import { useSampleData } from './useSampleData';
-import type { CartesianType, PolarType, RangeType, VisualContentOptions } from '@/index';
+import type { CartesianViewType, PolarViewType, RangeViewType, VisualContentOptions } from '@/index';
 
 // Constants
 const downloadURLPrefix = 'https://cdn.jsdelivr.net/npm/highcharts@11.4.3/es-modules/masters/';
 
 // Module Variables
+let dependencywheelAndSankeyLoaded = false;
 let Highcharts: typeof HighchartsType | undefined = undefined;
 let highchartsMoreLoaded = false;
+let streamgraphLoaded = false;
 
 const { getMeasureValues } = useSampleData();
 
 // Composables - Use highcharts.
 export function useHighcharts() {
     // Operations - Render cartesian chart.
-    async function renderCartesianChart(type: CartesianType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
+    async function renderCartesianChart(type: CartesianViewType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await loadHighchartsCore();
         const series: SeriesOptionsType[] = [];
         for (const measure of content.data.measures) {
@@ -36,7 +37,7 @@ export function useHighcharts() {
         Highcharts.chart(element, options);
     }
     // Operations - Render polar chart.
-    async function renderPolarChart(type: PolarType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
+    async function renderPolarChart(type: PolarViewType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await Promise.all([loadHighchartsCore(), loadHighchartsMore()]);
         const series: SeriesOptionsType[] = [];
         for (const measure of content.data.measures) {
@@ -54,7 +55,7 @@ export function useHighcharts() {
     }
 
     // Operations - Render range chart.
-    async function renderRangeChart(type: RangeType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
+    async function renderRangeChart(type: RangeViewType, content: VisualContentOptions, element: HTMLElement): Promise<void> {
         await Promise.all([loadHighchartsCore(), loadHighchartsMore()]);
         const series: SeriesOptionsType[] = [];
         series.push({ type: type.options.highchartsType, name: 'Unknown', data: getMeasureValues([content.data.measures[0].id, content.data.measures[1].id]) });
@@ -85,6 +86,23 @@ export function useHighcharts() {
         const moreDownloadURL = `${downloadURLPrefix}highcharts-more.src.js`;
         await import(/* @vite-ignore */ moreDownloadURL);
         highchartsMoreLoaded = true;
+    }
+
+    // Utilities - Load dependencywheel and sankey.
+    async function loadDependencywheelAndSankey(): Promise<void> {
+        if (dependencywheelAndSankeyLoaded) return;
+        const dependencywheelDownloadURL = `${downloadURLPrefix}modules/dependency-wheel.src.js`;
+        const sankeyDownloadURL = `${downloadURLPrefix}modules/sankey.src.js`;
+        await Promise.all([import(/* @vite-ignore */ dependencywheelDownloadURL), import(/* @vite-ignore */ sankeyDownloadURL)]);
+        dependencywheelAndSankeyLoaded = true;
+    }
+
+    // Utilities - Load streamgraph.
+    async function loadStreamgraph(): Promise<void> {
+        if (streamgraphLoaded) return;
+        const streamgraphDownloadURL = `${downloadURLPrefix}modules/streamgraph.src.js`;
+        await import(/* @vite-ignore */ streamgraphDownloadURL);
+        streamgraphLoaded = true;
     }
 
     // Exposures
