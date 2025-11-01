@@ -97,6 +97,14 @@ export default class DefaultPresenter implements Presenter {
                 type RangeCategory = { category: { id: 'range' }; types: { id: 'bar' | 'column' }[] };
                 type ValuesCategory = { category: { id: 'values' } };
 
+                const typeMap: Record<string, { label: Record<string, string> }> = {
+                    area: { label: { 'en-gb': 'Area' } },
+                    bar: { label: { 'en-gb': 'Bar' } },
+                    column: { label: { 'en-gb': 'Column' } },
+                    line: { label: { 'en-gb': 'Line' } },
+                    radar: { label: { 'en-gb': 'Radar' } }
+                };
+
                 const visualOptions = JSON.parse(datasetOptions) as VisualOptions;
                 // for (const series of options.series) {
                 //     (series as SeriesLineOptions).data = this.sampleData.getMeasureValues(series.measureId);
@@ -117,7 +125,7 @@ export default class DefaultPresenter implements Presenter {
                         case 'range':
                             for (const type of (view as RangeCategory).types) {
                                 const element = document.createElement('div');
-                                element.textContent = type.id;
+                                element.textContent = typeMap[type.id].label['en-gb'];
                                 tabBarElement.appendChild(element);
                             }
                             break;
