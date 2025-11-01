@@ -112,7 +112,7 @@ export default class DefaultPresenter implements Presenter {
                 // element.textContent = '';
                 // Highcharts.chart(element, options);
                 const tabBarElement = document.createElement('div');
-                Object.assign(tabBarElement.style, { display: 'flex' });
+                Object.assign(tabBarElement.style, { display: 'flex', 'column-gap': '8px' });
                 for (const view of visualOptions.views) {
                     switch (view.category.id) {
                         case 'cartesian':
