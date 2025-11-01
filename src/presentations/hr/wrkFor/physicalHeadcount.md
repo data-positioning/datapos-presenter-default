@@ -59,7 +59,7 @@ Describe opening/closing headcounts...
 
 Quantifies the variation in physical headcount between the starting and ending of specific reporting periods.
 
-```json datapos-highcharts-chart
+```json
 {
     "chart": { "type": "line", "otherTypes": ["area", "bar", "barRange", "column", "columnRange", "radar", "values"] },
     "plotOptions": { "series": { "borderColor": "#333" } },
@@ -79,7 +79,7 @@ Describe starting ending headcounts...
 
 ...
 
-```json datapos-highcharts-chart
+```json
 {
     "chart": { "type": "columnrange" },
     "accessibility": { "description": "Image description: A column range chart compares the... " },
