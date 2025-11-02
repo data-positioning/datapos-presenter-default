@@ -1,8 +1,8 @@
 ---
 label:
-    en: Average Headcount
+    en-gb: Average Headcount
 description:
-    en: This is a description...
+    en-gb: This is a description...
 order: 2
 ---
 

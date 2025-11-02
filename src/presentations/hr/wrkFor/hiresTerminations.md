@@ -1,8 +1,8 @@
 ---
 label:
-    en: Hires & Terminations
+    en-gb: Hires & Terminations
 description:
-    en: This is a description...
+    en-gb: This is a description...
 order: 3
 ---
 

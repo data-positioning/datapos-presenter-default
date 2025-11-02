@@ -1,8 +1,8 @@
 ---
 label:
-    en: Physical Headcount
+    en-gb: Physical Headcount
 description:
-    en: This is a description...
+    en-gb: This is a description...
 order: 1
 ---
 

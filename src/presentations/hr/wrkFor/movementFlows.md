@@ -1,8 +1,8 @@
 ---
 label:
-    en: Movement Flows
+    en-gb: Movement Flows
 description:
-    en: This is a description...
+    en-gb: This is a description...
 order: 6
 ---
 

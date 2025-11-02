@@ -3,18 +3,20 @@ import { promises as fs } from 'fs';
 import frontMatter from 'front-matter';
 import path from 'path';
 
+import type { PresentationConfig } from '@datapos/datapos-shared';
+
 // Declarations
 type PresentationItem = PresentationFolderItem | PresentationFileItem;
 type PresentationFolderItem = { id: string; typeId: 'folder'; children: PresentationItem[] };
 type PresentationFileItem = { id: string; typeId: 'file' };
 
-type PresentationThing = { attributes: { label: Record<string, string>; description: Record<string, string>; order: number }; content: string };
+// type PresentationThing = { attributes: { label: Record<string, string>; description: Record<string, string>; order: number }; content: string };
 
 // Operations - Construct presentation configuration.
 async function constructPresentationConfig() {
     const topPath = 'src/presentations';
     const topPresentationItem: PresentationFolderItem = { id: 'top', typeId: 'folder', children: [] };
-    const presentationMap: Record<string, PresentationThing> = {};
+    const presentationMap: Record<string, PresentationConfig> = {};
     await constructPresentationItems(topPath, topPresentationItem, presentationMap);
 
     await fs.writeFile('./configPresentations.json', JSON.stringify(presentationMap));
@@ -29,7 +31,7 @@ async function constructPresentationConfig() {
     await fs.writeFile('config.json', JSON.stringify(config, undefined, 4));
 
     // Utilities - Construct presentation item.
-    async function constructPresentationItems(dirPath: string, presentationItem: PresentationFolderItem, presentationMap: Record<string, PresentationThing>) {
+    async function constructPresentationItems(dirPath: string, presentationItem: PresentationFolderItem, presentationMap: Record<string, PresentationConfig>) {
         const dirItems = await fs.readdir(dirPath);
         for (const itemName of dirItems) {
             const itemPath = `${dirPath}/${itemName}`;
@@ -44,8 +46,14 @@ async function constructPresentationConfig() {
                 if (!itemContent) continue;
                 const things = dirPath.substring(topPath.length + 1).split('/');
                 var content = frontMatter<{ label: Record<string, string>; description: Record<string, string>; order: number }>(itemContent);
-                console.log(content);
-                presentationMap[`${things.join('/')}/${path.basename(itemPath, '.md')}`] = {
+                const id = `${things.join('/')}/${path.basename(itemPath, '.md')}`;
+                presentationMap[id] = {
+                    id,
+                    label: content.attributes.label,
+                    description: content.attributes.description,
+                    order: content.attributes.order,
+                    statusId: 'alpha',
+                    typeId: 'presenterPresentation',
                     attributes: {
                         label: content.attributes.label,
                         description: content.attributes.description,

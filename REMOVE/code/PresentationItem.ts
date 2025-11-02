@@ -63,7 +63,7 @@ export default class PresentationItem implements IPresentationItem {
     private buildBasicChartOptions(options: IBasicChartOptions, data: IPresentationData): Options {
         return {
             chart: buildChartOptions(options.typeId, options.isPolar),
-            title: buildTitleOptions(this.label.en),
+            title: buildTitleOptions(this.label['en-gb']),
             subtitle: buildSubtitleOptions('by Month for 2023'),
             xAxis: buildXAxisOptions(
                 data.dimensions.intervals.map((interval) => interval.label),

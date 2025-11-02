@@ -77,9 +77,9 @@ export default class DefaultPresenter implements Presenter {
         const processedMarkdown = presentation.content.replace(/\{\{(\w+)\}\}/g, (_, key: keyof typeof presentation.attributes) => {
             switch (key) {
                 case 'label':
-                    return presentation.attributes[key].en ?? `{{${key}}}`;
+                    return presentation.attributes[key]['en-gb'] ?? `{{${key}}}`;
                 case 'description':
-                    return presentation.attributes[key].en ?? `{{${key}}}`;
+                    return presentation.attributes[key]['en-gb'] ?? `{{${key}}}`;
                 default:
                     return String(presentation.attributes[key]) ?? `{{${key}}}`;
             }
@@ -116,6 +116,7 @@ export default class DefaultPresenter implements Presenter {
                 let defaultViewCategory = undefined;
                 let defaultViewType: CartesianViewType | PolarViewType | RangeViewType | ValuesViewType | undefined = undefined;
                 for (const view of visualOptions.views) {
+                    // TODO: Collapse category and type into type.
                     const viewCategory = view.category;
                     switch (viewCategory.id) {
                         case 'cartesian':
