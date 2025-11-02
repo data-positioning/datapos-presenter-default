@@ -3,14 +3,12 @@ import { promises as fs } from 'fs';
 import frontMatter from 'front-matter';
 import path from 'path';
 
-import type { PresentationConfig } from '@datapos/datapos-shared';
+import type { ComponentRef, PresentationConfig } from '@datapos/datapos-shared';
 
 // Declarations
 type PresentationItem = PresentationFolderItem | PresentationFileItem;
 type PresentationFolderItem = { id: string; typeId: 'folder'; children: PresentationItem[] };
 type PresentationFileItem = { id: string; typeId: 'file' };
-
-// type PresentationThing = { attributes: { label: Record<string, string>; description: Record<string, string>; order: number }; content: string };
 
 // Operations - Construct presentation configuration.
 async function constructPresentationConfig() {
@@ -22,14 +20,15 @@ async function constructPresentationConfig() {
     await fs.writeFile('./configPresentations.json', JSON.stringify(presentationMap));
 
     const config = await JSON.parse(await fs.readFile('config.json', 'utf8'));
-    console.log(presentationMap);
-    config.presentations = Object.entries(presentationMap).map((item) => ({
-        id: item[1].id,
-        label: item[1].attributes.label,
-        description: item[1].attributes.description,
-        order: item[1].attributes.order,
-        path: item[0]
-    }));
+    config.presentations = Object.entries(presentationMap).map(
+        (item): ComponentRef => ({
+            id: item[1].id,
+            label: item[1].label,
+            description: item[1].description,
+            order: item[1].order,
+            path: item[0]
+        })
+    );
     await fs.writeFile('config.json', JSON.stringify(config, undefined, 4));
 
     // Utilities - Construct presentation item.
@@ -56,11 +55,6 @@ async function constructPresentationConfig() {
                     order: content.attributes.order,
                     statusId: 'alpha',
                     typeId: 'presenterPresentation',
-                    attributes: {
-                        label: content.attributes.label,
-                        description: content.attributes.description,
-                        order: content.attributes.order
-                    },
                     content: content.body // TODO: Can we remove all padding such as "\n  "? Maybe 'dedent' on frontmatter? Parse and stringify on JSON?
                 };
                 const childItem: PresentationFileItem = { id: itemName, typeId: 'file' };
