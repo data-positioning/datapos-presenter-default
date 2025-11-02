@@ -7,13 +7,12 @@ import type { ComponentRef, PresentationConfig, Presenter, PresenterConfig, Pres
 import config from '~/config.json';
 import configPresentations from '~/configPresentations.json';
 
-// Types
-type VisualOptions = { content: VisualContentOptions; views: [CartesianViewCategory | PolarViewCategory | RangeViewCategory | ValuesViewCategory] };
+export type VisualOptions = { content: VisualContentOptions; views: [CartesianViewCategory | PolarViewCategory | RangeViewCategory | ValuesViewCategory] };
 export type VisualContentOptions = { title: { text: string }; data: { name: string; categoryLabels: string[]; measures: { id: string; name: string }[] } };
-type CartesianViewCategory = { category: { id: 'cartesian' }; types: { id: 'area' | 'bar' | 'column' | 'line'; default?: boolean }[] };
-type PolarViewCategory = { category: { id: 'polar' }; types: { id: 'area' | 'column' | 'line'; default?: boolean }[] };
-type RangeViewCategory = { category: { id: 'range' }; types: { id: 'bar' | 'column'; default?: boolean }[] };
-type ValuesViewCategory = { category: { id: 'values'; default?: boolean } };
+export type CartesianViewCategory = { category: { id: 'cartesian' }; types: { id: 'area' | 'bar' | 'column' | 'line'; default?: boolean }[] };
+export type PolarViewCategory = { category: { id: 'polar' }; types: { id: 'area' | 'column' | 'line'; default?: boolean }[] };
+export type RangeViewCategory = { category: { id: 'range' }; types: { id: 'bar' | 'column'; default?: boolean }[] };
+export type ValuesViewCategory = { category: { id: 'values'; default?: boolean } };
 export type CartesianViewType = { label: Record<string, string>; options: { highchartsType: 'area' | 'bar' | 'column' | 'line'; inverted?: boolean } };
 export type PolarViewType = { label: Record<string, string>; options: { highchartsType: 'area' | 'column' | 'line'; inverted?: boolean } };
 export type RangeViewType = { label: Record<string, string>; options: { highchartsType: 'arearange' | 'columnrange'; inverted?: boolean } };
@@ -25,12 +24,15 @@ const viewTypeMap: Record<string, CartesianViewType | PolarViewType | RangeViewT
     cartesian_bar: { label: { 'en-gb': 'Bar' }, options: { highchartsType: 'bar' } },
     cartesian_column: { label: { 'en-gb': 'Column' }, options: { highchartsType: 'column' } },
     cartesian_line: { label: { 'en-gb': 'Line' }, options: { highchartsType: 'line' } },
+    chordDiagram: { label: { 'en-gb': 'Chord Diagram' }, options: {} },
     polar_area: { label: { 'en-gb': 'Radar (Area)' }, options: { highchartsType: 'area' } },
     polar_column: { label: { 'en-gb': 'Radar (Column)' }, options: { highchartsType: 'column' } },
     polar_line: { label: { 'en-gb': 'Radar (Line)' }, options: { highchartsType: 'line' } },
     range_area: { label: { 'en-gb': 'Range (Area)' }, options: { highchartsType: 'arearange' } },
     range_bar: { label: { 'en-gb': 'Range (Bar)' }, options: { highchartsType: 'columnrange', inverted: true } },
     range_column: { label: { 'en-gb': 'Range (Column)' }, options: { highchartsType: 'columnrange' } },
+    sankeyDiagram: { label: { 'en-gb': 'Sankey Diagram' }, options: {} },
+    streamgraph: { label: { 'en-gb': 'Streamgraph' }, options: {} },
     values: { label: { 'en-gb': 'Values' }, options: {} }
 };
 
@@ -52,9 +54,6 @@ export default class DefaultPresenter implements Presenter {
     list(): ComponentRef[] {
         return this.config.presentations;
     }
-
-    // Utilities -
-    substituteParam(key: string, value: string): void {}
 
     // Operations - Render.
     async render(presentationPath: keyof typeof configPresentations, renderTo: HTMLElement): Promise<void> {
