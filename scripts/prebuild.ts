@@ -22,11 +22,13 @@ async function constructPresentationConfig() {
     await fs.writeFile('./configPresentations.json', JSON.stringify(presentationMap));
 
     const config = await JSON.parse(await fs.readFile('config.json', 'utf8'));
+    console.log(presentationMap);
     config.presentations = Object.entries(presentationMap).map((item) => ({
-        path: item[0],
+        id: item[1].id,
         label: item[1].attributes.label,
         description: item[1].attributes.description,
-        order: item[1].attributes.order
+        order: item[1].attributes.order,
+        path: item[0]
     }));
     await fs.writeFile('config.json', JSON.stringify(config, undefined, 4));
 
@@ -48,7 +50,7 @@ async function constructPresentationConfig() {
                 var content = frontMatter<{ label: Record<string, string>; description: Record<string, string>; order: number }>(itemContent);
                 const id = `${things.join('/')}/${path.basename(itemPath, '.md')}`;
                 presentationMap[id] = {
-                    id,
+                    id: id.replace(/\/(.)/g, (_, c) => c.toUpperCase()),
                     label: content.attributes.label,
                     description: content.attributes.description,
                     order: content.attributes.order,

@@ -1,7 +1,7 @@
 // Dependencies - Framework.
 import { useDataTable } from '@/composers/useDataTable';
 import { useHighcharts } from '@/composers/useHighcharts';
-import type { Presenter, PresenterConfig, PresenterItemConfig, PresenterLocalisedConfig, PresenterTools } from '@datapos/datapos-shared';
+import type { ComponentRef, PresentationConfig, Presenter, PresenterConfig, PresenterLocalisedConfig, PresenterTools } from '@datapos/datapos-shared';
 
 // Dependencies - Data.
 import config from '~/config.json';
@@ -48,42 +48,24 @@ export default class DefaultPresenter implements Presenter {
         this.highcharts = useHighcharts();
     }
 
-    getIndex(): PresenterItemConfig[] {
-        // @ts-expect-error
+    // Operations - List.
+    list(): ComponentRef[] {
         return this.config.presentations;
     }
 
-    list(path: string = ''): PresenterItemConfig[] {
-        const pathSegments = path.split('/');
-        // @ts-expect-error
-        let items = this.config.presentations;
-        for (let segmentIndex = 1; segmentIndex < pathSegments.length; segmentIndex++) {
-            // @ts-expect-error
-            const childItem = items.find((item) => item.name === pathSegments[segmentIndex]);
-            if (childItem && childItem.typeId === 'folder') {
-                items = childItem.items || [];
-            } else {
-                return []; // Path is invalid.
-            }
-        }
-        return items;
-    }
+    // Utilities -
+    substituteParam(key: string, value: string): void {}
 
+    // Operations - Render.
     async render(presentationPath: keyof typeof configPresentations, renderTo: HTMLElement): Promise<void> {
         // Use presentation path to retrieve presentation.
-        const presentation = configPresentations[presentationPath];
+        const presentation = configPresentations[presentationPath] as PresentationConfig;
 
-        // Substitute arguments in content.
-        const processedMarkdown = presentation.content.replace(/\{\{(\w+)\}\}/g, (_, key: keyof typeof presentation.attributes) => {
-            switch (key) {
-                case 'label':
-                    return presentation.attributes[key]['en-gb'] ?? `{{${key}}}`;
-                case 'description':
-                    return presentation.attributes[key]['en-gb'] ?? `{{${key}}}`;
-                default:
-                    return String(presentation.attributes[key]) ?? `{{${key}}}`;
-            }
-        });
+        // Substitute values for label and description placeholders in content.
+        let processedMarkdown = presentation.content;
+        processedMarkdown = processedMarkdown
+            .replace(/\{\{label\}\}/g, presentation.label?.['en-gb'] ?? `{{label}}`)
+            .replace(/\{\{description\}\}/g, presentation.description?.['en-gb'] ?? `{{description}}`);
 
         // Construct markdown parser.
         const markdownParser = new this.tools.markdownIt();
@@ -94,9 +76,8 @@ export default class DefaultPresenter implements Presenter {
             const typeId = infoSegments[1]?.trim() ?? undefined;
             const content = token.content;
             switch (typeId) {
-                case 'datapos-visual': {
+                case 'datapos-visual':
                     return `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
-                }
                 default:
                     return `<pre><code class="language-${langName}">${content}</code></pre>`;
             }

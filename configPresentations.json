@@ -1,6 +1,6 @@
 {
     "hr/wrkFor/averageHeadcount": {
-        "id": "src/presentations/hr/wrkFor/averageHeadcount.md",
+        "id": "hrWrkForAverageHeadcount",
         "label": { "en-gb": "Average Headcount" },
         "description": { "en-gb": "This is a description..." },
         "order": 2,
@@ -10,7 +10,7 @@
         "content": "Human Resources - Workforce\n\n...\n"
     },
     "hr/wrkFor/ftes": {
-        "id": "src/presentations/hr/wrkFor/ftes.md",
+        "id": "hrWrkForFtes",
         "label": { "en-gb": "Full-Time Equivalents" },
         "description": { "en-gb": "This is a description..." },
         "order": 4,
@@ -20,7 +20,7 @@
         "content": "Human Resources - Workforce\n\n...\n"
     },
     "hr/wrkFor/headcountSummary": {
-        "id": "src/presentations/hr/wrkFor/headcountSummary.md",
+        "id": "hrWrkForHeadcountSummary",
         "label": { "en-gb": "Headcount Summary" },
         "description": { "en-gb": "This is a description..." },
         "order": 7,
@@ -30,7 +30,7 @@
         "content": ""
     },
     "hr/wrkFor/hiresTerminations": {
-        "id": "src/presentations/hr/wrkFor/hiresTerminations.md",
+        "id": "hrWrkForHiresTerminations",
         "label": { "en-gb": "Hires & Terminations" },
         "description": { "en-gb": "This is a description..." },
         "order": 3,
@@ -40,7 +40,7 @@
         "content": "Human Resources - Workforce\n\nPeople joining and leaving the workforce...\n\n## Hires\n\nNew Hires & Rehires vs External & Internal Hires...\n\n## Hire Rate\n\n...\n\n## Terminations\n\n...\n\n## Termination Rate\n\n...\n\n## Headcount Progression\n\n...\n\n## Net Growth Ratio\n\n...\n\n## Retention Rate\n\n...\n"
     },
     "hr/wrkFor/movementFlows": {
-        "id": "src/presentations/hr/wrkFor/movementFlows.md",
+        "id": "hrWrkForMovementFlows",
         "label": { "en-gb": "Movement Flows" },
         "description": { "en-gb": "This is a description..." },
         "order": 6,
@@ -50,7 +50,7 @@
         "content": "Human Resources - Workforce\n\n...\n\n## Single Step Summary Flow (Chord Diagram)\n\n...\n\n## Multi Step Summary Flow (Sankey Diagram)\n\n...\n\n## Detailed Flow (Markov Diagram)\n"
     },
     "hr/wrkFor/movements": {
-        "id": "src/presentations/hr/wrkFor/movements.md",
+        "id": "hrWrkForMovements",
         "label": { "en-gb": "Movements (Entry, Internal & Exit)" },
         "description": { "en-gb": "This is a description..." },
         "order": 5,
@@ -60,7 +60,7 @@
         "content": "Human Resources - Workforce\n\n## Movements - Table (Values & Sparklines)\n\n...\n\n## Movements - Bar Chart\n\n...\n\n## Movements - Stream Chart\n\n...\n\n## Internal Movements\n\n...\n\n## Movements - Waterfall Chart\n\n...\n\n## Net Movements\n\n...\n\n## Other\n\n...\n\n![](./movementDiagram.png)\n\n[PeopleFluent](https://www.peoplefluent.com/blog/insights/8-data-visualizations-with-peoplefluent-performance-compensation-succession/)\n"
     },
     "hr/wrkFor/physicalHeadcount": {
-        "id": "src/presentations/hr/wrkFor/physicalHeadcount.md",
+        "id": "hrWrkForPhysicalHeadcount",
         "label": { "en-gb": "Physical Headcount" },
         "description": { "en-gb": "This is a description..." },
         "order": 1,

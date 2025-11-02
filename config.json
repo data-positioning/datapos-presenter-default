@@ -8,77 +8,84 @@
     },
     "statusId": "alpha",
     "typeId": "presenter",
-    "version": "0.1.692",
+    "version": "0.1.693",
     "presentations": [
         {
-            "path": "hr/wrkFor/averageHeadcount",
+            "id": "hrWrkForAverageHeadcount",
             "label": {
                 "en-gb": "Average Headcount"
             },
             "description": {
                 "en-gb": "This is a description..."
             },
-            "order": 2
+            "order": 2,
+            "path": "hr/wrkFor/averageHeadcount"
         },
         {
-            "path": "hr/wrkFor/ftes",
+            "id": "hrWrkForFtes",
             "label": {
                 "en-gb": "Full-Time Equivalents"
             },
             "description": {
                 "en-gb": "This is a description..."
             },
-            "order": 4
+            "order": 4,
+            "path": "hr/wrkFor/ftes"
         },
         {
-            "path": "hr/wrkFor/headcountSummary",
+            "id": "hrWrkForHeadcountSummary",
             "label": {
                 "en-gb": "Headcount Summary"
             },
             "description": {
                 "en-gb": "This is a description..."
             },
-            "order": 7
+            "order": 7,
+            "path": "hr/wrkFor/headcountSummary"
         },
         {
-            "path": "hr/wrkFor/hiresTerminations",
+            "id": "hrWrkForHiresTerminations",
             "label": {
                 "en-gb": "Hires & Terminations"
             },
             "description": {
                 "en-gb": "This is a description..."
             },
-            "order": 3
+            "order": 3,
+            "path": "hr/wrkFor/hiresTerminations"
         },
         {
-            "path": "hr/wrkFor/movementFlows",
+            "id": "hrWrkForMovementFlows",
             "label": {
                 "en-gb": "Movement Flows"
             },
             "description": {
                 "en-gb": "This is a description..."
             },
-            "order": 6
+            "order": 6,
+            "path": "hr/wrkFor/movementFlows"
         },
         {
-            "path": "hr/wrkFor/movements",
+            "id": "hrWrkForMovements",
             "label": {
                 "en-gb": "Movements (Entry, Internal & Exit)"
             },
             "description": {
                 "en-gb": "This is a description..."
             },
-            "order": 5
+            "order": 5,
+            "path": "hr/wrkFor/movements"
         },
         {
-            "path": "hr/wrkFor/physicalHeadcount",
+            "id": "hrWrkForPhysicalHeadcount",
             "label": {
                 "en-gb": "Physical Headcount"
             },
             "description": {
                 "en-gb": "This is a description..."
             },
-            "order": 1
+            "order": 1,
+            "path": "hr/wrkFor/physicalHeadcount"
         }
     ]
 }
