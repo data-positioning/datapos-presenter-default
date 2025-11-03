@@ -67,7 +67,7 @@ export default class DefaultPresenter implements Presenter {
             .replace(/\{\{description\}\}/g, presentation.description?.['en-gb'] ?? `{{description}}`);
 
         // Construct markdown parser.
-        const markdownParser = new this.tools.markdownIt();
+        const markdownParser = new this.tools.markdownIt({ html: true });
         markdownParser.renderer.rules.fence = (tokens, index) => {
             const token = tokens[index];
             const infoSegments = token.info.split(' ');
