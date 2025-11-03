@@ -8,7 +8,7 @@ order: 1
 
 # {{label}}
 
-Human Resources - Workforce
+<b>Human Resources - Workforce</b>
 
 {{description}}
 
