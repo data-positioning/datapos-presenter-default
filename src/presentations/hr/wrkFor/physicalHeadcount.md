@@ -135,3 +135,11 @@ for (const item of items) {
 console.log('A very long line of text that will test how the code block wraps on narrow screens, hope this works.');
 console.log(count);
 ```
+
+| Col 1       | Col 2       |
+| ----------- | ----------- |
+| Row 1 Val 1 | Row 1 Val 2 |
+| Row 2 Val 1 | Row 2 Val 2 |
+| Row 3 Val 1 | Row 3 Val 2 |
+| Row 4 Val 1 | Row 4 Val 2 |
+| Row 5 Val 1 | Row 5 Val 2 |
