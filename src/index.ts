@@ -1,8 +1,8 @@
 // Dependencies - Framework.
 import type { ComponentRef } from '@datapos/datapos-shared';
 import { presentationViewTypeMap } from '@datapos/datapos-shared';
-import { useDataTable } from '@/composers/useDataTable';
-import { useHighcharts } from '@/composers/useHighcharts';
+import { useDataTable } from '@datapos/datapos-shared';
+import { useHighcharts } from '@datapos/datapos-shared';
 import type { PresentationConfig, PresentationVisualConfig, PresentationVisualViewType } from '@datapos/datapos-shared';
 import type {
     PresentationVisualCartesianViewConfig,
