@@ -132,5 +132,6 @@ let count = 0;
 for (const item of items) {
     count++;
 }
+console.log('A very long line of text that will test how the code block wraps on narrow screens, hope this works.');
 console.log(count);
 ```
