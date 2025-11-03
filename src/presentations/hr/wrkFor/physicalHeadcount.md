@@ -26,7 +26,7 @@ Quantifies the variation in physical headcount between the opening and closing o
         "title": { "text": "Opening/Closing Headcount" },
         "data": {
             "name": "Headcount",
-            "categoryLabels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            "categoryLabels": { "values": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
             "measures": [
                 { "id": "openingHeadcount", "name": "Opening" },
                 { "id": "closingHeadcount", "name": "Closing" }
@@ -34,17 +34,17 @@ Quantifies the variation in physical headcount between the opening and closing o
         }
     },
     "views": [
-        { "category": { "id": "cartesian" }, "types": { "id": "area" } },
-        { "category": { "id": "cartesian" }, "types": { "id": "bar" } },
-        { "category": { "id": "cartesian" }, "types": { "id": "column" } },
-        { "category": { "id": "cartesian" }, "types": { "id": "line", "default": true } },
-        { "category": { "id": "polar" }, "types": { "id": "area" } },
-        { "category": { "id": "polar" }, "types": { "id": "column" } },
-        { "category": { "id": "polar" }, "types": { "id": "line" } },
-        { "category": { "id": "range" }, "types": { "id": "area" } },
-        { "category": { "id": "range" }, "types": { "id": "bar" } },
-        { "category": { "id": "range" }, "types": { "id": "column" } },
-        { "category": { "id": "values" } }
+        { "categoryId": "cartesian", "typeId": "area" },
+        { "categoryId": "cartesian", "typeId": "bar" },
+        { "categoryId": "cartesian", "typeId": "column" },
+        { "categoryId": "cartesian", "typeId": "line", "default": true },
+        { "categoryId": "polar", "typeId": "area" },
+        { "categoryId": "polar", "typeId": "column" },
+        { "categoryId": "polar", "typeId": "line" },
+        { "categoryId": "range", "typeId": "area" },
+        { "categoryId": "range", "typeId": "bar" },
+        { "categoryId": "range", "typeId": "column" },
+        { "categoryId": "values" }
     ]
 }
 ```
@@ -61,7 +61,7 @@ Quantifies the variation in physical headcount between the starting and ending o
         "title": { "text": "Starting/Ending Headcount" },
         "data": {
             "name": "Headcount",
-            "categoryLabels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            "categoryLabels": { "values": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
             "measures": [
                 { "id": "startingHeadcount", "name": "Starting" },
                 { "id": "endingHeadcount", "name": "Ending" }
@@ -69,13 +69,13 @@ Quantifies the variation in physical headcount between the starting and ending o
         }
     },
     "views": [
-        { "category": { "id": "cartesian" }, "type": { "id": "column" } },
-        { "category": { "id": "cartesian" }, "type": { "id": "line" }, "default": true },
-        { "category": { "id": "polar" }, "type": { "id": "column" } },
-        { "category": { "id": "polar" }, "type": { "id": "line" } },
-        { "category": { "id": "range" }, "type": { "id": "area" } },
-        { "category": { "id": "range" }, "type": { "id": "column" } },
-        { "category": { "id": "values" } }
+        { "categoryId": "cartesian", "typeId": "column" },
+        { "categoryId": "cartesian", "typeId": "line", "default": true },
+        { "categoryId": "polar", "typeId": "column" },
+        { "categoryId": "polar", "typeId": "line" },
+        { "categoryId": "range", "typeId": "area" },
+        { "categoryId": "range", "typeId": "column" },
+        { "categoryId": "values" }
     ]
 }
 ```
