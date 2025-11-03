@@ -34,9 +34,16 @@ Quantifies the variation in physical headcount between the opening and closing o
         }
     },
     "views": [
-        { "category": { "id": "cartesian" }, "types": [{ "id": "area" }, { "id": "bar" }, { "id": "column" }, { "id": "line", "default": true }] },
-        { "category": { "id": "polar" }, "types": [{ "id": "area" }, { "id": "column" }, { "id": "line" }] },
-        { "category": { "id": "range" }, "types": [{ "id": "area" }, { "id": "bar" }, { "id": "column" }] },
+        { "category": { "id": "cartesian" }, "types": { "id": "area" } },
+        { "category": { "id": "cartesian" }, "types": { "id": "bar" } },
+        { "category": { "id": "cartesian" }, "types": { "id": "column" } },
+        { "category": { "id": "cartesian" }, "types": { "id": "line", "default": true } },
+        { "category": { "id": "polar" }, "types": { "id": "area" } },
+        { "category": { "id": "polar" }, "types": { "id": "column" } },
+        { "category": { "id": "polar" }, "types": { "id": "line" } },
+        { "category": { "id": "range" }, "types": { "id": "area" } },
+        { "category": { "id": "range" }, "types": { "id": "bar" } },
+        { "category": { "id": "range" }, "types": { "id": "column" } },
         { "category": { "id": "values" } }
     ]
 }
@@ -62,9 +69,12 @@ Quantifies the variation in physical headcount between the starting and ending o
         }
     },
     "views": [
-        { "category": { "id": "cartesian" }, "types": [{ "id": "column" }, { "id": "line", "default": true }] },
-        { "category": { "id": "polar" }, "types": [{ "id": "column" }, { "id": "line" }] },
-        { "category": { "id": "range" }, "types": [{ "id": "area" }, { "id": "column" }] },
+        { "category": { "id": "cartesian" }, "type": { "id": "column" } },
+        { "category": { "id": "cartesian" }, "type": { "id": "line" }, "default": true },
+        { "category": { "id": "polar" }, "type": { "id": "column" } },
+        { "category": { "id": "polar" }, "type": { "id": "line" } },
+        { "category": { "id": "range" }, "type": { "id": "area" } },
+        { "category": { "id": "range" }, "type": { "id": "column" } },
         { "category": { "id": "values" } }
     ]
 }
