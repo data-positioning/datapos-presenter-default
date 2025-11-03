@@ -21,6 +21,7 @@ import type { Presenter, PresenterConfig, PresenterLocalisedConfig, PresenterToo
 // Dependencies - Data.
 import config from '~/config.json';
 import configPresentations from '~/configPresentations.json';
+import { useSampleData } from '@/composers/useSampleData';
 
 // Classes - Default Presenter
 export default class DefaultPresenter implements Presenter {
@@ -28,12 +29,14 @@ export default class DefaultPresenter implements Presenter {
     readonly tools: PresenterTools;
     readonly dataTable;
     readonly highcharts;
+    readonly sampleData;
 
     constructor(tools: PresenterTools) {
         this.config = config as PresenterConfig;
         this.tools = tools;
         this.dataTable = useDataTable();
         this.highcharts = useHighcharts();
+        this.sampleData = useSampleData();
     }
 
     // Operations - List.
@@ -42,7 +45,7 @@ export default class DefaultPresenter implements Presenter {
     }
 
     // Operations - Render.
-    async render(presentationPath: keyof typeof configPresentations, renderTo: HTMLElement): Promise<void> {
+    async render(presentationPath: keyof typeof configPresentations, renderTo: HTMLElement, data?: unknown): Promise<void> {
         // Use presentation path to retrieve presentation.
         const presentation = configPresentations[presentationPath] as PresentationConfig;
 
@@ -76,6 +79,13 @@ export default class DefaultPresenter implements Presenter {
             const datasetOptions = decodeURIComponent((visualElements as HTMLElement).dataset.options);
             try {
                 const visualConfig = JSON.parse(datasetOptions) as PresentationVisualConfig;
+
+                if (!data) {
+                    for (const measure of visualConfig.content.data.measures) {
+                        measure.data = this.sampleData.getMeasureValues([measure.id]);
+                    }
+                }
+
                 const tabBarElement = document.createElement('div');
                 tabBarElement.className = 'dp-tab-bar';
                 const viewContainerElement = document.createElement('div');
