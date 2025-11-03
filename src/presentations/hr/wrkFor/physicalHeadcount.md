@@ -34,7 +34,7 @@ Quantifies the variation in physical headcount between the opening and closing o
         }
     },
     "views": [
-        { "categoryId": "cartesian", "typeId": "area" },
+        { "categoryId": "cartesian", "typeId": "areaLine" },
         { "categoryId": "cartesian", "typeId": "bar" },
         { "categoryId": "cartesian", "typeId": "column" },
         { "categoryId": "cartesian", "typeId": "line", "default": true },
