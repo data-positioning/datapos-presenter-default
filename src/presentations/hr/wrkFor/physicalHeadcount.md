@@ -48,7 +48,7 @@ Describe opening/closing headcounts...
 
 Quantifies the variation in physical headcount between the starting and ending of specific reporting periods.
 
-```json datapos-visual 34
+```json datapos-visual
 {
     "content": {
         "title": { "text": "Starting/Ending Headcount" },

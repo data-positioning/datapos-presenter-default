@@ -26,28 +26,7 @@ async function constructPresentationConfigs() {
     );
     await fs.writeFile('config.json', JSON.stringify(config, undefined, 4));
 
-    // Utilities - Compress JSON code blocks
-    function compressJSONBlocks(markdown: string): string {
-        // Capture optional info string after `json` in group 1, and code in group 2.
-        const re = /```json([^\n`]*)\n([\s\S]*?)\n```/g;
-
-        return markdown.replace(re, (match, infoRaw, code) => {
-            const info = (infoRaw || '').trim(); // e.g. 'datapos-visual'.
-            // Trim only surrounding blank lines — keeping internal indentation is okay for JSON.parse
-            const trimmedCode = code.replace(/^\s+|\s+$/g, '');
-            try {
-                const parsed = JSON.parse(trimmedCode);
-                const minified = JSON.stringify(parsed);
-                // Rebuild fence, preserving info token if present
-                return `\`\`\`json${info ? ' ' + info : ''}\n${minified}\n\`\`\``;
-            } catch (err) {
-                // If invalid JSON, leave original block untouched
-                return match;
-            }
-        });
-    }
-
-    // Utilities - Construct presentation configurations.
+    // Utilities - Construct presentation configurations for path and update presentation map.
     async function constructPresentationConfigsForPath(currentPath: string, presentationMap: Record<string, PresentationConfig>) {
         const dirItems = await fs.readdir(currentPath);
         for (const itemName of dirItems) {
@@ -69,10 +48,26 @@ async function constructPresentationConfigs() {
                     order: content.attributes.order,
                     statusId: 'alpha',
                     typeId: 'presenterPresentation',
-                    content: contentBody // TODO: Can we remove all padding such as "\n  "? Maybe 'dedent' on frontmatter? Parse and stringify on JSON?
+                    content: contentBody
                 };
             }
         }
+    }
+
+    // Utilities - Compress JSON code blocks.
+    function compressJSONBlocks(markdown: string): string {
+        // Capture optional info string after the json language tag into group 1, and json code into group 2.
+        const regExp = /```json([^\n`]*)\n([\s\S]*?)\n```/g;
+        return markdown.replace(regExp, (match, infoString, jsonCode): string => {
+            const trimmedInfoString = (infoString || '').trim(); // e.g. 'datapos-visual'.
+            const trimmedJSONCode = jsonCode.trim();
+            try {
+                // Rebuild fenced JSON code block with info and compressed JSON code.
+                return `\`\`\`json${trimmedInfoString ? ` ${trimmedInfoString}` : ''}\n${JSON.stringify(JSON.parse(trimmedJSONCode))}\n\`\`\``;
+            } catch (err) {
+                return match;
+            }
+        });
     }
 }
 
