@@ -2,7 +2,7 @@
 
 // Dependencies - Framework.
 import type { PresentationView } from '@datapos/datapos-shared';
-import type { VisualContentOptions } from '@/index';
+import type { VisualContentConfig } from '@/index';
 
 // Interfaces/Types - Cytoscape.js view.
 export interface CytoscapeJSView extends PresentationView {
@@ -12,7 +12,7 @@ export interface CytoscapeJSView extends PresentationView {
 // Composables - Use Cytoscape.js.
 export function useCytoscapeJS() {
     // Operations - Render.
-    function render(viewType: unknown, content: VisualContentOptions, element: HTMLElement) {
+    function render(viewType: unknown, content: VisualContentConfig, element: HTMLElement) {
         element.textContent = 'Cytoscape.js diagram goes here...';
     }
 
