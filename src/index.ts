@@ -80,8 +80,9 @@ export default class DefaultPresenter implements Presenter {
                     //     } catch (_) {}
                     // }
                     // return `<pre class="hljs"><code>${markdownParser.utils.escapeHtml(content)}</code></pre>`;
-                    if (langName && this.tools.prism.languages[langName]) {
-                        const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
+                    console.log(this.tools);
+                    if (langName && this.tools.Prism.languages[langName]) {
+                        const highlighted = this.tools.Prism.highlight(content, this.tools.Prism.languages[langName], langName);
                         return `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
                     }
                     // fallback (no lang or unknown)
