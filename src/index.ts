@@ -73,13 +73,20 @@ export default class DefaultPresenter implements Presenter {
                 case 'datapos-visual':
                     return `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
                 default: {
-                    // return `<pre><code class="language-${langName}">${content}</code></pre>`;
-                    if (langName && this.tools.hljs.getLanguage(langName)) {
-                        try {
-                            return `<pre class="hljs"><code>${this.tools.hljs.highlight(content, { language: langName }).value}</code></pre>`;
-                        } catch (_) {}
+                    // // return `<pre><code class="language-${langName}">${content}</code></pre>`;
+                    // if (langName && this.tools.hljs.getLanguage(langName)) {
+                    //     try {
+                    //         return `<pre class="hljs"><code>${this.tools.hljs.highlight(content, { language: langName }).value}</code></pre>`;
+                    //     } catch (_) {}
+                    // }
+                    // return `<pre class="hljs"><code>${markdownParser.utils.escapeHtml(content)}</code></pre>`;
+                    if (langName && this.tools.prism.languages[langName]) {
+                        const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
+                        return `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
                     }
-                    return `<pre class="hljs"><code>${markdownParser.utils.escapeHtml(content)}</code></pre>`;
+                    // fallback (no lang or unknown)
+                    const escaped = markdownParser.utils.escapeHtml(content);
+                    return `<pre class="language-text"><code>${escaped}</code></pre>`;
                 }
             }
         };

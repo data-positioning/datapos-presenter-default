@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.721",
+    "version": "0.1.722",
     "devDependencies": {
         "@datapos/datapos-development": "^0.3.39",
         "@datapos/datapos-shared": "^0.3.110",
@@ -22,6 +22,7 @@
         "markdown-it": "^14.1.0",
         "npm-check-updates": "^19.1.2",
         "prettier": "^3.6.2",
+        "prismjs": "^1.30.0",
         "retire": "^5.3.0",
         "typescript": "^5.9.3",
         "vite": "^7.2.0",
