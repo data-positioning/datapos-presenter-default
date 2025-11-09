@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.720",
+    "version": "0.1.721",
     "devDependencies": {
         "@datapos/datapos-development": "^0.3.39",
         "@datapos/datapos-shared": "^0.3.110",
@@ -15,6 +15,7 @@
         "eslint-plugin-import": "^2.32.0",
         "front-matter": "^4.0.2",
         "highcharts": "^12.4.0",
+        "highlight.js": "^11.11.1",
         "jiti": "^2.6.1",
         "license-report": "^6.8.1",
         "license-report-check": "^0.1.2",

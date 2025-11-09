@@ -1,3 +1,10 @@
+/**
+ * Default presenter class.
+ */
+
+// Dependencies - Vendor.
+import type MarkdownIt from 'markdown-it';
+
 // Dependencies - Framework.
 import type { ComponentRef } from '@datapos/datapos-shared';
 import { presentationViewTypeMap } from '@datapos/datapos-shared';
@@ -55,7 +62,7 @@ export default class DefaultPresenter implements Presenter {
             .replace(/\{\{description\}\}/g, presentation.description?.['en-gb'] ?? `{{description}}`);
 
         // Construct markdown parser.
-        const markdownParser = new this.tools.markdownIt({ html: true });
+        const markdownParser: MarkdownIt = new this.tools.markdownIt({ html: true });
         markdownParser.renderer.rules.fence = (tokens, index) => {
             const token = tokens[index];
             const infoSegments = token.info.split(' ');
@@ -65,8 +72,15 @@ export default class DefaultPresenter implements Presenter {
             switch (typeId) {
                 case 'datapos-visual':
                     return `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
-                default:
-                    return `<pre><code class="language-${langName}">${content}</code></pre>`;
+                default: {
+                    // return `<pre><code class="language-${langName}">${content}</code></pre>`;
+                    if (langName && this.tools.hljs.getLanguage(langName)) {
+                        try {
+                            return `<pre class="hljs"><code>${this.tools.hljs.highlight(content, { language: langName }).value}</code></pre>`;
+                        } catch (_) {}
+                    }
+                    return `<pre class="hljs"><code>${markdownParser.utils.escapeHtml(content)}</code></pre>`;
+                }
             }
         };
 
