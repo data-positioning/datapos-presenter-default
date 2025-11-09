@@ -62,7 +62,7 @@ export default class DefaultPresenter implements Presenter {
             .replace(/\{\{description\}\}/g, presentation.description?.['en-gb'] ?? `{{description}}`);
 
         // Construct markdown parser.
-        const markdownParser: MarkdownIt = new this.tools.markdownIt({ html: true });
+        const markdownParser: MarkdownIt = new this.tools.MarkdownIt({ html: true });
         markdownParser.renderer.rules.fence = (tokens, index) => {
             const token = tokens[index];
             const infoSegments = token.info.split(' ');
@@ -81,8 +81,8 @@ export default class DefaultPresenter implements Presenter {
                     // }
                     // return `<pre class="hljs"><code>${markdownParser.utils.escapeHtml(content)}</code></pre>`;
                     console.log(this.tools);
-                    if (langName && this.tools.Prism.languages[langName]) {
-                        const highlighted = this.tools.Prism.highlight(content, this.tools.Prism.languages[langName], langName);
+                    if (langName && this.tools.prism.languages[langName]) {
+                        const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
                         return `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
                     }
                     // fallback (no lang or unknown)
