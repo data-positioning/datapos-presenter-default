@@ -91,12 +91,12 @@ export default class DefaultPresenter implements Presenter {
 
             return {
                 enter: {
-                    codeFenced() {
-                        // Reset for new code block
-                        langName = '';
-                        typeId = '';
-                        codeContent = [];
-                    },
+                    // codeFenced() {
+                    //     // Reset for new code block
+                    //     langName = '';
+                    //     typeId = '';
+                    //     codeContent = [];
+                    // },
                     // codeFencedFenceInfo() {
                     //     this.buffer();
                     // },
