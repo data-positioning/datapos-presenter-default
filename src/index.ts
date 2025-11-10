@@ -80,6 +80,7 @@ export default class DefaultPresenter implements Presenter {
                 exit: {
                     codeFencedFenceInfo() {
                         const info = this.resume();
+                        console.log('info', info);
                         const infoSegments = info.split(' ');
                         const langName = infoSegments[0]?.trim() || undefined;
                         const typeId = infoSegments[1]?.trim() || undefined;
@@ -89,8 +90,11 @@ export default class DefaultPresenter implements Presenter {
                     },
                     codeFenced() {
                         const content = this.resume();
+                        console.log('content', content);
                         const langName = this.getData('codeFencedLang');
+                        console.log('langName', langName);
                         const typeId = this.getData('codeFencedType');
+                        console.log('typeId', typeId);
 
                         let html = '';
 
