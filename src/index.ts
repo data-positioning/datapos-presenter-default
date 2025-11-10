@@ -101,10 +101,10 @@ export default class DefaultPresenter implements Presenter {
                         } else {
                             if (data.codeContent.endsWith('\n')) data.codeContent = data.codeContent.slice(0, -1);
                             console.log('codeFlowValue', `"${data.codeContent}"`);
-                            console.log('0000', lang, this.tools?.prism?.languages);
-                            if (lang && this.tools?.prism?.languages[lang]) {
+                            console.log('0000', lang, globalThis.Prism.languages);
+                            if (lang && globalThis.Prism.languages[lang]) {
                                 console.log(1111);
-                                const highlighted = this.tools.prism.highlight(rawContent, this.tools.prism.languages[lang], lang);
+                                const highlighted = globalThis.Prism.highlight(rawContent, globalThis.Prism.languages[lang], lang);
                                 html = `<pre class="language-${lang}"><code>${highlighted}</code></pre>`;
                             } else {
                                 console.log(2222);
