@@ -65,15 +65,14 @@ export default class DefaultPresenter implements Presenter {
         const htmlExtension1: HtmlExtension = {
             enter: {
                 codeFenced(this: any, token: any) {
-                    // Instead of writing into raw, replace the output entirely
-                    // by storing it in a buffer
-                    this.setData('myReplacement', 'REPLACED');
+                    console.log('enter codeFenced', token);
+                    this.raw('REPLACED');
                 }
             },
             exit: {
                 codeFenced(this: any, token: any) {
-                    const replacement = this.getData('myReplacement');
-                    this.raw(replacement); // write replacement
+                    console.log('exit codeFenced', token);
+                    // Optionally: nothing or some cleanup
                 }
             }
         };
