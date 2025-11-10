@@ -137,6 +137,9 @@ export default class DefaultPresenter implements Presenter {
 
                         // console.log(7777, html);
                         // this.raw(html);
+                    },
+                    codeFlowValue() {
+                        console.log(7777);
                     }
                 }
             };
