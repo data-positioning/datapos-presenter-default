@@ -99,7 +99,7 @@ export default class DefaultPresenter implements Presenter {
                     },
                     codeFencedFenceInfo() {
                         this.buffer();
-                    }
+                    },
                     codeFencedFenceMeta() {
                         this.buffer();
                     }
