@@ -85,9 +85,7 @@ export default class DefaultPresenter implements Presenter {
                     }
                 },
                 exit: {
-                    codeFlowValue() /*  (optional, if you need to do something after capturing code). */ {
-                        console.log('codeFlowValue', data.codeContent);
-                    },
+                    codeFlowValue() /*  (optional, if you need to do something after capturing code). */ {},
                     codeFencedFenceMeta() /* Done processing the metadata. */ {},
                     codeFencedFenceInfo() /* Done processing the language identifier. */ {},
                     codeFencedFenceSequence() /* The closing ``` characters. */ {},
@@ -101,6 +99,7 @@ export default class DefaultPresenter implements Presenter {
                         if (lang === 'json' && meta === 'datapos-visual') {
                             html = `<div class="${meta}" data-options="${encodeURIComponent(rawContent)}"></div>`;
                         } else {
+                            console.log('codeFlowValue', `${data.codeContent}`);
                             if (lang && this.tools?.prism?.languages[lang]) {
                                 const highlighted = this.tools.prism.highlight(rawContent, this.tools.prism.languages[lang], lang);
                                 html = `<pre class="language-${lang}"><code>${highlighted}</code></pre>`;
