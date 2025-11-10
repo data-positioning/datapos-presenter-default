@@ -103,7 +103,7 @@ export default class DefaultPresenter implements Presenter {
                     }
                 },
                 exit: {
-                    codeFLowValue() {},
+                    codeFlowValue() /*  (optional, if you need to do something after capturing code). */ {},
                     codeFencedFence() /* The closing fence line. */ {},
                     codeFencedFenceSequence() /* The closing ``` characters. */ {},
                     codeFencedFenceInfo() /* Done processing the language identifier. */ {},
