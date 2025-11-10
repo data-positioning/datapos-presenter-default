@@ -88,7 +88,9 @@ export default class DefaultPresenter implements Presenter {
                     },
                     codeFlowValue(token: Token) {
                         // Collect raw content lines
-                        codeContent.push(this.sliceSerialize(token));
+                        const xxxx = this.sliceSerialize(token);
+                        console.log(5555, xxxx);
+                        codeContent.push(xxxx);
                     }
                 },
                 exit: {
