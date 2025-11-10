@@ -106,8 +106,12 @@ export default class DefaultPresenter implements Presenter {
                     codeFlowValue() /*  (optional, if you need to do something after capturing code). */ {},
                     codeFencedFence() /* The closing fence line. */ {},
                     codeFencedFenceSequence() /* The closing ``` characters. */ {},
-                    codeFencedFenceInfo() /* Done processing the language identifier. */ {},
-                    codeFencedFenceMeta() /* Done processing the metadata. */ {},
+                    codeFencedFenceInfo() /* Done processing the language identifier. */ {
+                        console.log(3333);
+                    },
+                    codeFencedFenceMeta() /* Done processing the metadata. */ {
+                        console.log(4444);
+                    },
                     codeFenced() /* The entire code block is complete ← Your replacement happens here. */ {
                         this.resume();
                         const rawContent = data.codeContent || '';
