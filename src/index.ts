@@ -122,28 +122,38 @@ export default class DefaultPresenter implements Presenter {
                     codeIndented() {
                         // this.buffer();
                     },
-                    // Capture the actual code text
+                    // Capture the code text as we encounter it
                     codeFlowValue(token: Token) {
-                        // Store the raw content from the token
-                        this.raw(`<div class="code-block-replaced" style="display:none;" data-content="${encodeURIComponent(this.sliceSerialize(token))}">`);
+                        this.data.codeContent += this.sliceSerialize(token);
+                    },
+                    codeTextData(token: Token) {
+                        this.data.codeContent += this.sliceSerialize(token);
                     }
                 },
                 exit: {
+                    codeFlowValue() {
+                        // Exit handler for codeFlowValue - just pass through
+                    },
+                    codeTextData() {
+                        // Exit handler for codeTextData - just pass through
+                    },
                     // When exiting a code block, replace it with our message
                     codeFenced(token: Token) {
-                        // this.resume(); // Stop buffering and discard the content
-                        // const content = this.resume(); // Get the buffered content
-                        const rawContent = this.sliceSerialize(token);
+                        const rawContent = this.data.codeContent || '';
                         const lineCount = rawContent.split('\n').length;
                         const charCount = rawContent.length;
 
-                        // Show the raw content in the message
+                        // Replace with custom message that shows info about original content
                         this.raw(
-                            `<div class="code-block-replaced">` +
+                            `<div class="code-block-replaced" style="padding: 10px; background: #f5f5f5; border-left: 4px solid #666;">` +
                                 `📝 Code block hidden (${lineCount} lines, ${charCount} characters)<br>` +
-                                `<details><summary>Show raw content preview</summary><pre>${rawContent.substring(0, 100)}...</pre></details>` +
+                                `<details style="margin-top: 10px;"><summary style="cursor: pointer;">Show raw content preview</summary>` +
+                                `<pre style="margin-top: 5px; padding: 10px; background: white; overflow: auto;">${rawContent.substring(0, 200)}...</pre></details>` +
                                 `</div>`
                         );
+
+                        // Clean up
+                        delete this.data.codeContent;
                     },
                     codeIndented() {
                         // this.resume();
