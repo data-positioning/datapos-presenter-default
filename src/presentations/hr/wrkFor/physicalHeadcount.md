@@ -8,6 +8,8 @@ order: 1
 
 # {{label}}
 
+<b>Human Resources - Workforce</b>
+
 {{description}}
 
 Measures the number of people employed by one or more organizations at specific points in time. These points in time are defined in terms of reporting periods, such as weeks, months, quarters, or years. The most frequently used points are period opening, starting, ending, and closing.
