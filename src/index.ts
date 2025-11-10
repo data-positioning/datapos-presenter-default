@@ -81,7 +81,7 @@ export default class DefaultPresenter implements Presenter {
                         data.meta = this.sliceSerialize(token);
                     },
                     codeFlowValue(token: Token) /* Each line/chunk of actual code content. */ {
-                        data.codeContent = data.codeContent + this.sliceSerialize(token);
+                        data.codeContent = data.codeContent + this.sliceSerialize(token) + '\n';
                     }
                 },
                 exit: {
