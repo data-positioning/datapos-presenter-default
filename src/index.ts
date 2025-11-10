@@ -64,15 +64,23 @@ export default class DefaultPresenter implements Presenter {
 
         const htmlExtension1: HtmlExtension = {
             enter: {
-                codeFenced(this: any, token: any) {
-                    console.log('enter codeFenced', token);
-                    this.raw('REPLACED');
+                // When entering a code block (fenced or indented)
+                codeFenced() {
+                    this.buffer(); // Start buffering to capture the code block
+                },
+                codeIndented() {
+                    this.buffer();
                 }
             },
             exit: {
-                codeFenced(this: any, token: any) {
-                    console.log('exit codeFenced', token);
-                    // Optionally: nothing or some cleanup
+                // When exiting a code block, replace it with our message
+                codeFenced() {
+                    this.resume(); // Stop buffering and discard the content
+                    this.raw('<div class="code-block-replaced">📝 Code block hidden</div>');
+                },
+                codeIndented() {
+                    this.resume();
+                    this.raw('<div class="code-block-replaced">📝 Code block hidden</div>');
                 }
             }
         };
