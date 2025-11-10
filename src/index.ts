@@ -84,32 +84,31 @@ export default class DefaultPresenter implements Presenter {
             const data = { codeContent: '', lang: '', meta: '' };
             return {
                 enter: {
-                    codeFenced() {
+                    codeFenced() /* The entire fenced code block starts. */ {
                         this.buffer();
                         data.codeContent = '';
                         data.lang = '';
                         data.meta = '';
                     },
-                    codeFencedFence() {},
-                    codeFencedFenceSequence() {},
-                    codeFencedFenceInfo(token: Token) {
-                        console.log('codeFencedFenceInfo', token, this.sliceSerialize(token));
+                    codeFencedFence() /* The opening fence line. */ {},
+                    codeFencedFenceSequence() /* The opening ``` characters. */ {},
+                    codeFencedFenceInfo(token: Token) /* The language identifier ("json"). */ {
                         data.lang = this.sliceSerialize(token);
                     },
-                    codeFencedFenceMeta(token: Token) {
-                        console.log('codeFencedFenceMeta', token, this.sliceSerialize(token));
+                    codeFencedFenceMeta(token: Token) /* Metadata after the language identifier ("datapos-visual"). */ {
                         data.meta = this.sliceSerialize(token);
                     },
-                    codeFlowValue(token: Token) {
+                    codeFlowValue(token: Token) /* Each line/chunk of actual code content. */ {
                         data.codeContent = (data.codeContent || '') + this.sliceSerialize(token);
                     }
                 },
                 exit: {
-                    codeFencedFence() {},
-                    codeFencedFenceSequence() {},
-                    codeFencedFenceInfo() {},
-                    codeFencedFenceMeta() {},
-                    codeFenced() {
+                    codeFLowValue() {},
+                    codeFencedFence() /* The closing fence line. */ {},
+                    codeFencedFenceSequence() /* The closing ``` characters. */ {},
+                    codeFencedFenceInfo() /* Done processing the language identifier. */ {},
+                    codeFencedFenceMeta() /* Done processing the metadata. */ {},
+                    codeFenced() /* The entire code block is complete ← Your replacement happens here. */ {
                         this.resume();
                         const rawContent = data.codeContent || '';
                         const lang = data.lang || 'plain';
