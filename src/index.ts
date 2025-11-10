@@ -113,10 +113,12 @@ export default class DefaultPresenter implements Presenter {
             return {
                 enter: {
                     codeFenced() {
-                        this.data = this.data || {}; // Ensure data object exists
-                        this.data.codeContent = ''; // Initialize storage
+                        this.buffer(); // Start buffering to suppress default output
+                        this.data = this.data || {};
+                        this.data.codeContent = '';
                     },
                     codeIndented() {
+                        this.buffer();
                         this.data = this.data || {};
                         this.data.codeContent = '';
                     },
@@ -131,6 +133,8 @@ export default class DefaultPresenter implements Presenter {
                         // Exit handler - just pass through
                     },
                     codeFenced() {
+                        this.resume(); // Stop buffering and discard default output
+
                         const rawContent = (this.data && this.data.codeContent) || '';
                         const lineCount = rawContent.split('\n').length;
                         const charCount = rawContent.length;
@@ -150,6 +154,8 @@ export default class DefaultPresenter implements Presenter {
                         }
                     },
                     codeIndented() {
+                        this.resume();
+
                         const rawContent = (this.data && this.data.codeContent) || '';
                         const lineCount = rawContent.split('\n').length;
 
