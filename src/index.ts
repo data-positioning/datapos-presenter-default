@@ -85,10 +85,7 @@ export default class DefaultPresenter implements Presenter {
                     }
                 },
                 exit: {
-                    codeFlowValue() /*  (optional, if you need to do something after capturing code). */ {
-                        const processedHtml = this.resume();
-                        console.log(2222, processedHtml);
-                    },
+                    codeFlowValue() /*  (optional, if you need to do something after capturing code). */ {},
                     codeFencedFenceMeta() /* Done processing the metadata. */ {},
                     codeFencedFenceInfo() /* Done processing the language identifier. */ {},
                     codeFencedFenceSequence() /* The closing ``` characters. */ {},
