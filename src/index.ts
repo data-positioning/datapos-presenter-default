@@ -63,13 +63,17 @@ export default class DefaultPresenter implements Presenter {
             .replace(/\{\{description\}\}/g, presentation.description?.['en-gb'] ?? `{{description}}`);
 
         const htmlExtension1: HtmlExtension = {
-            enter: {},
+            enter: {
+                codeFenced(this: any, token: any) {
+                    // Instead of writing into raw, replace the output entirely
+                    // by storing it in a buffer
+                    this.setData('myReplacement', 'REPLACED');
+                }
+            },
             exit: {
                 codeFenced(this: any, token: any) {
-                    // skip default rendering
-                    this.setData('skip', true);
-                    // output replacement
-                    this.raw('REPLACED');
+                    const replacement = this.getData('myReplacement');
+                    this.raw(replacement); // write replacement
                 }
             }
         };
