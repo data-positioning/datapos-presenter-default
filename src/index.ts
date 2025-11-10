@@ -103,8 +103,8 @@ export default class DefaultPresenter implements Presenter {
                                 const highlighted = this.tools.prism.highlight(rawContent, this.tools.prism.languages[lang], lang);
                                 html = `<pre class="language-${lang}"><code>${highlighted}</code></pre>`;
                             } else {
-                                const escaped = rawContent.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-                                html = `<pre class="language-text"><code>${escaped}</code></pre>`;
+                                // const escaped = rawContent.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+                                html = `<pre class="language-text"><code>${rawContent}</code></pre>`;
                             }
                         }
                         this.raw(html);
