@@ -81,11 +81,17 @@ export default class DefaultPresenter implements Presenter {
         */
 
         function customCodeBlockHtml() {
-            const data = { codeContent: '' };
+            const data = { codeContent: '', lang: '', meta: '' };
             return {
                 enter: {
                     codeFenced() {
                         this.buffer();
+                    },
+                    codeFencedFenceInfo(token: Token) {
+                        data.lang = this.sliceSerialize(token);
+                    },
+                    codeFencedFenceMeta(token: Token) {
+                        data.meta = this.sliceSerialize(token);
                     },
                     codeFlowValue(token: Token) {
                         data.codeContent = (data.codeContent || '') + this.sliceSerialize(token);
@@ -94,12 +100,18 @@ export default class DefaultPresenter implements Presenter {
                 exit: {
                     codeFenced() {
                         this.resume();
-                        const rawContent = (data && data.codeContent) || '';
+                        const rawContent = data.codeContent || '';
+                        const lang = data.lang || 'plain';
+                        const meta = data.meta || '';
                         const lineCount = rawContent.split('\n').length;
                         const charCount = rawContent.length;
+                        let infoString = `Language: ${lang}`;
+                        if (meta) infoString += ` | Meta: ${meta}`;
                         this.raw(
                             `<div class="code-block-replaced" style="padding: 10px; background: #f5f5f5; border-left: 4px solid #666;">` +
-                                `📝 Code block hidden (${lineCount} lines, ${charCount} characters)<br>` +
+                                `📝 Code block hidden<br>` +
+                                `<small>${infoString}</small><br>` +
+                                `<small>${lineCount} lines, ${charCount} characters</small><br>` +
                                 `<details style="margin-top: 10px;"><summary style="cursor: pointer;">Show raw content preview</summary>` +
                                 `<pre style="margin-top: 5px; padding: 10px; background: white; overflow: auto;">${rawContent.substring(0, 200)}...</pre></details>` +
                                 `</div>`
