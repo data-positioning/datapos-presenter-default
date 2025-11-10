@@ -95,7 +95,7 @@ export default class DefaultPresenter implements Presenter {
                     //     this.data.codeContent = '';
                     // },
                     // Only capture the actual code text (not lang or meta)
-                    codeFlowValue(token) {
+                    codeFlowValue(token: Token) {
                         this.data = this.data || {};
                         this.data.codeContent = (this.data.codeContent || '') + this.sliceSerialize(token);
                     }
@@ -107,6 +107,7 @@ export default class DefaultPresenter implements Presenter {
                     codeFenced() {
                         this.resume(); // Stop buffering and discard default output
 
+                        console.log(1111, this.data);
                         const rawContent = (this.data && this.data.codeContent) || '';
                         const lineCount = rawContent.split('\n').length;
                         const charCount = rawContent.length;
