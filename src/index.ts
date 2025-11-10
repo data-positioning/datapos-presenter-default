@@ -119,7 +119,7 @@ export default class DefaultPresenter implements Presenter {
                         const content = codeContent.join('');
                         console.log(4444, content);
 
-                        // let html = '';
+                        let html = '';
 
                         // if (typeId === 'datapos-visual') {
                         //     html = `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
@@ -135,11 +135,11 @@ export default class DefaultPresenter implements Presenter {
                         //     }
                         // }
 
-                        // console.log(7777, html);
-                        // this.raw(html);
+                        this.raw(html);
                     },
                     codeFlowValue() {
                         console.log(7777);
+                        this.raw('');
                     }
                 }
             };
