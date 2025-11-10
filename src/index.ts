@@ -130,29 +130,30 @@ export default class DefaultPresenter implements Presenter {
                         this.raw('<div class="code-block-replaced">📝 Code block hidden</div>');
                     },
                     codeIndented() {
-                        this.resume();
+                        // this.resume();
+                        const content = this.resume(); // Get the buffered content
+                        console.log(1234, content);
                         this.raw('<div class="code-block-replaced">📝 Code block hidden</div>');
+                        //         const content = codeContent.join('');
+
+                        //         let html = '';
+
+                        //         if (typeId === 'datapos-visual') {
+                        //             html = `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
+                        //         } else {
+                        //             // Using Prism for syntax highlighting
+                        //             if (langName && this.tools?.prism?.languages[langName]) {
+                        //                 const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
+                        //                 html = `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
+                        //             } else {
+                        //                 // Fallback: escape HTML entities
+                        //                 const escaped = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+                        //                 html = `<pre class="language-text"><code>${escaped}</code></pre>`;
+                        //             }
+                        //         }
+
+                        //         this.raw(html);
                     }
-                    //    codeFenced() {
-                    //         const content = codeContent.join('');
-
-                    //         let html = '';
-
-                    //         if (typeId === 'datapos-visual') {
-                    //             html = `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
-                    //         } else {
-                    //             // Using Prism for syntax highlighting
-                    //             if (langName && this.tools?.prism?.languages[langName]) {
-                    //                 const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
-                    //                 html = `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
-                    //             } else {
-                    //                 // Fallback: escape HTML entities
-                    //                 const escaped = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-                    //                 html = `<pre class="language-text"><code>${escaped}</code></pre>`;
-                    //             }
-                    //         }
-
-                    //         this.raw(html);
                 }
             };
         }
