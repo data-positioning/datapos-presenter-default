@@ -82,12 +82,13 @@ export default class DefaultPresenter implements Presenter {
 
         function customCodeBlockHtml() {
             // let codeContent;
+            const data = { codeContent: '' };
             return {
                 enter: {
                     codeFenced() {
                         this.buffer(); // Start buffering to suppress default output
-                        this.data = this.data || {};
-                        this.data.codeContent = '';
+                        // this.data = this.data || {};
+                        data.codeContent = '';
                         console.log(3333);
                     },
                     // codeIndented() {
@@ -98,9 +99,9 @@ export default class DefaultPresenter implements Presenter {
                     // Only capture the actual code text (not lang or meta)
                     codeFlowValue(token: Token) {
                         console.log(8888, token, this.sliceSerialize(token));
-                        this.data = this.data || {};
-                        this.data.codeContent = (this.data.codeContent || '') + this.sliceSerialize(token);
-                        console.log(9999, this.data.codeContent);
+                        // this.data = this.data || {};
+                        data.codeContent = (data.codeContent || '') + this.sliceSerialize(token);
+                        console.log(9999, data.codeContent);
                     }
                 },
                 exit: {
@@ -110,8 +111,8 @@ export default class DefaultPresenter implements Presenter {
                     codeFenced() {
                         this.resume(); // Stop buffering and discard default output
 
-                        console.log(1111, this.data);
-                        const rawContent = (this.data && this.data.codeContent) || '';
+                        console.log(1111, data);
+                        const rawContent = (data && data.codeContent) || '';
                         const lineCount = rawContent.split('\n').length;
                         const charCount = rawContent.length;
 
