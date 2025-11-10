@@ -75,26 +75,32 @@ export default class DefaultPresenter implements Presenter {
                     },
                     codeFencedFenceInfo() {
                         this.buffer();
+                    },
+                    codeFencedFenceMeta() {
+                        this.buffer();
                     }
                 },
                 exit: {
                     codeFencedFenceInfo() {
-                        const info = this.resume();
-                        console.log('info', info);
-                        const infoSegments = info.split(' ');
-                        const langName = infoSegments[0]?.trim() || undefined;
-                        const typeId = infoSegments[1]?.trim() || undefined;
-
-                        this.setData('codeFencedLang', langName);
-                        this.setData('codeFencedType', typeId);
+                        const lang = this.resume();
+                        this.setData('codeFencedLang', lang?.trim() || '');
+                    },
+                    codeFencedFenceMeta() {
+                        const meta = this.resume();
+                        this.setData('codeFencedMeta', meta?.trim() || '');
                     },
                     codeFenced() {
                         const content = this.resume();
-                        console.log('content', content);
-                        const langName = this.getData('codeFencedLang');
-                        console.log('langName', langName);
-                        const typeId = this.getData('codeFencedType');
-                        console.log('typeId', typeId);
+                        const langName = this.getData('codeFencedLang') || '';
+                        const meta = this.getData('codeFencedMeta') || '';
+
+                        // Parse the full info string (lang + meta)
+                        const fullInfo = langName + (meta ? ' ' + meta : '');
+                        const infoSegments = fullInfo.split(' ');
+                        const typeId = infoSegments[1]?.trim() || undefined;
+
+                        console.log(3333, langName, typeId);
+                        console.log(4444, content);
 
                         let html = '';
 
