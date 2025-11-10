@@ -96,10 +96,10 @@ export default class DefaultPresenter implements Presenter {
                         langName = '';
                         typeId = '';
                         codeContent = [];
+                    },
+                    codeFencedFenceInfo() {
+                        this.buffer();
                     }
-                    // codeFencedFenceInfo() {
-                    //     this.buffer();
-                    // },
                     // codeFencedFenceMeta() {
                     //     this.buffer();
                     // }
@@ -111,9 +111,9 @@ export default class DefaultPresenter implements Presenter {
                     // codeFlowValue() {
                     //     console.log(3333, codeContent);
                     // },
-                    // codeFencedFenceInfo() {
-                    //     langName = this.resume()?.trim() || '';
-                    // },
+                    codeFencedFenceInfo() {
+                        langName = this.resume()?.trim() || '';
+                    },
                     // codeFencedFenceMeta() {
                     //     typeId = this.resume()?.trim() || '';
                     // },
