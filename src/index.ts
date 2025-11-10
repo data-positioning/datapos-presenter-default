@@ -108,14 +108,19 @@ export default class DefaultPresenter implements Presenter {
                     }
                 },
                 exit: {
+                    codeFlowValue() {
+                        console.log(7777);
+                        this.raw('');
+                    },
                     codeFencedFenceInfo() {
                         langName = this.resume()?.trim() || '';
+                        this.raw('');
                     },
                     codeFencedFenceMeta() {
                         typeId = this.resume()?.trim() || '';
+                        this.raw('');
                     },
                     codeFenced() {
-                        // Join all content lines
                         const content = codeContent.join('');
                         console.log(4444, content);
 
@@ -136,10 +141,6 @@ export default class DefaultPresenter implements Presenter {
                         }
 
                         this.raw(html);
-                    },
-                    codeFlowValue() {
-                        console.log(7777);
-                        this.raw('');
                     }
                 }
             };
