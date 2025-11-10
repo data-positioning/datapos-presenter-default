@@ -87,11 +87,13 @@ export default class DefaultPresenter implements Presenter {
                     codeFenced() {
                         this.buffer();
                     },
-                    // codeFencedFenceInfo(token: Token) {
-                    //     data.lang = this.sliceSerialize(token);
-                    // },
+                    codeFencedFenceInfo(token: Token) {
+                        console.log('codeFencedFenceInfo', token);
+                        s;
+                    },
                     codeFencedFenceMeta(token: Token) {
-                        data.meta = this.sliceSerialize(token);
+                        console.log('codeFencedFenceMeta', token);
+                        // data.meta = this.sliceSerialize(token);
                     },
                     codeFlowValue(token: Token) {
                         data.codeContent = (data.codeContent || '') + this.sliceSerialize(token);
