@@ -3,7 +3,8 @@
  */
 
 // Dependencies - Vendor.
-import type MarkdownIt from 'markdown-it';
+// import type MarkdownIt from 'markdown-it';
+import type { CompileContext, HtmlExtension, Options } from 'micromark-util-types';
 
 // Dependencies - Framework.
 import type { ComponentRef } from '@datapos/datapos-shared';
@@ -61,8 +62,63 @@ export default class DefaultPresenter implements Presenter {
             .replace(/\{\{label\}\}/g, presentation.label?.['en-gb'] ?? `{{label}}`)
             .replace(/\{\{description\}\}/g, presentation.description?.['en-gb'] ?? `{{description}}`);
 
-        // Render html from markdown and inset into placeholder element.
-        const html = this.tools.micromark(processedMarkdown);
+        // // Render html from markdown and inset into placeholder element.
+        // const html = this.tools.micromark(processedMarkdown);
+        // renderTo.innerHTML = html;
+
+        // Simple HTML escaping helper
+        function escapeHtml(str: string): string {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
+        // Custom code block handling
+        const Prism = this.tools.Prism;
+        let pendingInfo = ''; // stores info string between tokens
+
+        const codeBlockExtension: HtmlExtension = {
+            enter: {
+                codeFencedFenceInfo(this: any, token: any) {
+                    // Capture the info string (e.g., "js datapos-visual")
+                    pendingInfo = this.sliceSerialize(token).trim();
+                },
+                codeFenced(this: any) {
+                    this.buffer(); // start collecting code content
+                }
+            },
+            exit: {
+                codeFenced(this: CompileContext) {
+                    const content: string = this.resume();
+                    const infoParts = pendingInfo.split(/\s+/);
+                    const langName = infoParts[0] || 'text';
+                    const typeId = infoParts[1];
+
+                    // Handle datapos-visual block
+                    if (typeId === 'datapos-visual') {
+                        this.raw(`<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`);
+                        pendingInfo = '';
+                        return;
+                    }
+
+                    // Prism highlighting
+                    let highlighted: string;
+                    if (Prism.languages[langName]) {
+                        try {
+                            highlighted = Prism.highlight(content, Prism.languages[langName], langName);
+                        } catch {
+                            highlighted = escapeHtml(content);
+                        }
+                    } else {
+                        highlighted = escapeHtml(content);
+                    }
+
+                    this.raw(`<pre class="language-${langName}"><code>${highlighted}</code></pre>`);
+                    pendingInfo = '';
+                }
+            }
+        };
+
+        const options: Options = { extensions: [], htmlExtensions: [codeBlockExtension] };
+        const html: string = this.tools.micromark(processedMarkdown, options);
         renderTo.innerHTML = html;
 
         // // Construct markdown parser.
