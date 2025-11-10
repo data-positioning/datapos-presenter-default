@@ -61,9 +61,9 @@ export default class DefaultPresenter implements Presenter {
             .replace(/\{\{label\}\}/g, presentation.label?.['en-gb'] ?? `{{label}}`)
             .replace(/\{\{description\}\}/g, presentation.description?.['en-gb'] ?? `{{description}}`);
 
-        // Construct markdown parser.
-
         // Render html from markdown and inset into placeholder element.
+        const html = this.tools.micromark(processedMarkdown);
+        renderTo.innerHTML = html;
 
         // // Construct markdown parser.
         // const markdownParser: MarkdownIt = new this.tools.MarkdownIt({ html: true });
