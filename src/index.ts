@@ -70,7 +70,7 @@ export default class DefaultPresenter implements Presenter {
         function customCodeBlockHtml() {
             let langName = '';
             let typeId = '';
-            let codeContent: any[] = [];
+            let codeContent: string[] = [];
 
             return {
                 enter: {
@@ -87,10 +87,7 @@ export default class DefaultPresenter implements Presenter {
                         this.buffer();
                     },
                     codeFlowValue(token: Token) {
-                        // Collect raw content lines
-                        const xxxx = this.sliceSerialize(token);
-                        console.log(5555, xxxx);
-                        codeContent.push(xxxx);
+                        codeContent.push(this.sliceSerialize(token) as string);
                     }
                 },
                 exit: {
@@ -120,6 +117,7 @@ export default class DefaultPresenter implements Presenter {
                             }
                         }
 
+                        console.log(7777, html);
                         this.raw(html);
                     }
                 }
