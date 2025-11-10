@@ -97,9 +97,22 @@ export default class DefaultPresenter implements Presenter {
                     },
                     codeFlowValue(token: Token) {
                         data.codeContent = (data.codeContent || '') + this.sliceSerialize(token);
+                    },
+                    codeFencedFence() {
+                        // Pass through
+                    },
+                    codeFencedFenceSequence() {
+                        // Pass through
                     }
                 },
                 exit: {
+                    // Need exit handlers too
+                    codeFencedFence() {
+                        // Pass through
+                    },
+                    codeFencedFenceSequence() {
+                        // Pass through
+                    },
                     codeFenced() {
                         this.resume();
                         const rawContent = data.codeContent || '';
