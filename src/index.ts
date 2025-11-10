@@ -110,15 +110,12 @@ export default class DefaultPresenter implements Presenter {
                 exit: {
                     codeFlowValue() {
                         console.log(7777);
-                        this.raw('');
                     },
                     codeFencedFenceInfo() {
                         langName = this.resume()?.trim() || '';
-                        this.raw('');
                     },
                     codeFencedFenceMeta() {
                         typeId = this.resume()?.trim() || '';
-                        this.raw('');
                     },
                     codeFenced() {
                         const content = codeContent.join('');
