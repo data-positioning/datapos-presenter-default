@@ -62,24 +62,6 @@ export default class DefaultPresenter implements Presenter {
             .replace(/\{\{label\}\}/g, presentation.label?.['en-gb'] ?? `{{label}}`)
             .replace(/\{\{description\}\}/g, presentation.description?.['en-gb'] ?? `{{description}}`);
 
-        /*
-        //         let html = '';
-        //         if (typeId === 'datapos-visual') {
-        //             html = `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
-        //         } else {
-        //             // Using Prism for syntax highlighting
-        //             if (langName && this.tools?.prism?.languages[langName]) {
-        //                 const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
-        //                 html = `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
-        //             } else {
-        //                 // Fallback: escape HTML entities
-        //                 const escaped = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-        //                 html = `<pre class="language-text"><code>${escaped}</code></pre>`;
-        //             }
-        //         }
-        //         this.raw(html);
-        */
-
         function customCodeBlockHtml() {
             const data = { codeContent: '', lang: '', meta: '' };
             return {
@@ -113,19 +95,32 @@ export default class DefaultPresenter implements Presenter {
                         const rawContent = data.codeContent || '';
                         const lang = data.lang || 'plain';
                         const meta = data.meta || '';
-                        const lineCount = rawContent.split('\n').length;
-                        const charCount = rawContent.length;
-                        let infoString = `Language: ${lang}`;
-                        if (meta) infoString += ` | Meta: ${meta}`;
-                        this.raw(
-                            `<div class="code-block-replaced" style="padding: 10px; background: #f5f5f5; border-left: 4px solid #666;">` +
-                                `📝 Code block hidden<br>` +
-                                `<small>${infoString}</small><br>` +
-                                `<small>${lineCount} lines, ${charCount} characters</small><br>` +
-                                `<details style="margin-top: 10px;"><summary style="cursor: pointer;">Show raw content preview</summary>` +
-                                `<pre style="margin-top: 5px; padding: 10px; background: white; overflow: auto;">${rawContent.substring(0, 200)}...</pre></details>` +
-                                `</div>`
-                        );
+                        let html = '';
+                        if (lang === 'json' && meta === 'datapos-visual') {
+                            html = `<div class="${meta}" data-options="${encodeURIComponent(rawContent)}"></div>`;
+                        } else {
+                            if (lang && this.tools?.prism?.languages[lang]) {
+                                const highlighted = this.tools.prism.highlight(rawContent, this.tools.prism.languages[lang], lang);
+                                html = `<pre class="language-${lang}"><code>${highlighted}</code></pre>`;
+                            } else {
+                                const escaped = rawContent.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+                                html = `<pre class="language-text"><code>${escaped}</code></pre>`;
+                            }
+                        }
+                        this.raw(html);
+                        // const lineCount = rawContent.split('\n').length;
+                        // const charCount = rawContent.length;
+                        // let infoString = `Language: ${lang}`;
+                        // if (meta) infoString += ` | Meta: ${meta}`;
+                        // this.raw(
+                        //     `<div class="code-block-replaced" style="padding: 10px; background: #f5f5f5; border-left: 4px solid #666;">` +
+                        //         `📝 Code block hidden<br>` +
+                        //         `<small>${infoString}</small><br>` +
+                        //         `<small>${lineCount} lines, ${charCount} characters</small><br>` +
+                        //         `<details style="margin-top: 10px;"><summary style="cursor: pointer;">Show raw content preview</summary>` +
+                        //         `<pre style="margin-top: 5px; padding: 10px; background: white; overflow: auto;">${rawContent.substring(0, 200)}...</pre></details>` +
+                        //         `</div>`
+                        // );
                     }
                 }
             };
