@@ -65,10 +65,12 @@ export default class DefaultPresenter implements Presenter {
         const htmlExtension1 = {
             html: {
                 codeFlow(node) {
+                    console.log(1111);
                     // Replace code block node with custom HTML
                     return '<pre><code>REPLACED</code></pre>';
                 },
                 codeText(node) {
+                    console.log(2222);
                     // Replace inline code
                     return '<code>INLINE</code>';
                 }
