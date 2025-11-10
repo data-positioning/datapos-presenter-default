@@ -86,7 +86,12 @@ export default class DefaultPresenter implements Presenter {
                 enter: {
                     codeFenced() {
                         this.buffer();
+                        data.codeContent = '';
+                        data.lang = '';
+                        data.meta = '';
                     },
+                    codeFencedFence() {},
+                    codeFencedFenceSequence() {},
                     codeFencedFenceInfo(token: Token) {
                         console.log('codeFencedFenceInfo', token, this.sliceSerialize(token));
                         data.lang = this.sliceSerialize(token);
@@ -97,16 +102,13 @@ export default class DefaultPresenter implements Presenter {
                     },
                     codeFlowValue(token: Token) {
                         data.codeContent = (data.codeContent || '') + this.sliceSerialize(token);
-                    },
-                    codeFencedFence() {},
-                    codeFencedFenceSequence() {}
+                    }
                 },
                 exit: {
-                    // Need exit handlers too
                     codeFencedFence() {},
                     codeFencedFenceSequence() {},
-                    codeFencedFenceInfo(token: Token) {},
-                    codeFencedFenceMeta(token: Token) {},
+                    codeFencedFenceInfo() {},
+                    codeFencedFenceMeta() {},
                     codeFenced() {
                         this.resume();
                         const rawContent = data.codeContent || '';
