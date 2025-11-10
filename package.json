@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.794",
+    "version": "0.1.795",
     "peerDependencies": {
         "highcharts": "^12.4.0",
         "markdown-it": "^14.1.0",
