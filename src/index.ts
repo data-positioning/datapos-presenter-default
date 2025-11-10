@@ -121,19 +121,19 @@ export default class DefaultPresenter implements Presenter {
 
                         let html = '';
 
-                        // if (typeId === 'datapos-visual') {
-                        //     html = `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
-                        // } else {
-                        //     // Using Prism for syntax highlighting
-                        //     if (langName && this.tools?.prism?.languages[langName]) {
-                        //         const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
-                        //         html = `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
-                        //     } else {
-                        //         // Fallback: escape HTML entities
-                        //         const escaped = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-                        //         html = `<pre class="language-text"><code>${escaped}</code></pre>`;
-                        //     }
-                        // }
+                        if (typeId === 'datapos-visual') {
+                            html = `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
+                        } else {
+                            // Using Prism for syntax highlighting
+                            if (langName && this.tools?.prism?.languages[langName]) {
+                                const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
+                                html = `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
+                            } else {
+                                // Fallback: escape HTML entities
+                                const escaped = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+                                html = `<pre class="language-text"><code>${escaped}</code></pre>`;
+                            }
+                        }
 
                         this.raw(html);
                     },
