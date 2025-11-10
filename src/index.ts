@@ -102,9 +102,11 @@ export default class DefaultPresenter implements Presenter {
                             if (data.codeContent.endsWith('\n')) data.codeContent = data.codeContent.slice(0, -1);
                             console.log('codeFlowValue', `"${data.codeContent}"`);
                             if (lang && this.tools?.prism?.languages[lang]) {
+                                console.log(1111);
                                 const highlighted = this.tools.prism.highlight(rawContent, this.tools.prism.languages[lang], lang);
                                 html = `<pre class="language-${lang}"><code>${highlighted}</code></pre>`;
                             } else {
+                                console.log(2222);
                                 const escaped = rawContent.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
                                 html = `<pre class="language-text"><code>${escaped}</code></pre>`;
                             }
