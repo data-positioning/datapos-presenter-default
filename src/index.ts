@@ -66,59 +66,57 @@ export default class DefaultPresenter implements Presenter {
         // const html = this.tools.micromark(processedMarkdown);
         // renderTo.innerHTML = html;
 
-        // Simple HTML escaping helper
-        function escapeHtml(str: string): string {
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        // Create a custom HTML extension for code blocks
+        function customCodeBlockHtml() {
+            return {
+                enter: {
+                    codeFenced() {
+                        this.buffer();
+                    },
+                    codeFencedFenceInfo() {
+                        this.buffer();
+                    }
+                },
+                exit: {
+                    codeFencedFenceInfo() {
+                        const info = this.resume();
+                        const infoSegments = info.split(' ');
+                        const langName = infoSegments[0]?.trim() || undefined;
+                        const typeId = infoSegments[1]?.trim() || undefined;
+
+                        this.setData('codeFencedLang', langName);
+                        this.setData('codeFencedType', typeId);
+                    },
+                    codeFenced() {
+                        const content = this.resume();
+                        const langName = this.getData('codeFencedLang');
+                        const typeId = this.getData('codeFencedType');
+
+                        let html = '';
+
+                        if (typeId === 'datapos-visual') {
+                            html = `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
+                        } else {
+                            // Using Prism for syntax highlighting
+                            if (langName && this.tools?.prism?.languages[langName]) {
+                                const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
+                                html = `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
+                            } else {
+                                // Fallback: escape HTML entities
+                                const escaped = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+                                html = `<pre class="language-text"><code>${escaped}</code></pre>`;
+                            }
+                        }
+
+                        this.raw(html);
+                    }
+                }
+            };
         }
 
-        // Custom code block handling
-        const Prism = this.tools.Prism;
-        let pendingInfo = ''; // stores info string between tokens
-
-        const codeBlockExtension: HtmlExtension = {
-            enter: {
-                codeFencedFenceInfo(this: any, token: any) {
-                    // Capture the info string (e.g., "js datapos-visual")
-                    pendingInfo = this.sliceSerialize(token).trim();
-                },
-                codeFenced(this: any) {
-                    this.buffer(); // start collecting code content
-                }
-            },
-            exit: {
-                codeFenced(this: CompileContext) {
-                    const content: string = this.resume();
-                    const infoParts = pendingInfo.split(/\s+/);
-                    const langName = infoParts[0] || 'text';
-                    const typeId = infoParts[1];
-
-                    // Handle datapos-visual block
-                    if (typeId === 'datapos-visual') {
-                        this.raw(`<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`);
-                        pendingInfo = '';
-                        return;
-                    }
-
-                    // Prism highlighting
-                    let highlighted: string;
-                    if (Prism.languages[langName]) {
-                        try {
-                            highlighted = Prism.highlight(content, Prism.languages[langName], langName);
-                        } catch {
-                            highlighted = escapeHtml(content);
-                        }
-                    } else {
-                        highlighted = escapeHtml(content);
-                    }
-
-                    this.raw(`<pre class="language-${langName}"><code>${highlighted}</code></pre>`);
-                    pendingInfo = '';
-                }
-            }
-        };
-
-        const options: Options = { extensions: [], htmlExtensions: [codeBlockExtension] };
-        const html: string = this.tools.micromark(processedMarkdown, options);
+        // Render markdown to HTML
+        const htmlExtension = customCodeBlockHtml.call({ tools: this.tools });
+        const html = this.tools.micromark(processedMarkdown, { allowDangerousHtml: true, htmlExtensions: [htmlExtension] });
         renderTo.innerHTML = html;
 
         // // Construct markdown parser.
