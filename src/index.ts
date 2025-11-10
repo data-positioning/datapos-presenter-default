@@ -96,21 +96,21 @@ export default class DefaultPresenter implements Presenter {
                         langName = '';
                         typeId = '';
                         codeContent = [];
-                    }
+                    },
                     // codeFencedFenceInfo() {
                     //     this.buffer();
                     // },
                     // codeFencedFenceMeta() {
                     //     this.buffer();
                     // }
-                    // codeFlowValue(token: Token) {
-                    //     codeContent.push(this.sliceSerialize(token) as string);
-                    // }
+                    codeFlowValue(token: Token) {
+                        codeContent.push(this.sliceSerialize(token) as string);
+                    }
                 },
                 exit: {
-                    // codeFlowValue() {
-                    //     console.log(3333, codeContent);
-                    // },
+                    codeFlowValue() {
+                        console.log(3333, codeContent);
+                    },
                     // codeFencedFenceInfo() {
                     //     langName = this.resume()?.trim() || '';
                     // },
