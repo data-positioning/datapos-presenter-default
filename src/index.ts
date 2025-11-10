@@ -134,8 +134,16 @@ export default class DefaultPresenter implements Presenter {
                         // this.resume(); // Stop buffering and discard the content
                         // const content = this.resume(); // Get the buffered content
                         const rawContent = this.sliceSerialize(token);
-                        console.log(1111, rawContent);
-                        this.raw('<div class="code-block-replaced">📝 Code block hidden</div>');
+                        const lineCount = rawContent.split('\n').length;
+                        const charCount = rawContent.length;
+
+                        // Show the raw content in the message
+                        this.raw(
+                            `<div class="code-block-replaced">` +
+                                `📝 Code block hidden (${lineCount} lines, ${charCount} characters)<br>` +
+                                `<details><summary>Show raw content preview</summary><pre>${rawContent.substring(0, 100)}...</pre></details>` +
+                                `</div>`
+                        );
                     },
                     codeIndented() {
                         // this.resume();
