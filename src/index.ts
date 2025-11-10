@@ -67,37 +67,76 @@ export default class DefaultPresenter implements Presenter {
         // renderTo.innerHTML = html;
 
         // Create a custom HTML extension for code blocks
+        function customCodeBlockHtml2(data = {}) {
+            return {
+                enter: { variableString: enterVariableString },
+                exit: { variableString: exitVariableString }
+            };
+            function enterVariableString() {
+                this.buffer();
+            }
+
+            function exitVariableString() {
+                var id = this.resume();
+                if (id in data) {
+                    this.raw(this.encode(data[id]));
+                }
+            }
+        }
+
         function customCodeBlockHtml() {
             let langName = '';
             let typeId = '';
             let codeContent: string[] = [];
 
             return {
-                enter: {},
-                exit: {},
-                handlers: {
-                    codeFenced(token: Token, context: any) {
-                        console.log(token, context);
-                        // const info = token.info ? context.sliceSerialize(token.info).trim() : '';
-                        // const meta = token.meta ? context.sliceSerialize(token.meta).trim() : '';
-                        // const content = context.sliceSerialize(token.content);
-
-                        // const infoParts = info.split(/\s+/);
-                        // const langName = infoParts[0] || '';
-                        // const typeId = meta || '';
+                enter: {
+                    codeFenced() {
+                        // Reset for new code block
+                        langName = '';
+                        typeId = '';
+                        codeContent = [];
+                    },
+                    codeFencedFenceInfo() {
+                        this.buffer();
+                    },
+                    codeFencedFenceMeta() {
+                        this.buffer();
+                    },
+                    codeFlowValue(token: Token) {
+                        codeContent.push(this.sliceSerialize(token) as string);
+                    }
+                },
+                exit: {
+                    codeFencedFenceInfo() {
+                        langName = this.resume()?.trim() || '';
+                    },
+                    codeFencedFenceMeta() {
+                        typeId = this.resume()?.trim() || '';
+                    },
+                    codeFenced() {
+                        // Join all content lines
+                        const content = codeContent.join('');
+                        console.log(4444, content);
 
                         // let html = '';
+
                         // if (typeId === 'datapos-visual') {
-                        //     html = `<div class="datapos-visual" data-options="${encodeURIComponent(content)}"></div>`;
-                        // } else if (langName && tools?.prism?.languages[langName]) {
-                        //     const highlighted = tools.prism.highlight(content, tools.prism.languages[langName], langName);
-                        //     html = `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
+                        //     html = `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
                         // } else {
-                        //     const escaped = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-                        //     html = `<pre class="language-text"><code>${escaped}</code></pre>`;
+                        //     // Using Prism for syntax highlighting
+                        //     if (langName && this.tools?.prism?.languages[langName]) {
+                        //         const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
+                        //         html = `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
+                        //     } else {
+                        //         // Fallback: escape HTML entities
+                        //         const escaped = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+                        //         html = `<pre class="language-text"><code>${escaped}</code></pre>`;
+                        //     }
                         // }
 
-                        // context.raw(html);
+                        // console.log(7777, html);
+                        // this.raw(html);
                     }
                 }
             };
@@ -105,7 +144,8 @@ export default class DefaultPresenter implements Presenter {
 
         // Render markdown to HTML
         const htmlExtension = customCodeBlockHtml.call({ tools: this.tools });
-        const html = this.tools.micromark(processedMarkdown, { allowDangerousHtml: true, htmlExtensions: [htmlExtension] });
+        const htmlExtension2 = customCodeBlockHtml2({ abcde: 12345 });
+        const html = this.tools.micromark(processedMarkdown, { allowDangerousHtml: true, htmlExtensions: [htmlExtension, htmlExtension2] });
         renderTo.innerHTML = html;
 
         // // Construct markdown parser.
