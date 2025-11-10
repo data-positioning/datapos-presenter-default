@@ -62,54 +62,26 @@ export default class DefaultPresenter implements Presenter {
             .replace(/\{\{label\}\}/g, presentation.label?.['en-gb'] ?? `{{label}}`)
             .replace(/\{\{description\}\}/g, presentation.description?.['en-gb'] ?? `{{description}}`);
 
-        // // Render html from markdown and inset into placeholder element.
-        // const html = this.tools.micromark(processedMarkdown);
-        // renderTo.innerHTML = html;
-
-        // // Create a custom HTML extension for code blocks
-        // function customCodeBlockHtml2(data = {}) {
-        //     return {
-        //         enter: { variableString: enterVariableString },
-        //         exit: { variableString: exitVariableString }
-        //     };
-        //     function enterVariableString() {
-        //         this.buffer();
-        //     }
-
-        //     function exitVariableString() {
-        //         var id = this.resume();
-        //         if (id in data) {
-        //             this.raw(this.encode(data[id]));
-        //         }
-        //     }
-        // }
-
         /*
-                const htmlExtension1: HtmlExtension = {
-            enter: {
-                // When entering a code block (fenced or indented)
-                codeFenced() {
-                    this.buffer(); // Start buffering to capture the code block
-                },
-                codeIndented() {
-                    this.buffer();
-                }
-            },
-            exit: {
-                // When exiting a code block, replace it with our message
-                codeFenced() {
-                    this.resume(); // Stop buffering and discard the content
-                    this.raw('<div class="code-block-replaced">📝 Code block hidden</div>');
-                },
-                codeIndented() {
-                    this.resume();
-                    this.raw('<div class="code-block-replaced">📝 Code block hidden</div>');
-                }
-            }
-        };
+        //         let html = '';
+        //         if (typeId === 'datapos-visual') {
+        //             html = `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
+        //         } else {
+        //             // Using Prism for syntax highlighting
+        //             if (langName && this.tools?.prism?.languages[langName]) {
+        //                 const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
+        //                 html = `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
+        //             } else {
+        //                 // Fallback: escape HTML entities
+        //                 const escaped = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        //                 html = `<pre class="language-text"><code>${escaped}</code></pre>`;
+        //             }
+        //         }
+        //         this.raw(html);
         */
+
         function customCodeBlockHtml() {
-            let codeContent;
+            // let codeContent;
             return {
                 enter: {
                     codeFenced() {
@@ -117,11 +89,11 @@ export default class DefaultPresenter implements Presenter {
                         this.data = this.data || {};
                         this.data.codeContent = '';
                     },
-                    codeIndented() {
-                        this.buffer();
-                        this.data = this.data || {};
-                        this.data.codeContent = '';
-                    },
+                    // codeIndented() {
+                    //     this.buffer();
+                    //     this.data = this.data || {};
+                    //     this.data.codeContent = '';
+                    // },
                     // Only capture the actual code text (not lang or meta)
                     codeFlowValue(token) {
                         this.data = this.data || {};
@@ -129,9 +101,9 @@ export default class DefaultPresenter implements Presenter {
                     }
                 },
                 exit: {
-                    codeFlowValue() {
-                        // Exit handler - just pass through
-                    },
+                    // codeFlowValue() {
+                    //     // Exit handler - just pass through
+                    // },
                     codeFenced() {
                         this.resume(); // Stop buffering and discard default output
 
@@ -152,25 +124,25 @@ export default class DefaultPresenter implements Presenter {
                         if (this.data) {
                             delete this.data.codeContent;
                         }
-                    },
-                    codeIndented() {
-                        this.resume();
-
-                        const rawContent = (this.data && this.data.codeContent) || '';
-                        const lineCount = rawContent.split('\n').length;
-
-                        this.raw(
-                            `<div class="code-block-replaced" style="padding: 10px; background: #f5f5f5; border-left: 4px solid #666;">` +
-                                `📝 Indented code block hidden (${lineCount} lines)<br>` +
-                                `<details style="margin-top: 10px;"><summary style="cursor: pointer;">Show raw content</summary>` +
-                                `<pre style="margin-top: 5px; padding: 10px; background: white; overflow: auto;">${rawContent}</pre></details>` +
-                                `</div>`
-                        );
-
-                        if (this.data) {
-                            delete this.data.codeContent;
-                        }
                     }
+                    // codeIndented() {
+                    //     this.resume();
+
+                    //     const rawContent = (this.data && this.data.codeContent) || '';
+                    //     const lineCount = rawContent.split('\n').length;
+
+                    //     this.raw(
+                    //         `<div class="code-block-replaced" style="padding: 10px; background: #f5f5f5; border-left: 4px solid #666;">` +
+                    //             `📝 Indented code block hidden (${lineCount} lines)<br>` +
+                    //             `<details style="margin-top: 10px;"><summary style="cursor: pointer;">Show raw content</summary>` +
+                    //             `<pre style="margin-top: 5px; padding: 10px; background: white; overflow: auto;">${rawContent}</pre></details>` +
+                    //             `</div>`
+                    //     );
+
+                    //     if (this.data) {
+                    //         delete this.data.codeContent;
+                    //     }
+                    // }
                 }
             };
         }
