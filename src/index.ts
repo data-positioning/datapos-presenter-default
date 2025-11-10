@@ -109,10 +109,7 @@ export default class DefaultPresenter implements Presenter {
         };
         */
         function customCodeBlockHtml() {
-            let langName = '';
-            let typeId = '';
-            let codeContent: string[] = [];
-
+            let codeContent;
             return {
                 enter: {
                     // When entering a code block (fenced or indented)
@@ -124,10 +121,10 @@ export default class DefaultPresenter implements Presenter {
                     },
                     // Capture the code text as we encounter it
                     codeFlowValue(token: Token) {
-                        this.data.codeContent += this.sliceSerialize(token);
+                        codeContent += this.sliceSerialize(token);
                     },
                     codeTextData(token: Token) {
-                        this.data.codeContent += this.sliceSerialize(token);
+                        codeContent += this.sliceSerialize(token);
                     }
                 },
                 exit: {
@@ -139,7 +136,7 @@ export default class DefaultPresenter implements Presenter {
                     },
                     // When exiting a code block, replace it with our message
                     codeFenced(token: Token) {
-                        const rawContent = this.data.codeContent || '';
+                        const rawContent = codeContent || '';
                         const lineCount = rawContent.split('\n').length;
                         const charCount = rawContent.length;
 
@@ -153,7 +150,7 @@ export default class DefaultPresenter implements Presenter {
                         );
 
                         // Clean up
-                        delete this.data.codeContent;
+                        // delete codeContent;
                     },
                     codeIndented() {
                         // this.resume();
