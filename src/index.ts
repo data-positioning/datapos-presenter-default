@@ -62,39 +62,43 @@ export default class DefaultPresenter implements Presenter {
             .replace(/\{\{description\}\}/g, presentation.description?.['en-gb'] ?? `{{description}}`);
 
         // Construct markdown parser.
-        const markdownParser: MarkdownIt = new this.tools.MarkdownIt({ html: true });
-        markdownParser.renderer.rules.fence = (tokens, index) => {
-            const token = tokens[index];
-            const infoSegments = token.info.split(' ');
-            const langName = infoSegments[0]?.trim() ?? undefined;
-            const typeId = infoSegments[1]?.trim() ?? undefined;
-            const content = token.content;
-            switch (typeId) {
-                case 'datapos-visual':
-                    return `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
-                default: {
-                    // // return `<pre><code class="language-${langName}">${content}</code></pre>`;
-                    // if (langName && this.tools.hljs.getLanguage(langName)) {
-                    //     try {
-                    //         return `<pre class="hljs"><code>${this.tools.hljs.highlight(content, { language: langName }).value}</code></pre>`;
-                    //     } catch (_) {}
-                    // }
-                    // return `<pre class="hljs"><code>${markdownParser.utils.escapeHtml(content)}</code></pre>`;
-                    console.log(this.tools);
-                    if (langName && this.tools.prism.languages[langName]) {
-                        const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
-                        return `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
-                    }
-                    // fallback (no lang or unknown)
-                    const escaped = markdownParser.utils.escapeHtml(content);
-                    return `<pre class="language-text"><code>${escaped}</code></pre>`;
-                }
-            }
-        };
 
-        // Render html from markdown and inset into  placeholder element.
-        const html = markdownParser.render(processedMarkdown);
-        renderTo.innerHTML = html;
+        // Render html from markdown and inset into placeholder element.
+
+        // // Construct markdown parser.
+        // const markdownParser: MarkdownIt = new this.tools.MarkdownIt({ html: true });
+        // markdownParser.renderer.rules.fence = (tokens, index) => {
+        //     const token = tokens[index];
+        //     const infoSegments = token.info.split(' ');
+        //     const langName = infoSegments[0]?.trim() ?? undefined;
+        //     const typeId = infoSegments[1]?.trim() ?? undefined;
+        //     const content = token.content;
+        //     switch (typeId) {
+        //         case 'datapos-visual':
+        //             return `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
+        //         default: {
+        //             // // return `<pre><code class="language-${langName}">${content}</code></pre>`;
+        //             // if (langName && this.tools.hljs.getLanguage(langName)) {
+        //             //     try {
+        //             //         return `<pre class="hljs"><code>${this.tools.hljs.highlight(content, { language: langName }).value}</code></pre>`;
+        //             //     } catch (_) {}
+        //             // }
+        //             // return `<pre class="hljs"><code>${markdownParser.utils.escapeHtml(content)}</code></pre>`;
+        //             console.log(this.tools);
+        //             if (langName && this.tools.prism.languages[langName]) {
+        //                 const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
+        //                 return `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
+        //             }
+        //             // fallback (no lang or unknown)
+        //             const escaped = markdownParser.utils.escapeHtml(content);
+        //             return `<pre class="language-text"><code>${escaped}</code></pre>`;
+        //         }
+        //     }
+        // };
+
+        // // Render html from markdown and inset into  placeholder element.
+        // const html = markdownParser.render(processedMarkdown);
+        // renderTo.innerHTML = html;
 
         for (const visualElements of renderTo.querySelectorAll('.datapos-visual')) {
             const datasetOptions = decodeURIComponent((visualElements as HTMLElement).dataset.options);
