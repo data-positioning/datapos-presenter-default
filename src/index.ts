@@ -99,6 +99,7 @@ export default class DefaultPresenter implements Presenter {
                         console.log(8888, token, this.sliceSerialize(token));
                         this.data = this.data || {};
                         this.data.codeContent = (this.data.codeContent || '') + this.sliceSerialize(token);
+                        console.log(9999, this.data.codeContent);
                     }
                 },
                 exit: {
