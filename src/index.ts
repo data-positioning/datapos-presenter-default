@@ -126,13 +126,15 @@ export default class DefaultPresenter implements Presenter {
                 exit: {
                     // When exiting a code block, replace it with our message
                     codeFenced() {
-                        this.resume(); // Stop buffering and discard the content
+                        // this.resume(); // Stop buffering and discard the content
+                        const content = this.resume(); // Get the buffered content
+                        console.log(1111, content);
                         this.raw('<div class="code-block-replaced">📝 Code block hidden</div>');
                     },
                     codeIndented() {
                         // this.resume();
                         const content = this.resume(); // Get the buffered content
-                        console.log(1234, content);
+                        console.log(2222, content);
                         this.raw('<div class="code-block-replaced">📝 Code block hidden</div>');
                         //         const content = codeContent.join('');
 
