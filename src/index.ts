@@ -81,7 +81,7 @@ export default class DefaultPresenter implements Presenter {
                         data.meta = this.sliceSerialize(token);
                     },
                     codeFlowValue(token: Token) /* Each line/chunk of actual code content. */ {
-                        data.codeContent = (data.codeContent || '') + this.sliceSerialize(token);
+                        data.codeContent = data.codeContent + this.sliceSerialize(token);
                     }
                 },
                 exit: {
@@ -91,9 +91,7 @@ export default class DefaultPresenter implements Presenter {
                     codeFencedFenceSequence() /* The closing ``` characters. */ {},
                     codeFencedFence() /* The closing fence line. */ {},
                     codeFenced() /* The entire code block is complete ← Your replacement happens here. */ {
-                        // this.resume();
-                        const processedHtml = this.resume();
-                        console.log(1111, processedHtml);
+                        this.resume();
                         const rawContent = data.codeContent || '';
                         const lang = data.lang || 'plain';
                         const meta = data.meta || '';
@@ -101,6 +99,7 @@ export default class DefaultPresenter implements Presenter {
                         if (lang === 'json' && meta === 'datapos-visual') {
                             html = `<div class="${meta}" data-options="${encodeURIComponent(rawContent)}"></div>`;
                         } else {
+                            console.log('rawContent', rawContent);
                             if (lang && this.tools?.prism?.languages[lang]) {
                                 const highlighted = this.tools.prism.highlight(rawContent, this.tools.prism.languages[lang], lang);
                                 html = `<pre class="language-${lang}"><code>${highlighted}</code></pre>`;
