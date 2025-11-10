@@ -76,7 +76,7 @@ export default class DefaultPresenter implements Presenter {
                     console.log('exit codeText', token);
                 },
                 codeFenced(this: any, token: any) {
-                    console.log('exit codeFenced', token);
+                    this.raw('REPLACED');
                 }
             }
         };
