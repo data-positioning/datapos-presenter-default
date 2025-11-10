@@ -86,18 +86,38 @@ export default class DefaultPresenter implements Presenter {
                 enter: {
                     codeFenced() {
                         this.buffer();
+                        // Reset data for each new code block
+                        data.codeContent = '';
+                        data.lang = '';
+                        data.meta = '';
                     },
+                    // Handle fence sequences (the ``` or ~~~)
+                    codeFencedFence() {
+                        // Just pass through
+                    },
+                    codeFencedFenceSequence() {
+                        // Just pass through
+                    },
+                    // Capture the language (e.g., "javascript", "json")
                     codeFencedFenceInfo(token: Token) {
                         data.lang = this.sliceSerialize(token);
                     },
+                    // Capture the meta data (everything after the language)
                     codeFencedFenceMeta(token: Token) {
                         data.meta = this.sliceSerialize(token);
                     },
+                    // Capture the actual code content
                     codeFlowValue(token: Token) {
                         data.codeContent = (data.codeContent || '') + this.sliceSerialize(token);
                     }
                 },
                 exit: {
+                    codeFencedFence() {
+                        // Just pass through
+                    },
+                    codeFencedFenceSequence() {
+                        // Just pass through
+                    },
                     codeFenced() {
                         this.resume();
                         const rawContent = data.codeContent || '';
