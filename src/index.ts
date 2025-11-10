@@ -88,6 +88,7 @@ export default class DefaultPresenter implements Presenter {
                         this.buffer(); // Start buffering to suppress default output
                         this.data = this.data || {};
                         this.data.codeContent = '';
+                        console.log(3333);
                     },
                     // codeIndented() {
                     //     this.buffer();
