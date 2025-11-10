@@ -85,7 +85,10 @@ export default class DefaultPresenter implements Presenter {
                     }
                 },
                 exit: {
-                    codeFlowValue() /*  (optional, if you need to do something after capturing code). */ {},
+                    codeFlowValue() /*  (optional, if you need to do something after capturing code). */ {
+                        const processedHtml = this.resume();
+                        console.log(2222, processedHtml);
+                    },
                     codeFencedFenceMeta() /* Done processing the metadata. */ {},
                     codeFencedFenceInfo() /* Done processing the language identifier. */ {},
                     codeFencedFenceSequence() /* The closing ``` characters. */ {},
@@ -93,7 +96,7 @@ export default class DefaultPresenter implements Presenter {
                     codeFenced() /* The entire code block is complete ← Your replacement happens here. */ {
                         // this.resume();
                         const processedHtml = this.resume();
-                        console.log(processedHtml);
+                        console.log(1111, processedHtml);
                         const rawContent = data.codeContent || '';
                         const lang = data.lang || 'plain';
                         const meta = data.meta || '';
