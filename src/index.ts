@@ -112,80 +112,52 @@ export default class DefaultPresenter implements Presenter {
             let codeContent;
             return {
                 enter: {
-                    // When entering a code block (fenced or indented)
                     codeFenced() {
-                        // this.buffer(); // Start buffering to capture the code block
+                        this.data.codeContent = ''; // Initialize storage
                     },
-                    codeFencedFenceInfo() {},
-                    codeFencedFenceMeta() {},
-                    // codeIndented() {
-                    //     // this.buffer();
-                    // },
-                    // Capture the code text as we encounter it
-                    codeFlowValue(token: Token) {
-                        codeContent += this.sliceSerialize(token);
+                    codeIndented() {
+                        this.data.codeContent = '';
                     },
-                    codeTextData(token: Token) {
-                        codeContent += this.sliceSerialize(token);
+                    // Only capture the actual code text (not lang or meta)
+                    codeFlowValue(token) {
+                        this.data.codeContent += this.sliceSerialize(token);
                     }
                 },
                 exit: {
-                    codeFencedFenceInfo() {
-                        this.raw('');
-                    },
-                    codeFencedFenceMeta() {
-                        this.raw('');
-                    },
                     codeFlowValue() {
-                        // Exit handler for codeFlowValue - just pass through
+                        // Exit handler - just pass through
                     },
-                    codeTextData() {
-                        // Exit handler for codeTextData - just pass through
-                    },
-                    // When exiting a code block, replace it with our message
-                    codeFenced(token: Token) {
-                        const rawContent = codeContent || '';
+                    codeFenced() {
+                        const rawContent = this.data.codeContent || '';
                         const lineCount = rawContent.split('\n').length;
                         const charCount = rawContent.length;
 
                         // Replace with custom message that shows info about original content
-                        // this.raw(
-                        //     `<div class="code-block-replaced" style="padding: 10px; background: #f5f5f5; border-left: 4px solid #666;">` +
-                        //         `📝 Code block hidden (${lineCount} lines, ${charCount} characters)<br>` +
-                        //         `<details style="margin-top: 10px;"><summary style="cursor: pointer;">Show raw content preview</summary>` +
-                        //         `<pre style="margin-top: 5px; padding: 10px; background: white; overflow: auto;">${rawContent.substring(0, 200)}...</pre></details>` +
-                        //         `</div>`
-                        // );
-                        this.raw('<div>REPLACED...</div>');
+                        this.raw(
+                            `<div class="code-block-replaced" style="padding: 10px; background: #f5f5f5; border-left: 4px solid #666;">` +
+                                `📝 Code block hidden (${lineCount} lines, ${charCount} characters)<br>` +
+                                `<details style="margin-top: 10px;"><summary style="cursor: pointer;">Show raw content preview</summary>` +
+                                `<pre style="margin-top: 5px; padding: 10px; background: white; overflow: auto;">${rawContent.substring(0, 200)}...</pre></details>` +
+                                `</div>`
+                        );
 
                         // Clean up
-                        // delete codeContent;
+                        delete this.data.codeContent;
+                    },
+                    codeIndented() {
+                        const rawContent = this.data.codeContent || '';
+                        const lineCount = rawContent.split('\n').length;
+
+                        this.raw(
+                            `<div class="code-block-replaced" style="padding: 10px; background: #f5f5f5; border-left: 4px solid #666;">` +
+                                `📝 Indented code block hidden (${lineCount} lines)<br>` +
+                                `<details style="margin-top: 10px;"><summary style="cursor: pointer;">Show raw content</summary>` +
+                                `<pre style="margin-top: 5px; padding: 10px; background: white; overflow: auto;">${rawContent}</pre></details>` +
+                                `</div>`
+                        );
+
+                        delete this.data.codeContent;
                     }
-                    // codeIndented() {
-                    //     // this.resume();
-                    //     const content = this.resume(); // Get the buffered content
-                    //     console.log(2222, content);
-                    //     this.raw('<div class="code-block-replaced">📝 Code block hidden</div>');
-                    //     //         const content = codeContent.join('');
-
-                    //     //         let html = '';
-
-                    //     //         if (typeId === 'datapos-visual') {
-                    //     //             html = `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
-                    //     //         } else {
-                    //     //             // Using Prism for syntax highlighting
-                    //     //             if (langName && this.tools?.prism?.languages[langName]) {
-                    //     //                 const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
-                    //     //                 html = `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
-                    //     //             } else {
-                    //     //                 // Fallback: escape HTML entities
-                    //     //                 const escaped = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-                    //     //                 html = `<pre class="language-text"><code>${escaped}</code></pre>`;
-                    //     //             }
-                    //     //         }
-
-                    //     //         this.raw(html);
-                    // }
                 }
             };
         }
