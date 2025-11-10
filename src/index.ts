@@ -68,7 +68,7 @@ export default class DefaultPresenter implements Presenter {
                     console.log('enter codeText', token);
                 },
                 codeFenced(this: any, token: any) {
-                    console.log('enter codeFenced', token);
+                    this.raw('REPLACED');
                 }
             },
             exit: {
