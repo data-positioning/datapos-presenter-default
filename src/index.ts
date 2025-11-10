@@ -62,6 +62,18 @@ export default class DefaultPresenter implements Presenter {
             .replace(/\{\{label\}\}/g, presentation.label?.['en-gb'] ?? `{{label}}`)
             .replace(/\{\{description\}\}/g, presentation.description?.['en-gb'] ?? `{{description}}`);
 
+        const htmlExtension1 = {
+            html: {
+                codeFlow(node) {
+                    // Replace code block node with custom HTML
+                    return '<pre><code>REPLACED</code></pre>';
+                },
+                codeText(node) {
+                    // Replace inline code
+                    return '<code>INLINE</code>';
+                }
+            }
+        };
         // // Render html from markdown and inset into placeholder element.
         // const html = this.tools.micromark(processedMarkdown);
         // renderTo.innerHTML = html;
@@ -144,7 +156,7 @@ export default class DefaultPresenter implements Presenter {
 
         // Render markdown to HTML
         const htmlExtension = customCodeBlockHtml.call({ tools: this.tools });
-        const html = this.tools.micromark(processedMarkdown, { allowDangerousHtml: true, htmlExtensions: [htmlExtension] });
+        const html = this.tools.micromark(processedMarkdown, { allowDangerousHtml: true, htmlExtensions: [htmlExtension1] });
         renderTo.innerHTML = html;
 
         // // Construct markdown parser.
