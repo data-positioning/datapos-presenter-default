@@ -91,7 +91,9 @@ export default class DefaultPresenter implements Presenter {
                     codeFencedFenceSequence() /* The closing ``` characters. */ {},
                     codeFencedFence() /* The closing fence line. */ {},
                     codeFenced() /* The entire code block is complete ← Your replacement happens here. */ {
-                        this.resume();
+                        // this.resume();
+                        const processedHtml = this.resume();
+                        console.log(processedHtml);
                         const rawContent = data.codeContent || '';
                         const lang = data.lang || 'plain';
                         const meta = data.meta || '';
@@ -103,8 +105,8 @@ export default class DefaultPresenter implements Presenter {
                                 const highlighted = this.tools.prism.highlight(rawContent, this.tools.prism.languages[lang], lang);
                                 html = `<pre class="language-${lang}"><code>${highlighted}</code></pre>`;
                             } else {
-                                // const escaped = rawContent.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-                                html = `<pre class="language-text"><code>${rawContent}</code></pre>`;
+                                const escaped = rawContent.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+                                html = `<pre class="language-text"><code>${escaped}</code></pre>`;
                             }
                         }
                         this.raw(html);
