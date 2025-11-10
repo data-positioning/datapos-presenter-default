@@ -81,42 +81,22 @@ export default class DefaultPresenter implements Presenter {
         */
 
         function customCodeBlockHtml() {
-            // let codeContent;
             const data = { codeContent: '' };
             return {
                 enter: {
                     codeFenced() {
-                        this.buffer(); // Start buffering to suppress default output
-                        // this.data = this.data || {};
-                        data.codeContent = '';
-                        console.log(3333);
+                        this.buffer();
                     },
-                    // codeIndented() {
-                    //     this.buffer();
-                    //     this.data = this.data || {};
-                    //     this.data.codeContent = '';
-                    // },
-                    // Only capture the actual code text (not lang or meta)
                     codeFlowValue(token: Token) {
-                        console.log(8888, token, this.sliceSerialize(token));
-                        // this.data = this.data || {};
                         data.codeContent = (data.codeContent || '') + this.sliceSerialize(token);
-                        console.log(9999, data.codeContent);
                     }
                 },
                 exit: {
-                    // codeFlowValue() {
-                    //     // Exit handler - just pass through
-                    // },
                     codeFenced() {
-                        this.resume(); // Stop buffering and discard default output
-
-                        console.log(1111, data);
+                        this.resume();
                         const rawContent = (data && data.codeContent) || '';
                         const lineCount = rawContent.split('\n').length;
                         const charCount = rawContent.length;
-
-                        // Replace with custom message that shows info about original content
                         this.raw(
                             `<div class="code-block-replaced" style="padding: 10px; background: #f5f5f5; border-left: 4px solid #666;">` +
                                 `📝 Code block hidden (${lineCount} lines, ${charCount} characters)<br>` +
@@ -124,30 +104,7 @@ export default class DefaultPresenter implements Presenter {
                                 `<pre style="margin-top: 5px; padding: 10px; background: white; overflow: auto;">${rawContent.substring(0, 200)}...</pre></details>` +
                                 `</div>`
                         );
-
-                        // Clean up
-                        if (this.data) {
-                            delete this.data.codeContent;
-                        }
                     }
-                    // codeIndented() {
-                    //     this.resume();
-
-                    //     const rawContent = (this.data && this.data.codeContent) || '';
-                    //     const lineCount = rawContent.split('\n').length;
-
-                    //     this.raw(
-                    //         `<div class="code-block-replaced" style="padding: 10px; background: #f5f5f5; border-left: 4px solid #666;">` +
-                    //             `📝 Indented code block hidden (${lineCount} lines)<br>` +
-                    //             `<details style="margin-top: 10px;"><summary style="cursor: pointer;">Show raw content</summary>` +
-                    //             `<pre style="margin-top: 5px; padding: 10px; background: white; overflow: auto;">${rawContent}</pre></details>` +
-                    //             `</div>`
-                    //     );
-
-                    //     if (this.data) {
-                    //         delete this.data.codeContent;
-                    //     }
-                    // }
                 }
             };
         }
