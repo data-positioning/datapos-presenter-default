@@ -109,8 +109,8 @@ export default class DefaultPresenter implements Presenter {
                             html = `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
                         } else {
                             // Using Prism for syntax highlighting
-                            if (langName && this.tools?.prism?.languages[langName]) {
-                                const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
+                            if (langName && this.tools?.Prism?.languages[langName]) {
+                                const highlighted = this.tools.Prism.highlight(content, this.tools.Prism.languages[langName], langName);
                                 html = `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
                             } else {
                                 // Fallback: escape HTML entities
