@@ -96,6 +96,7 @@ export default class DefaultPresenter implements Presenter {
                     // },
                     // Only capture the actual code text (not lang or meta)
                     codeFlowValue(token: Token) {
+                        console.log(8888);
                         this.data = this.data || {};
                         this.data.codeContent = (this.data.codeContent || '') + this.sliceSerialize(token);
                     }
