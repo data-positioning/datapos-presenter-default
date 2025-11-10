@@ -118,7 +118,10 @@ export default class DefaultPresenter implements Presenter {
                         }
 
                         console.log(7777, html);
-                        this.raw(html);
+                        this.raw(html); // 🔥 Prevent micromark from emitting the original <pre><code> text
+                        // by clearing the current buffer
+                        this.buffer(); // start a dummy buffer to swallow remaining content
+                        this.resume(); // discard it
                     }
                 }
             };
