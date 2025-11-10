@@ -117,18 +117,24 @@ export default class DefaultPresenter implements Presenter {
                 enter: {
                     // When entering a code block (fenced or indented)
                     codeFenced() {
-                        this.buffer(); // Start buffering to capture the code block
+                        // this.buffer(); // Start buffering to capture the code block
                     },
                     codeIndented() {
-                        this.buffer();
+                        // this.buffer();
+                    },
+                    // Capture the actual code text
+                    codeFlowValue(token: Token) {
+                        // Store the raw content from the token
+                        this.raw(`<div class="code-block-replaced" style="display:none;" data-content="${encodeURIComponent(this.sliceSerialize(token))}">`);
                     }
                 },
                 exit: {
                     // When exiting a code block, replace it with our message
-                    codeFenced() {
+                    codeFenced(token: Token) {
                         // this.resume(); // Stop buffering and discard the content
-                        const content = this.resume(); // Get the buffered content
-                        console.log(1111, content);
+                        // const content = this.resume(); // Get the buffered content
+                        const rawContent = this.sliceSerialize(token);
+                        console.log(1111, rawContent);
                         this.raw('<div class="code-block-replaced">📝 Code block hidden</div>');
                     },
                     codeIndented() {
