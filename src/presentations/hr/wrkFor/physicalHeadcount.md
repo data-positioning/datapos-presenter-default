@@ -20,6 +20,35 @@ Physical headcount measures the actual number of people being counted at a fixed
 
 Quantifies the variation in physical headcount between the opening and closing of specific reporting periods.
 
+```json datapos-visual
+{
+    "content": {
+        "title": { "text": "Opening/Closing Headcount" },
+        "data": {
+            "name": "Headcount",
+            "categoryLabels": { "values": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
+            "measures": [
+                { "id": "openingHeadcount", "name": "Opening" },
+                { "id": "closingHeadcount", "name": "Closing" }
+            ]
+        }
+    },
+    "views": [
+        { "categoryId": "cartesian", "typeId": "areaLine" },
+        { "categoryId": "cartesian", "typeId": "bar" },
+        { "categoryId": "cartesian", "typeId": "column" },
+        { "categoryId": "cartesian", "typeId": "line", "default": true },
+        { "categoryId": "polar", "typeId": "area" },
+        { "categoryId": "polar", "typeId": "column" },
+        { "categoryId": "polar", "typeId": "line" },
+        { "categoryId": "range", "typeId": "area" },
+        { "categoryId": "range", "typeId": "bar" },
+        { "categoryId": "range", "typeId": "column" },
+        { "categoryId": "values" }
+    ]
+}
+```
+
 Describe opening/closing headcounts...
 
 ## Starting/Ending Headcount

@@ -66,23 +66,23 @@ export default class DefaultPresenter implements Presenter {
         // const html = this.tools.micromark(processedMarkdown);
         // renderTo.innerHTML = html;
 
-        // Create a custom HTML extension for code blocks
-        function customCodeBlockHtml2(data = {}) {
-            return {
-                enter: { variableString: enterVariableString },
-                exit: { variableString: exitVariableString }
-            };
-            function enterVariableString() {
-                this.buffer();
-            }
+        // // Create a custom HTML extension for code blocks
+        // function customCodeBlockHtml2(data = {}) {
+        //     return {
+        //         enter: { variableString: enterVariableString },
+        //         exit: { variableString: exitVariableString }
+        //     };
+        //     function enterVariableString() {
+        //         this.buffer();
+        //     }
 
-            function exitVariableString() {
-                var id = this.resume();
-                if (id in data) {
-                    this.raw(this.encode(data[id]));
-                }
-            }
-        }
+        //     function exitVariableString() {
+        //         var id = this.resume();
+        //         if (id in data) {
+        //             this.raw(this.encode(data[id]));
+        //         }
+        //     }
+        // }
 
         function customCodeBlockHtml() {
             let langName = '';
@@ -109,7 +109,7 @@ export default class DefaultPresenter implements Presenter {
                 },
                 exit: {
                     codeFlowValue() {
-                        console.log(7777);
+                        console.log(3333, codeContent);
                     },
                     codeFencedFenceInfo() {
                         langName = this.resume()?.trim() || '';
@@ -119,7 +119,6 @@ export default class DefaultPresenter implements Presenter {
                     },
                     codeFenced() {
                         const content = codeContent.join('');
-                        console.log(4444, content);
 
                         let html = '';
 
@@ -145,8 +144,7 @@ export default class DefaultPresenter implements Presenter {
 
         // Render markdown to HTML
         const htmlExtension = customCodeBlockHtml.call({ tools: this.tools });
-        const htmlExtension2 = customCodeBlockHtml2({ abcde: 12345 });
-        const html = this.tools.micromark(processedMarkdown, { allowDangerousHtml: true, htmlExtensions: [htmlExtension, htmlExtension2] });
+        const html = this.tools.micromark(processedMarkdown, { allowDangerousHtml: true, htmlExtensions: [htmlExtension] });
         renderTo.innerHTML = html;
 
         // // Construct markdown parser.
