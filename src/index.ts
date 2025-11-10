@@ -99,7 +99,7 @@ export default class DefaultPresenter implements Presenter {
                         if (lang === 'json' && meta === 'datapos-visual') {
                             html = `<div class="${meta}" data-options="${encodeURIComponent(rawContent)}"></div>`;
                         } else {
-                            console.log('codeFlowValue', `${data.codeContent}`);
+                            console.log('codeFlowValue', `"${data.codeContent}"`);
                             if (lang && this.tools?.prism?.languages[lang]) {
                                 const highlighted = this.tools.prism.highlight(rawContent, this.tools.prism.languages[lang], lang);
                                 html = `<pre class="language-${lang}"><code>${highlighted}</code></pre>`;
