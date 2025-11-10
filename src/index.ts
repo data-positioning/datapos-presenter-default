@@ -116,6 +116,8 @@ export default class DefaultPresenter implements Presenter {
                     codeFenced() {
                         // this.buffer(); // Start buffering to capture the code block
                     },
+                    codeFencedFenceInfo() {},
+                    codeFencedFenceMeta() {},
                     // codeIndented() {
                     //     // this.buffer();
                     // },
@@ -128,6 +130,8 @@ export default class DefaultPresenter implements Presenter {
                     }
                 },
                 exit: {
+                    codeFencedFenceInfo() {},
+                    codeFencedFenceMeta() {},
                     codeFlowValue() {
                         // Exit handler for codeFlowValue - just pass through
                     },
