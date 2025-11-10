@@ -102,10 +102,10 @@ export default class DefaultPresenter implements Presenter {
                     },
                     codeFencedFenceMeta() {
                         this.buffer();
-                    },
-                    codeFlowValue(token: Token) {
-                        codeContent.push(this.sliceSerialize(token) as string);
                     }
+                    // codeFlowValue(token: Token) {
+                    //     codeContent.push(this.sliceSerialize(token) as string);
+                    // }
                 },
                 exit: {
                     // codeFlowValue() {
