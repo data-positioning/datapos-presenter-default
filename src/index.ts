@@ -4,7 +4,7 @@
 
 // Dependencies - Vendor.
 // import type MarkdownIt from 'markdown-it';
-import type { CompileContext, HtmlExtension, Options } from 'micromark-util-types';
+import type { CompileContext, HtmlExtension, Options, Token } from 'micromark-util-types';
 
 // Dependencies - Framework.
 import type { ComponentRef } from '@datapos/datapos-shared';
@@ -68,40 +68,39 @@ export default class DefaultPresenter implements Presenter {
 
         // Create a custom HTML extension for code blocks
         function customCodeBlockHtml() {
+            let langName = '';
+            let typeId = '';
+            let codeContent: any[] = [];
+
             return {
                 enter: {
                     codeFenced() {
-                        this.buffer();
+                        // Reset for new code block
+                        langName = '';
+                        typeId = '';
+                        codeContent = [];
                     },
                     codeFencedFenceInfo() {
                         this.buffer();
                     },
                     codeFencedFenceMeta() {
                         this.buffer();
+                    },
+                    codeFlowValue(token: Token) {
+                        // Collect raw content lines
+                        codeContent.push(this.sliceSerialize(token));
                     }
                 },
                 exit: {
                     codeFencedFenceInfo() {
-                        const lang = this.resume();
-                        this.setData('codeFencedLang', lang?.trim() || '');
+                        langName = this.resume()?.trim() || '';
                     },
                     codeFencedFenceMeta() {
-                        const meta = this.resume();
-                        this.setData('codeFencedMeta', meta?.trim() || '');
+                        typeId = this.resume()?.trim() || '';
                     },
-                    codeFenced(token: any) {
-                        console.log(3333, token);
-                        const content = this.sliceSerialize(token);
-                        const langName = this.getData('codeFencedLang') || '';
-                        const meta = this.getData('codeFencedMeta') || '';
-
-                        // Parse the full info string (lang + meta)
-                        const fullInfo = langName + (meta ? ' ' + meta : '');
-                        const infoSegments = fullInfo.split(' ');
-                        const typeId = infoSegments[1]?.trim() || undefined;
-
-                        console.log(3333, langName, typeId);
-                        console.log(4444, content);
+                    codeFenced() {
+                        // Join all content lines
+                        const content = codeContent.join('');
 
                         let html = '';
 
@@ -109,8 +108,8 @@ export default class DefaultPresenter implements Presenter {
                             html = `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
                         } else {
                             // Using Prism for syntax highlighting
-                            if (langName && this.tools?.Prism?.languages[langName]) {
-                                const highlighted = this.tools.Prism.highlight(content, this.tools.Prism.languages[langName], langName);
+                            if (langName && this.tools?.prism?.languages[langName]) {
+                                const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
                                 html = `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
                             } else {
                                 // Fallback: escape HTML entities
