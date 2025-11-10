@@ -130,8 +130,12 @@ export default class DefaultPresenter implements Presenter {
                     }
                 },
                 exit: {
-                    codeFencedFenceInfo() {},
-                    codeFencedFenceMeta() {},
+                    codeFencedFenceInfo() {
+                        this.raw('');
+                    },
+                    codeFencedFenceMeta() {
+                        this.raw('');
+                    },
                     codeFlowValue() {
                         // Exit handler for codeFlowValue - just pass through
                     },
