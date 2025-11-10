@@ -108,9 +108,9 @@ export default class DefaultPresenter implements Presenter {
                     }
                 },
                 exit: {
-                    codeFlowValue() {
-                        console.log(3333, codeContent);
-                    },
+                    // codeFlowValue() {
+                    //     console.log(3333, codeContent);
+                    // },
                     codeFencedFenceInfo() {
                         langName = this.resume()?.trim() || '';
                     },
