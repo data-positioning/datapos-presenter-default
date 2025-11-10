@@ -89,8 +89,9 @@ export default class DefaultPresenter implements Presenter {
                         const meta = this.resume();
                         this.setData('codeFencedMeta', meta?.trim() || '');
                     },
-                    codeFenced() {
-                        const content = this.resume();
+                    codeFenced(token: any) {
+                        console.log(3333, token);
+                        const content = this.sliceSerialize(token);
                         const langName = this.getData('codeFencedLang') || '';
                         const meta = this.getData('codeFencedMeta') || '';
 
