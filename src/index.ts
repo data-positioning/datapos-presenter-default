@@ -88,6 +88,9 @@ export default class DefaultPresenter implements Presenter {
                     }
                 },
                 exit: {
+                    codeFlowEnd() {
+                        console.log('FLOW END');
+                    },
                     codeFlowValue() /*  (optional, if you need to do something after capturing code). */ {},
                     codeFencedFenceMeta() /* Done processing the metadata. */ {},
                     codeFencedFenceInfo() /* Done processing the language identifier. */ {},
