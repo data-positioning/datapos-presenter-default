@@ -99,14 +99,11 @@ export default class DefaultPresenter implements Presenter {
                             html = `<div class="${meta}" data-options="${encodeURIComponent(rawContent)}"></div>`;
                         } else {
                             if (data.codeContent.endsWith('\n')) data.codeContent = data.codeContent.slice(0, -1);
-                            console.log('codeFlowValue', `"${data.codeContent}"`);
-                            console.log('languages', lang, globalThis.Prism.languages);
-                            if (lang && globalThis.Prism.languages[lang]) {
-                                console.log(1111);
+                            if (lang && globalThis.Prism && globalThis.Prism.languages[lang]) {
+                                console.log('languages', lang, globalThis.Prism.languages);
                                 const highlighted = globalThis.Prism.highlight(rawContent, globalThis.Prism.languages[lang], lang);
                                 html = `<pre class="language-${lang}"><code>${highlighted}</code></pre>`;
                             } else {
-                                console.log(2222);
                                 const escaped = rawContent.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
                                 html = `<pre class="language-text"><code>${escaped}</code></pre>`;
                             }
