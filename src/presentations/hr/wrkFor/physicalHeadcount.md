@@ -146,6 +146,10 @@ console.log('A very long line of text that will test how the code block wraps on
 console.log(count);
 ```
 
+$$
+L = \frac{1}{2} \rho v^2 S C_L
+$$
+
 | Col 1       | Col 2       |
 | ----------- | ----------- |
 | Row 1 Val 1 | Row 1 Val 2 |
