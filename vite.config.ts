@@ -18,6 +18,12 @@ export default defineConfig({
             formats: ['es'],
             fileName: (format) => `${config.id}.${format}.js`
         },
+        rollupOptions: {
+            external: [
+                // 👇 Tell Vite not to try to resolve remote plugin URLs
+                /^https:\/\/engine-eu\.datapos\.app\//
+            ]
+        },
         target: 'ESNext'
     },
     plugins: [dts({ outDir: 'dist/types' })],
