@@ -55,6 +55,9 @@ export default class DefaultPresenter implements Presenter {
         // Use presentation path to retrieve presentation.
         const presentation = configPresentations[presentationPath] as PresentationConfig;
 
+        const chartJS = await import('chart.js');
+        console.log('chartJS', chartJS);
+
         // Substitute values for label and description placeholders in content.
         let processedMarkdown = presentation.content;
         processedMarkdown = processedMarkdown
