@@ -72,11 +72,11 @@ export default class DefaultPresenter implements Presenter {
                         data.meta = '';
                     },
                     codeFencedFence() /* The opening fence line. */ {},
-                    codeFencedFenceSequence() /* The opening ``` characters. */ {},
-                    codeFencedFenceInfo(token: Token) /* The language identifier ("json"). */ {
+                    codeFencedFenceSequence() /* The opening fence characters (```). */ {},
+                    codeFencedFenceInfo(token: Token) /* The language identifier (json, javascript...). */ {
                         data.lang = this.sliceSerialize(token);
                     },
-                    codeFencedFenceMeta(token: Token) /* Metadata after the language identifier ("datapos-visual"). */ {
+                    codeFencedFenceMeta(token: Token) /* The metadata after the language identifier (datapos-visual). */ {
                         data.meta = this.sliceSerialize(token);
                     },
                     codeFlowValue(token: Token) /* Each line/chunk of actual code content. */ {
@@ -84,13 +84,13 @@ export default class DefaultPresenter implements Presenter {
                     }
                 },
                 exit: {
-                    codeFlowValue() /*  (optional, if you need to do something after capturing code). */ {},
+                    codeFlowValue() /*  Done capturing the code. */ {},
                     codeFencedFenceMeta() /* Done processing the metadata. */ {},
                     codeFencedFenceInfo() /* Done processing the language identifier. */ {},
-                    codeFencedFenceSequence() /* The closing ``` characters. */ {},
+                    codeFencedFenceSequence() /* The closing fence characters (```). */ {},
                     codeFencedFence() /* The closing fence line. */ {},
-                    codeFenced() /* The entire code block is complete ← Your replacement happens here. */ {
-                        this.resume();
+                    codeFenced() /* The entire code block is complete, replacement can happen now. */ {
+                        this.resume(); // Discard the captured code text.
                         const rawContent = data.codeContent || '';
                         const lang = data.lang || 'plain';
                         const meta = data.meta || '';
@@ -129,7 +129,7 @@ export default class DefaultPresenter implements Presenter {
 
         // Render markdown to HTML
         const htmlExtension = customCodeBlockHtml.call({ tools: this.tools });
-        const html = this.tools.micromark(processedMarkdown, { allowDangerousHtml: true, htmlExtensions: [htmlExtension] });
+        const html = this.tools.micromark(processedMarkdown, { allowDangerousHtml: true, htmlExtensions: [this.tools.gfmExtension.html(), htmlExtension] });
         renderTo.innerHTML = html;
 
         // // Construct markdown parser.
