@@ -3,8 +3,7 @@
  */
 
 // Dependencies - Vendor.
-// import type MarkdownIt from 'markdown-it';
-import type { CompileContext, HtmlExtension, Options, Token } from 'micromark-util-types';
+import type { Token } from 'micromark-util-types';
 
 // Dependencies - Framework.
 import type { ComponentRef } from '@datapos/datapos-shared';
