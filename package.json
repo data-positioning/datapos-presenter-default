@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.840",
+    "version": "0.1.841",
     "dependencies": {
         "chart.js": "^4.5.1"
     },
@@ -13,7 +13,7 @@
         "prismjs": "^1.30.0"
     },
     "devDependencies": {
-        "@datapos/datapos-development": "^0.3.71",
+        "@datapos/datapos-development": "^0.3.72",
         "@datapos/datapos-shared": "^0.3.206",
         "@types/node": "^24.10.0",
         "@types/prismjs": "^1.26.5",
