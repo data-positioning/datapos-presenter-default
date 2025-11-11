@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.838",
+    "version": "0.1.839",
     "dependencies": {
         "chart.js": "^4.5.1"
     },
@@ -13,12 +13,12 @@
         "prismjs": "^1.30.0"
     },
     "devDependencies": {
-        "@datapos/datapos-development": "^0.3.69",
+        "@datapos/datapos-development": "^0.3.70",
         "@datapos/datapos-shared": "^0.3.206",
         "@types/node": "^24.10.0",
         "@types/prismjs": "^1.26.5",
-        "@typescript-eslint/eslint-plugin": "^8.46.3",
-        "@typescript-eslint/parser": "^8.46.3",
+        "@typescript-eslint/eslint-plugin": "^8.46.4",
+        "@typescript-eslint/parser": "^8.46.4",
         "eslint": "^9.39.1",
         "eslint-plugin-import": "^2.32.0",
         "front-matter": "^4.0.2",
@@ -52,6 +52,6 @@
         "_update:developDeps": "npm install --save-dev @datapos/datapos-development@latest",
         "_update:sharedDeps": "npm install --save-dev @datapos/datapos-shared@latest",
         "_upload:moduleConfigToDO": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleConfigToDO())\"",
-        "_upload:moduleToR2": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleToR2('datapos-presenter-default.es.js', 'datapos-engine-eu/presenters/datapos-presenter-default.es.js'))\""
+        "_upload:moduleToR2": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleToR2('datapos-presenter-default.es.js', 'datapos-engine-eu/presenters'))\""
     }
 }
