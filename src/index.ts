@@ -61,7 +61,7 @@ export default class DefaultPresenter implements Presenter {
             .replace(/\{\{label\}\}/g, presentation.label?.['en-gb'] ?? `{{label}}`)
             .replace(/\{\{description\}\}/g, presentation.description?.['en-gb'] ?? `{{description}}`);
 
-        function customCodeBlockHtml() {
+        function customCodeBlock() {
             const data = { codeContent: '', lang: '', meta: '' };
             return {
                 enter: {
@@ -128,11 +128,11 @@ export default class DefaultPresenter implements Presenter {
         }
 
         // Render markdown to HTML
-        const htmlExtension = customCodeBlockHtml.call({ tools: this.tools });
+        const customCodeBlockHtmlExtension = customCodeBlock.call({});
         const html = this.tools.micromark(processedMarkdown, {
             allowDangerousHtml: true,
-            extensions: [this.tools.gfmExtension()],
-            htmlExtensions: [this.tools.gfmHtmlExtension(), htmlExtension]
+            extensions: [this.tools.gfmExtension(), this.tools.mathExtension()],
+            htmlExtensions: [this.tools.gfmHtmlExtension(), this.tools.mathHtmlExtension(), customCodeBlockHtmlExtension]
         });
         renderTo.innerHTML = html;
 
