@@ -129,7 +129,11 @@ export default class DefaultPresenter implements Presenter {
 
         // Render markdown to HTML
         const htmlExtension = customCodeBlockHtml.call({ tools: this.tools });
-        const html = this.tools.micromark(processedMarkdown, { allowDangerousHtml: true, htmlExtensions: [this.tools.gfmExtension.html(), htmlExtension] });
+        const html = this.tools.micromark(processedMarkdown, {
+            allowDangerousHtml: true,
+            extensions: [this.tools.gfmExtension()],
+            htmlExtensions: [this.tools.gfmHtmlExtension(), htmlExtension]
+        });
         renderTo.innerHTML = html;
 
         // // Construct markdown parser.
