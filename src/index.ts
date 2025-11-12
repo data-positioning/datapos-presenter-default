@@ -221,6 +221,7 @@ export default class DefaultPresenter implements Presenter {
         const url = 'https://engine-eu.datapos.app/tools/v0.1.858/datapos-tool-micromark.es.js';
         const xxxx = await import(/* @vite-ignore */ url);
         console.log('xxxx', xxxx);
-        this.micromarkTool = new xxxx();
+        console.log('xxxx', xxxx.default);
+        this.micromarkTool = new xxxx.default();
     }
 }
