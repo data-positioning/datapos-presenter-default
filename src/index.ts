@@ -37,9 +37,11 @@ export default class DefaultPresenter implements Presenter {
     readonly highcharts;
     readonly sampleData;
 
+    micromarkTool: any;
+
     constructor(tools: PresenterTools) {
         this.config = config as PresenterConfig;
-        this.tools = tools;
+        // this.tools = tools;
         this.dataTable = useDataTable();
         this.highcharts = useHighcharts();
         this.sampleData = useSampleData();
@@ -120,12 +122,14 @@ export default class DefaultPresenter implements Presenter {
         }
 
         // Render markdown to HTML
+        this.loadMicromarkTool();
         const customCodeBlockHtmlExtension = presenterCodeBlock.call({});
-        const html = this.tools.micromark(processedMarkdown, {
-            allowDangerousHtml: true,
-            extensions: [this.tools.gfmExtension(), this.tools.mathExtension()],
-            htmlExtensions: [this.tools.gfmHtmlExtension(), this.tools.mathHtmlExtension(), customCodeBlockHtmlExtension]
-        });
+        // const html = this.tools.micromark(processedMarkdown, {
+        //     allowDangerousHtml: true,
+        //     extensions: [this.tools.gfmExtension(), this.tools.mathExtension()],
+        //     htmlExtensions: [this.tools.gfmHtmlExtension(), this.tools.mathHtmlExtension(), customCodeBlockHtmlExtension]
+        // });
+        const html = this.micromarkTool.render(processedMarkdown);
         renderTo.innerHTML = html;
 
         // ????
@@ -210,5 +214,11 @@ export default class DefaultPresenter implements Presenter {
                 visualElements.textContent = 'Invalid options.';
             }
         }
+    }
+
+    private async loadMicromarkTool(): Promise<void> {
+        if (this.micromarkTool) return;
+        const url = 'https://engine-eu.datapos.app/tools/v0.1.858/datapos-tool-micromark.es.js';
+        this.micromarkTool = new (await import(url))();
     }
 }
