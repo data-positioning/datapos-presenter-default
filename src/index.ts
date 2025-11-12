@@ -29,7 +29,7 @@ import config from '~/config.json';
 import configPresentations from '~/configPresentations.json';
 import { useSampleData } from '@/composers/useSampleData';
 
-// Classes - Default Presenter
+// Classes - Default presenter.
 export default class DefaultPresenter implements Presenter {
     readonly config: PresenterConfig;
     readonly tools: PresenterTools;
