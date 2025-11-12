@@ -122,7 +122,7 @@ export default class DefaultPresenter implements Presenter {
         }
 
         // Render markdown to HTML
-        this.loadMicromarkTool();
+        await this.loadMicromarkTool();
         const customCodeBlockHtmlExtension = presenterCodeBlock.call({});
         // const html = this.tools.micromark(processedMarkdown, {
         //     allowDangerousHtml: true,
