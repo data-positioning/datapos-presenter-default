@@ -55,6 +55,7 @@ export default class DefaultPresenter implements Presenter {
         // Use presentation path to retrieve presentation.
         const presentation = configPresentations[presentationPath] as PresentationConfig;
 
+        // TODO: Remove
         const chartJS = await import('chart.js');
         console.log('chartJS', chartJS);
 
@@ -64,7 +65,8 @@ export default class DefaultPresenter implements Presenter {
             .replace(/\{\{label\}\}/g, presentation.label?.['en-gb'] ?? `{{label}}`)
             .replace(/\{\{description\}\}/g, presentation.description?.['en-gb'] ?? `{{description}}`);
 
-        function customCodeBlock() {
+        // ???
+        function presenterCodeBlock(options: Record<string, unknown>) {
             const data = { codeContent: '', lang: '', meta: '' };
             return {
                 enter: {
@@ -112,26 +114,13 @@ export default class DefaultPresenter implements Presenter {
                             }
                         }
                         this.raw(html);
-                        // const lineCount = rawContent.split('\n').length;
-                        // const charCount = rawContent.length;
-                        // let infoString = `Language: ${lang}`;
-                        // if (meta) infoString += ` | Meta: ${meta}`;
-                        // this.raw(
-                        //     `<div class="code-block-replaced" style="padding: 10px; background: #f5f5f5; border-left: 4px solid #666;">` +
-                        //         `📝 Code block hidden<br>` +
-                        //         `<small>${infoString}</small><br>` +
-                        //         `<small>${lineCount} lines, ${charCount} characters</small><br>` +
-                        //         `<details style="margin-top: 10px;"><summary style="cursor: pointer;">Show raw content preview</summary>` +
-                        //         `<pre style="margin-top: 5px; padding: 10px; background: white; overflow: auto;">${rawContent.substring(0, 200)}...</pre></details>` +
-                        //         `</div>`
-                        // );
                     }
                 }
             };
         }
 
         // Render markdown to HTML
-        const customCodeBlockHtmlExtension = customCodeBlock.call({});
+        const customCodeBlockHtmlExtension = presenterCodeBlock.call({});
         const html = this.tools.micromark(processedMarkdown, {
             allowDangerousHtml: true,
             extensions: [this.tools.gfmExtension(), this.tools.mathExtension()],
@@ -139,41 +128,7 @@ export default class DefaultPresenter implements Presenter {
         });
         renderTo.innerHTML = html;
 
-        // // Construct markdown parser.
-        // const markdownParser: MarkdownIt = new this.tools.MarkdownIt({ html: true });
-        // markdownParser.renderer.rules.fence = (tokens, index) => {
-        //     const token = tokens[index];
-        //     const infoSegments = token.info.split(' ');
-        //     const langName = infoSegments[0]?.trim() ?? undefined;
-        //     const typeId = infoSegments[1]?.trim() ?? undefined;
-        //     const content = token.content;
-        //     switch (typeId) {
-        //         case 'datapos-visual':
-        //             return `<div class="${typeId}" data-options="${encodeURIComponent(content)}"></div>`;
-        //         default: {
-        //             // // return `<pre><code class="language-${langName}">${content}</code></pre>`;
-        //             // if (langName && this.tools.hljs.getLanguage(langName)) {
-        //             //     try {
-        //             //         return `<pre class="hljs"><code>${this.tools.hljs.highlight(content, { language: langName }).value}</code></pre>`;
-        //             //     } catch (_) {}
-        //             // }
-        //             // return `<pre class="hljs"><code>${markdownParser.utils.escapeHtml(content)}</code></pre>`;
-        //             console.log(this.tools);
-        //             if (langName && this.tools.prism.languages[langName]) {
-        //                 const highlighted = this.tools.prism.highlight(content, this.tools.prism.languages[langName], langName);
-        //                 return `<pre class="language-${langName}"><code>${highlighted}</code></pre>`;
-        //             }
-        //             // fallback (no lang or unknown)
-        //             const escaped = markdownParser.utils.escapeHtml(content);
-        //             return `<pre class="language-text"><code>${escaped}</code></pre>`;
-        //         }
-        //     }
-        // };
-
-        // // Render html from markdown and inset into  placeholder element.
-        // const html = markdownParser.render(processedMarkdown);
-        // renderTo.innerHTML = html;
-
+        // ????
         for (const visualElements of renderTo.querySelectorAll('.datapos-visual')) {
             const datasetOptions = decodeURIComponent((visualElements as HTMLElement).dataset.options);
             try {

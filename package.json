@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.851",
+    "version": "0.1.852",
     "dependencies": {
         "chart.js": "^4.5.1"
     },
@@ -14,8 +14,8 @@
     },
     "devDependencies": {
         "@datapos/datapos-development": "^0.3.84",
-        "@datapos/datapos-shared": "^0.3.206",
-        "@types/node": "^24.10.0",
+        "@datapos/datapos-shared": "^0.3.207",
+        "@types/node": "^24.10.1",
         "@types/prismjs": "^1.26.5",
         "@typescript-eslint/eslint-plugin": "^8.46.4",
         "@typescript-eslint/parser": "^8.46.4",
