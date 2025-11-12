@@ -2,9 +2,6 @@
  * Default presenter class.
  */
 
-// Dependencies - Vendor.
-import type { Token } from 'micromark-util-types';
-
 // Dependencies - Framework.
 import type { ComponentRef } from '@datapos/datapos-shared';
 import { presentationViewTypeMap } from '@datapos/datapos-shared';
@@ -24,6 +21,8 @@ import type {
 import type { Presenter, PresenterConfig, PresenterLocalisedConfig, PresenterTools } from '@datapos/datapos-shared';
 import { useDataTable, useHighcharts } from '@datapos/datapos-shared';
 
+import type MicromarkTool from '@datapos/datapos-tool-micromark';
+
 // Dependencies - Data.
 import config from '~/config.json';
 import configPresentations from '~/configPresentations.json';
@@ -37,7 +36,8 @@ export default class DefaultPresenter implements Presenter {
     readonly highcharts;
     readonly sampleData;
 
-    micromarkTool: any;
+    highchartsTool: any;
+    micromarkTool?: MicromarkTool;
 
     constructor(tools: PresenterTools) {
         this.config = config as PresenterConfig;
@@ -67,68 +67,8 @@ export default class DefaultPresenter implements Presenter {
             .replace(/\{\{label\}\}/g, presentation.label?.['en-gb'] ?? `{{label}}`)
             .replace(/\{\{description\}\}/g, presentation.description?.['en-gb'] ?? `{{description}}`);
 
-        // ???
-        function presenterCodeBlock(options: Record<string, unknown>) {
-            const data = { codeContent: '', lang: '', meta: '' };
-            return {
-                enter: {
-                    codeFenced() /* The entire fenced code block starts. */ {
-                        this.buffer();
-                        data.codeContent = '';
-                        data.lang = '';
-                        data.meta = '';
-                    },
-                    codeFencedFence() /* The opening fence line. */ {},
-                    codeFencedFenceSequence() /* The opening fence characters (```). */ {},
-                    codeFencedFenceInfo(token: Token) /* The language identifier (json, javascript...). */ {
-                        data.lang = this.sliceSerialize(token);
-                    },
-                    codeFencedFenceMeta(token: Token) /* The metadata after the language identifier (datapos-visual). */ {
-                        data.meta = this.sliceSerialize(token);
-                    },
-                    codeFlowValue(token: Token) /* Each line/chunk of actual code content. */ {
-                        data.codeContent = data.codeContent + this.sliceSerialize(token) + '\n';
-                    }
-                },
-                exit: {
-                    codeFlowValue() /*  Done capturing the code. */ {},
-                    codeFencedFenceMeta() /* Done processing the metadata. */ {},
-                    codeFencedFenceInfo() /* Done processing the language identifier. */ {},
-                    codeFencedFenceSequence() /* The closing fence characters (```). */ {},
-                    codeFencedFence() /* The closing fence line. */ {},
-                    codeFenced() /* The entire code block is complete, replacement can happen now. */ {
-                        this.resume(); // Discard the captured code text.
-                        const rawContent = data.codeContent || '';
-                        const lang = data.lang || 'plain';
-                        const meta = data.meta || '';
-                        let html = '';
-                        if (lang === 'json' && meta === 'datapos-visual') {
-                            html = `<div class="${meta}" data-options="${encodeURIComponent(rawContent)}"></div>`;
-                        } else {
-                            if (data.codeContent.endsWith('\n')) data.codeContent = data.codeContent.slice(0, -1);
-                            if (lang && globalThis.Prism && globalThis.Prism.languages[lang]) {
-                                console.log('languages', lang, globalThis.Prism.languages);
-                                const highlighted = globalThis.Prism.highlight(rawContent, globalThis.Prism.languages[lang], lang);
-                                html = `<pre class="language-${lang}"><code>${highlighted}</code></pre>`;
-                            } else {
-                                const escaped = rawContent.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-                                html = `<pre class="language-text"><code>${escaped}</code></pre>`;
-                            }
-                        }
-                        this.raw(html);
-                    }
-                }
-            };
-        }
-
         // Render markdown to HTML
         await this.loadMicromarkTool();
-        const customCodeBlockHtmlExtension = presenterCodeBlock.call({});
-        // const html = this.tools.micromark(processedMarkdown, {
-        //     allowDangerousHtml: true,
-        //     extensions: [this.tools.gfmExtension(), this.tools.mathExtension()],
-        //     htmlExtensions: [this.tools.gfmHtmlExtension(), this.tools.mathHtmlExtension(), customCodeBlockHtmlExtension]
-        // });
         const html = this.micromarkTool.render(processedMarkdown);
         renderTo.innerHTML = html;
 
@@ -216,14 +156,21 @@ export default class DefaultPresenter implements Presenter {
         }
     }
 
+    // Utilities - Load Highcharts tool.
+    private async loadHighchartsTool(): Promise<void> {
+        if (this.highchartsTool) return;
+
+        const url = 'https://engine-eu.datapos.app/tools/v0.1.865/datapos-tool-highcharts.es.js';
+        const HighchartsTool = (await import(/* @vite-ignore */ url)).default;
+        this.highchartsTool = new HighchartsTool();
+    }
+
+    // Utilities - Load Micromark tool.
     private async loadMicromarkTool(): Promise<void> {
-        console.log('aaaa');
         if (this.micromarkTool) return;
+
         const url = 'https://engine-eu.datapos.app/tools/v0.1.865/datapos-tool-micromark.es.js';
-        const xxxx = await import(/* @vite-ignore */ url);
-        console.log('xxxx', xxxx);
-        console.log('yyyy', xxxx.default);
-        this.micromarkTool = new xxxx.default();
-        console.log('zzzz', this.micromarkTool);
+        const MicromarkToolConstructor = (await import(/* @vite-ignore */ url)).default as new () => MicromarkTool;
+        this.micromarkTool = new MicromarkToolConstructor();
     }
 }
