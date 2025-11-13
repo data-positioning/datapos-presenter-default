@@ -21,6 +21,7 @@ import type {
 import type { Presenter, PresenterConfig, PresenterLocalisedConfig, PresenterTools } from '@datapos/datapos-shared';
 import { useDataTable, useHighcharts } from '@datapos/datapos-shared';
 
+import type HighchartsTool from '@datapos/datapos-tool-highcharts';
 import type MicromarkTool from '@datapos/datapos-tool-micromark';
 
 // Dependencies - Data.
@@ -33,17 +34,17 @@ export default class DefaultPresenter implements Presenter {
     readonly config: PresenterConfig;
     readonly tools: PresenterTools;
     readonly dataTable;
-    readonly highcharts;
+    // readonly highcharts;
     readonly sampleData;
 
-    highchartsTool: any;
+    highchartsTool?: HighchartsTool;
     micromarkTool?: MicromarkTool;
 
     constructor(tools: PresenterTools) {
         this.config = config as PresenterConfig;
         // this.tools = tools;
         this.dataTable = useDataTable();
-        this.highcharts = useHighcharts();
+        // this.highcharts = useHighcharts();
         this.sampleData = useSampleData();
     }
 
@@ -73,6 +74,7 @@ export default class DefaultPresenter implements Presenter {
         renderTo.innerHTML = html;
 
         // ????
+        await this.loadHighchartsTool();
         for (const visualElements of renderTo.querySelectorAll('.datapos-visual')) {
             const datasetOptions = decodeURIComponent((visualElements as HTMLElement).dataset.options);
             try {
@@ -160,9 +162,10 @@ export default class DefaultPresenter implements Presenter {
     private async loadHighchartsTool(): Promise<void> {
         if (this.highchartsTool) return;
 
-        const url = 'https://engine-eu.datapos.app/tools/v0.1.865/datapos-tool-highcharts.es.js';
-        const HighchartsTool = (await import(/* @vite-ignore */ url)).default;
+        const url = 'https://engine-eu.datapos.app/tools/v0.0.002/datapos-tool-highcharts.es.js';
+        const HighchartsTool = (await import(/* @vite-ignore */ url)).default as new () => HighchartsTool;
         this.highchartsTool = new HighchartsTool();
+        console.log('this.highchartsTool', this.highchartsTool);
     }
 
     // Utilities - Load Micromark tool.
