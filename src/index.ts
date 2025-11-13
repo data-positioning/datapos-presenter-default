@@ -3,7 +3,7 @@
  */
 
 // Dependencies - Framework.
-import type { ComponentRef } from '@datapos/datapos-shared';
+import type { ComponentRef, ToolModuleConfig } from '@datapos/datapos-shared';
 import { presentationViewTypeMap } from '@datapos/datapos-shared';
 import { useDataTable } from '@datapos/datapos-shared';
 import type { PresentationConfig, PresentationVisualConfig, PresentationVisualViewType } from '@datapos/datapos-shared';
@@ -35,14 +35,16 @@ export default class DefaultPresenter implements Presenter {
     readonly config: PresenterConfig;
     readonly dataTable;
     readonly sampleData;
+    readonly toolModuleConfigs;
 
     highchartsTool?: HighchartsTool;
     micromarkTool?: MicromarkTool;
 
-    constructor() {
+    constructor(toolModuleConfigs: ToolModuleConfig[]) {
         this.config = config as PresenterConfig;
         this.dataTable = useDataTable();
         this.sampleData = useSampleData();
+        this.toolModuleConfigs = toolModuleConfigs;
     }
 
     // Operations - List.
@@ -159,6 +161,8 @@ export default class DefaultPresenter implements Presenter {
     private async loadHighchartsTool(): Promise<void> {
         if (this.highchartsTool) return;
 
+        const toolModuleConfig = this.toolModuleConfigs.find((config) => (config.id = 'datapos-tool-highcharts'));
+        console.log('datapos-tool-highcharts', toolModuleConfig);
         const url = 'https://engine-eu.datapos.app/tools/v0.0.21/datapos-tool-highcharts.es.js';
         const HighchartsTool = (await import(/* @vite-ignore */ url)).HighchartsTool as new () => HighchartsTool;
         this.highchartsTool = new HighchartsTool();
@@ -168,6 +172,8 @@ export default class DefaultPresenter implements Presenter {
     private async loadMicromarkTool(): Promise<void> {
         if (this.micromarkTool) return;
 
+        const toolModuleConfig = this.toolModuleConfigs.find((config) => (config.id = 'datapos-tool-micromark'));
+        console.log('datapos-tool-micromark', toolModuleConfig);
         const url = 'https://engine-eu.datapos.app/tools/v0.1.887/datapos-tool-micromark.es.js';
         const MicromarkToolConstructor = (await import(/* @vite-ignore */ url)).MicromarkTool as new () => MicromarkTool;
         this.micromarkTool = new MicromarkToolConstructor();

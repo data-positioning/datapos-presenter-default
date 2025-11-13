@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.907",
+    "version": "0.1.908",
     "dependencies": {
         "chart.js": "^4.5.1"
     },
@@ -12,7 +12,7 @@
     },
     "devDependencies": {
         "@datapos/datapos-development": "^0.3.89",
-        "@datapos/datapos-shared": "^0.3.213",
+        "@datapos/datapos-shared": "^0.3.214",
         "@datapos/datapos-tool-highcharts": "^0.0.20",
         "@datapos/datapos-tool-micromark": "^0.1.886",
         "@types/node": "^24.10.1",
