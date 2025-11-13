@@ -5,6 +5,7 @@
 // Dependencies - Framework.
 import type { ComponentRef } from '@datapos/datapos-shared';
 import { presentationViewTypeMap } from '@datapos/datapos-shared';
+import { useDataTable } from '@datapos/datapos-shared';
 import type { PresentationConfig, PresentationVisualConfig, PresentationVisualViewType } from '@datapos/datapos-shared';
 import type {
     PresentationVisualCartesianViewConfig,
@@ -18,11 +19,11 @@ import type {
     PresentationVisualRangeViewType,
     PresentationVisualValuesViewType
 } from '@datapos/datapos-shared';
-import type { Presenter, PresenterConfig, PresenterLocalisedConfig, PresenterTools } from '@datapos/datapos-shared';
-import { useDataTable, useHighcharts } from '@datapos/datapos-shared';
+import type { Presenter, PresenterConfig, PresenterLocalisedConfig } from '@datapos/datapos-shared';
 
-import type HighchartsTool from '@datapos/datapos-tool-highcharts';
-import type MicromarkTool from '@datapos/datapos-tool-micromark';
+// Dependencies - Tools.
+import type { MicromarkTool } from '@datapos/datapos-tool-micromark';
+import type { HighchartsTool, HighchartsView } from '@datapos/datapos-tool-highcharts';
 
 // Dependencies - Data.
 import config from '~/config.json';
@@ -32,19 +33,15 @@ import { useSampleData } from '@/composers/useSampleData';
 // Classes - Default presenter.
 export default class DefaultPresenter implements Presenter {
     readonly config: PresenterConfig;
-    readonly tools: PresenterTools;
     readonly dataTable;
-    // readonly highcharts;
     readonly sampleData;
 
     highchartsTool?: HighchartsTool;
     micromarkTool?: MicromarkTool;
 
-    constructor(tools: PresenterTools) {
+    constructor() {
         this.config = config as PresenterConfig;
-        // this.tools = tools;
         this.dataTable = useDataTable();
-        // this.highcharts = useHighcharts();
         this.sampleData = useSampleData();
     }
 
