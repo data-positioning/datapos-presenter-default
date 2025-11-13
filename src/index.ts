@@ -99,8 +99,7 @@ export default class DefaultPresenter implements Presenter {
                             if (!defaultViewType || cartesianViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
-                            // element.addEventListener('click', () => this.highcharts.renderCartesianChart(viewType, visualConfig.content, viewContainerElement));
-                            element.addEventListener('click', () => this.highchartsTool.render(viewContainerElement));
+                            element.addEventListener('click', () => this.highchartsTool.renderCartesianChart(viewType, visualConfig.content, viewContainerElement));
                             tabBarElement.appendChild(element);
                             break;
                         }
@@ -110,8 +109,7 @@ export default class DefaultPresenter implements Presenter {
                             if (!defaultViewType || polarViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
-                            // element.addEventListener('click', () => this.highcharts.renderPolarChart(viewType, visualConfig.content, viewContainerElement));
-                            element.addEventListener('click', () => this.highchartsTool.render(viewContainerElement));
+                            element.addEventListener('click', () => this.highchartsTool.renderPolarChart(viewType, visualConfig.content, viewContainerElement));
                             tabBarElement.appendChild(element);
                             break;
                         }
@@ -121,8 +119,7 @@ export default class DefaultPresenter implements Presenter {
                             if (!defaultViewType || rangeViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
-                            // element.addEventListener('click', () => this.highcharts.renderRangeChart(viewType, visualConfig.content, viewContainerElement));
-                            element.addEventListener('click', () => this.highchartsTool.render(viewContainerElement));
+                            element.addEventListener('click', () => this.highchartsTool.renderRangeChart(viewType, visualConfig.content, viewContainerElement));
                             tabBarElement.appendChild(element);
                             break;
                         }
@@ -142,16 +139,13 @@ export default class DefaultPresenter implements Presenter {
                 visualElements.appendChild(viewContainerElement);
                 switch (defaultViewType.categoryId) {
                     case 'cartesian':
-                        // this.highcharts.renderCartesianChart(defaultViewType as PresentationVisualCartesianViewType, visualConfig.content, viewContainerElement);
-                        this.highchartsTool.render(viewContainerElement);
+                        this.highchartsTool.renderCartesianChart(defaultViewType as PresentationVisualCartesianViewType, visualConfig.content, viewContainerElement);
                         break;
                     case 'polar':
-                        // this.highcharts.renderPolarChart(defaultViewType as PresentationVisualPolarViewType, visualConfig.content, viewContainerElement);
-                        this.highchartsTool.render(viewContainerElement);
+                        this.highchartsTool.renderPolarChart(defaultViewType as PresentationVisualPolarViewType, visualConfig.content, viewContainerElement);
                         break;
                     case 'range':
-                        // this.highcharts.renderRangeChart(defaultViewType as PresentationVisualRangeViewType, visualConfig.content, viewContainerElement);
-                        this.highchartsTool.render(viewContainerElement);
+                        this.highchartsTool.renderRangeChart(defaultViewType as PresentationVisualRangeViewType, visualConfig.content, viewContainerElement);
                         break;
                     case 'values':
                         this.dataTable.render(defaultViewType as PresentationVisualValuesViewType, visualConfig.content, viewContainerElement);
