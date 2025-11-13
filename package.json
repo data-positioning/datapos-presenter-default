@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.874",
+    "version": "0.1.875",
     "dependencies": {
         "chart.js": "^4.5.1"
     },
@@ -13,7 +13,7 @@
     "devDependencies": {
         "@datapos/datapos-development": "^0.3.89",
         "@datapos/datapos-shared": "^0.3.210",
-        "@datapos/datapos-tool-micromark": "^0.1.868",
+        "@datapos/datapos-tool-micromark": "^0.1.877",
         "@types/node": "^24.10.1",
         "@typescript-eslint/eslint-plugin": "^8.46.4",
         "@typescript-eslint/parser": "^8.46.4",
