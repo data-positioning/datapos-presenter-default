@@ -163,7 +163,7 @@ export default class DefaultPresenter implements Presenter {
         if (this.highchartsTool) return;
 
         console.log(8888, JSON.stringify(this.toolModuleConfigs));
-        const toolModuleConfig = this.toolModuleConfigs.find((config) => (config.id = 'datapos-tool-highcharts'));
+        const toolModuleConfig = this.toolModuleConfigs.find((config) => config.id === 'datapos-tool-highcharts');
         if (!toolModuleConfig) return;
 
         const url = `https://engine-eu.datapos.app/tools/v${toolModuleConfig.version}/datapos-tool-highcharts.es.js`;
@@ -176,7 +176,7 @@ export default class DefaultPresenter implements Presenter {
         if (this.micromarkTool) return;
 
         console.log(9999, JSON.stringify(this.toolModuleConfigs));
-        const toolModuleConfig = this.toolModuleConfigs.find((config) => (config.id = 'datapos-tool-micromark'));
+        const toolModuleConfig = this.toolModuleConfigs.find((config) => config.id === 'datapos-tool-micromark');
         if (!toolModuleConfig) return;
 
         console.log(toolModuleConfig);
