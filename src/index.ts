@@ -159,17 +159,16 @@ export default class DefaultPresenter implements Presenter {
     private async loadHighchartsTool(): Promise<void> {
         if (this.highchartsTool) return;
 
-        const url = 'https://engine-eu.datapos.app/tools/v0.0.19/datapos-tool-highcharts.es.js';
+        const url = 'https://engine-eu.datapos.app/tools/v0.0.21/datapos-tool-highcharts.es.js';
         const HighchartsTool = (await import(/* @vite-ignore */ url)).default as new () => HighchartsTool;
         this.highchartsTool = new HighchartsTool();
-        console.log('this.highchartsTool', this.highchartsTool);
     }
 
     // Utilities - Load Micromark tool.
     private async loadMicromarkTool(): Promise<void> {
         if (this.micromarkTool) return;
 
-        const url = 'https://engine-eu.datapos.app/tools/v0.1.884/datapos-tool-micromark.es.js';
+        const url = 'https://engine-eu.datapos.app/tools/v0.1.887/datapos-tool-micromark.es.js';
         const MicromarkToolConstructor = (await import(/* @vite-ignore */ url)).default as new () => MicromarkTool;
         this.micromarkTool = new MicromarkToolConstructor();
     }
