@@ -160,7 +160,7 @@ export default class DefaultPresenter implements Presenter {
         if (this.highchartsTool) return;
 
         const url = 'https://engine-eu.datapos.app/tools/v0.0.21/datapos-tool-highcharts.es.js';
-        const HighchartsTool = (await import(/* @vite-ignore */ url)).default as new () => HighchartsTool;
+        const HighchartsTool = (await import(/* @vite-ignore */ url)).HighchartsTool as new () => HighchartsTool;
         this.highchartsTool = new HighchartsTool();
     }
 
@@ -169,7 +169,7 @@ export default class DefaultPresenter implements Presenter {
         if (this.micromarkTool) return;
 
         const url = 'https://engine-eu.datapos.app/tools/v0.1.887/datapos-tool-micromark.es.js';
-        const MicromarkToolConstructor = (await import(/* @vite-ignore */ url)).default as new () => MicromarkTool;
+        const MicromarkToolConstructor = (await import(/* @vite-ignore */ url)).MicromarkTool as new () => MicromarkTool;
         this.micromarkTool = new MicromarkToolConstructor();
     }
 }

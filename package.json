@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.906",
+    "version": "0.1.907",
     "dependencies": {
         "chart.js": "^4.5.1"
     },
