@@ -168,7 +168,7 @@ export default class DefaultPresenter implements Presenter {
     private async loadHighchartsTool(): Promise<void> {
         if (this.highchartsTool) return;
 
-        const url = 'https://engine-eu.datapos.app/tools/v0.0.16/datapos-tool-highcharts.es.js';
+        const url = 'https://engine-eu.datapos.app/tools/v0.0.17/datapos-tool-highcharts.es.js';
         const HighchartsTool = (await import(/* @vite-ignore */ url)).default as new () => HighchartsTool;
         this.highchartsTool = new HighchartsTool();
         console.log('this.highchartsTool', this.highchartsTool);
