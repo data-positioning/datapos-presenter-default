@@ -169,10 +169,14 @@ export default class DefaultPresenter implements Presenter {
     private async loadMicromarkTool(): Promise<void> {
         if (this.micromarkTool) return;
 
-        const url = 'https://engine-eu.datapos.app/tools/v0.1.875/datapos-tool-micromark.es.js';
-        console.log('zzzz', url);
-        const MicromarkToolConstructor = (await import(/* @vite-ignore */ url)).default as new () => MicromarkTool;
-        console.log('yyyy', MicromarkToolConstructor);
-        this.micromarkTool = new MicromarkToolConstructor();
+        try {
+            const url = 'https://engine-eu.datapos.app/tools/v0.1.875/datapos-tool-micromark.es.js';
+            console.log('zzzz', url);
+            const MicromarkToolConstructor = (await import(/* @vite-ignore */ url)).default as new () => MicromarkTool;
+            console.log('yyyy', MicromarkToolConstructor);
+            this.micromarkTool = new MicromarkToolConstructor();
+        } catch (error) {
+            console.error('Import failed:', error);
+        }
     }
 }
