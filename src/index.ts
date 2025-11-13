@@ -174,7 +174,7 @@ export default class DefaultPresenter implements Presenter {
 
         const toolModuleConfig = this.toolModuleConfigs.find((config) => (config.id = 'datapos-tool-micromark'));
         console.log('datapos-tool-micromark', toolModuleConfig);
-        const url = `https://engine-eu.datapos.app/tools/${toolModuleConfig.version}/datapos-tool-micromark.es.js';
+        const url = `https://engine-eu.datapos.app/tools/${toolModuleConfig.version}/datapos-tool-micromark.es.js`;
         const MicromarkToolConstructor = (await import(/* @vite-ignore */ url)).MicromarkTool as new () => MicromarkTool;
         this.micromarkTool = new MicromarkToolConstructor();
     }
