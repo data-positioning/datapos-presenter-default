@@ -164,7 +164,7 @@ export default class DefaultPresenter implements Presenter {
         const toolModuleConfig = this.toolModuleConfigs.find((config) => config.id === 'datapos-tool-highcharts');
         if (!toolModuleConfig) return;
 
-        const url = `https://engine-eu.datapos.app/tools/v${toolModuleConfig.version}/datapos-tool-highcharts.es.js`;
+        const url = `https://engine-eu.datapos.app/tools/highcharts_v${toolModuleConfig.version}/datapos-tool-highcharts.es.js`;
         const HighchartsTool = (await import(/* @vite-ignore */ url)).HighchartsTool as new () => HighchartsTool;
         return new HighchartsTool();
     }
@@ -176,7 +176,7 @@ export default class DefaultPresenter implements Presenter {
         const toolModuleConfig = this.toolModuleConfigs.find((config) => config.id === 'datapos-tool-micromark');
         if (!toolModuleConfig) return;
 
-        const url = `https://engine-eu.datapos.app/tools/v${toolModuleConfig.version}/datapos-tool-micromark.es.js`;
+        const url = `https://engine-eu.datapos.app/tools/micromark_v${toolModuleConfig.version}/datapos-tool-micromark.es.js`;
         const MicromarkToolConstructor = (await import(/* @vite-ignore */ url)).MicromarkTool as new () => MicromarkTool;
         return new MicromarkToolConstructor();
     }
