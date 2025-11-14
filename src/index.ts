@@ -45,7 +45,6 @@ export default class DefaultPresenter implements Presenter {
         this.dataTable = useDataTable();
         this.sampleData = useSampleData();
         this.toolModuleConfigs = toolModuleConfigs;
-        console.log(7777, JSON.stringify(toolModuleConfigs));
     }
 
     // Operations - List.
@@ -162,7 +161,6 @@ export default class DefaultPresenter implements Presenter {
     private async loadHighchartsTool(): Promise<void> {
         if (this.highchartsTool) return;
 
-        console.log(8888, JSON.stringify(this.toolModuleConfigs));
         const toolModuleConfig = this.toolModuleConfigs.find((config) => config.id === 'datapos-tool-highcharts');
         if (!toolModuleConfig) return;
 
@@ -175,12 +173,8 @@ export default class DefaultPresenter implements Presenter {
     private async loadMicromarkTool(): Promise<void> {
         if (this.micromarkTool) return;
 
-        console.log(9999, JSON.stringify(this.toolModuleConfigs));
         const toolModuleConfig = this.toolModuleConfigs.find((config) => config.id === 'datapos-tool-micromark');
         if (!toolModuleConfig) return;
-
-        console.log(toolModuleConfig);
-        console.log(JSON.stringify(toolModuleConfig));
 
         const url = `https://engine-eu.datapos.app/tools/v${toolModuleConfig.version}/datapos-tool-micromark.es.js`;
         const MicromarkToolConstructor = (await import(/* @vite-ignore */ url)).MicromarkTool as new () => MicromarkTool;
