@@ -3,18 +3,12 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.918",
-    "dependencies": {
-        "chart.js": "^4.5.1"
-    },
-    "peerDependencies": {
-        "highcharts": "^12.4.0"
-    },
+    "version": "0.1.919",
     "devDependencies": {
-        "@datapos/datapos-development": "^0.3.89",
-        "@datapos/datapos-shared": "^0.3.214",
-        "@datapos/datapos-tool-highcharts": "^0.0.20",
-        "@datapos/datapos-tool-micromark": "^0.1.886",
+        "@datapos/datapos-development": "^0.3.93",
+        "@datapos/datapos-shared": "^0.3.215",
+        "@datapos/datapos-tool-highcharts": "^0.0.34",
+        "@datapos/datapos-tool-micromark": "^0.1.889",
         "@types/node": "^24.10.1",
         "@typescript-eslint/eslint-plugin": "^8.46.4",
         "@typescript-eslint/parser": "^8.46.4",
@@ -36,7 +30,6 @@
         "audit": "npm audit",
         "prebuild": "tsc -p tsconfig.scripts.json && node dist-scripts/prebuild.js",
         "build": "vite build",
-        "buildConfig": "node -e \"import('@datapos/datapos-development').then(m => m.buildConfig())\"",
         "bump:version": "node -e \"import('@datapos/datapos-development').then(m => m.bumpVersion())\"",
         "check": "npm outdated; npm-check-updates -i && retire",
         "document": "npm run _document:licenceReport && npm run _document:licenceCheck",
@@ -44,13 +37,16 @@
         "lint": "eslint .",
         "publish:toNPM": "node -e \"import('@datapos/datapos-development').then(m => m.echoScriptNotImplemented('Publish'))\"",
         "release": "npm run sync:withGitHub && npm run build && npm run _upload:moduleToR2 && npm run _upload:moduleConfigToDO",
-        "sync:withGitHub": "npm run bump:version && npm run buildConfig && node -e \"import('@datapos/datapos-development').then(m => m.syncWithGitHub())\"",
+        "sync:withGitHub": "npm run bump:version && npm run _build:config && node -e \"import('@datapos/datapos-development').then(m => m.syncWithGitHub())\"",
         "test": "node -e \"import('@datapos/datapos-development').then(m => m.echoScriptNotImplemented('Test'))\"",
-        "update:dataPosDeps": "npm run _update:developDeps && npm run _update:sharedDeps",
+        "update:dataPosDeps": "npm run _update:developDep && npm run _update:sharedDep && npm run _update:highchartsToolDep && npm run _update:micromarkToolDep",
+        "_build:config": "node -e \"import('@datapos/datapos-development').then(m => m.buildConfig())\"",
         "_document:licenceReport": "license-report --only=prod,peer > LICENSES.json",
         "_document:licenceCheck": "license-report-check --source ./LICENSES.json --allowed 'MIT' --allowed 'n/a' --allowed 'Apache-2.0' --output=table",
-        "_update:developDeps": "npm install --save-dev @datapos/datapos-development@latest",
-        "_update:sharedDeps": "npm install --save-dev @datapos/datapos-shared@latest",
+        "_update:developDep": "npm install --save-dev @datapos/datapos-development@latest",
+        "_update:highchartsToolDep": "npm install --save-dev @datapos/datapos-tool-highcharts@latest",
+        "_update:micromarkToolDep": "npm install --save-dev @datapos/datapos-tool-micromark@latest",
+        "_update:sharedDep": "npm install --save-dev @datapos/datapos-shared@latest",
         "_upload:moduleConfigToDO": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleConfigToDO())\"",
         "_upload:moduleToR2": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleToR2('datapos-engine-eu/presenters'))\""
     }

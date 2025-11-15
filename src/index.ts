@@ -3,9 +3,9 @@
  */
 
 // Dependencies - Framework.
-import type { ComponentRef, ToolModuleConfig } from '@datapos/datapos-shared';
 import { presentationViewTypeMap } from '@datapos/datapos-shared';
 import { useDataTable } from '@datapos/datapos-shared';
+import type { ComponentRef, ToolModuleConfig } from '@datapos/datapos-shared';
 import type { PresentationConfig, PresentationVisualConfig, PresentationVisualViewType } from '@datapos/datapos-shared';
 import type {
     PresentationVisualCartesianViewConfig,
@@ -58,8 +58,8 @@ export default class DefaultPresenter implements Presenter {
         const presentation = configPresentations[presentationPath] as PresentationConfig;
 
         // TODO: Remove
-        const chartJS = await import('chart.js');
-        console.log('chartJS', chartJS);
+        // const chartJS = await import('chart.js');
+        // console.log('chartJS', chartJS);
 
         // Substitute values for label and description placeholders in content.
         let processedMarkdown = presentation.content;
