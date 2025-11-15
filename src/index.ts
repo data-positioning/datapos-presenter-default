@@ -79,7 +79,6 @@ export default class DefaultPresenter implements Presenter {
             const datasetOptions = decodeURIComponent((visualElements as HTMLElement).dataset.options);
             const options = JSON.parse(datasetOptions);
             const viewContainerElement = document.createElement('div');
-            console.log(1111, options);
             visualElements.appendChild(viewContainerElement);
             this.highchartsTool.render(viewContainerElement, options);
         }

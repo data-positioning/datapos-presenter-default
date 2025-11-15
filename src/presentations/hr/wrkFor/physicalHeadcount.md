@@ -101,52 +101,25 @@ Describe opening/closing starting/ending comparison...
         {
             "zIndex": 1,
             "upColor": {
-                "pattern": { "color": "#15af15", "width": 20, "height": 20, "opacity": 0.6, "path": { "d": "M 0 20 L 20 0 M -2 2 L 2 -2 M 18 22 L 22 18", "strokeWidth": 4 } }
+                "pattern": { "color": "#15af15", "width": 10, "height": 20, "opacity": 0.6, "path": { "d": "M 0 20 L 20 0 M -2 2 L 2 -2 M 18 22 L 22 18", "strokeWidth": 4 } }
             },
             "color": {
-                "pattern": { "color": "#0088ff", "width": 20, "height": 20, "opacity": 0.6, "path": { "d": "M 0 20 L 20 0 M -2 2 L 2 -2 M 18 22 L 22 18", "strokeWidth": 4 } }
+                "pattern": { "color": "#0088ff", "width": 10, "height": 20, "opacity": 0.6, "path": { "d": "M 0 20 L 20 0 M -2 2 L 2 -2 M 18 22 L 22 18", "strokeWidth": 4 } }
             },
             "data": [
                 20,
                 -10,
                 40,
                 {
-                    "isIntermediateSum": true,
-                    "color": {
-                        "pattern": {
-                            "color": "#0A500A",
-                            "width": 20,
-                            "height": 20,
-                            "opacity": 0.6,
-                            "path": { "d": "M 0 20 L 20 0 M -2 2 L 2 -2 M 18 22 L 22 18", "strokeWidth": 4 }
-                        }
-                    }
+                    "isIntermediateSum": true
                 },
                 -10,
                 {
-                    "isIntermediateSum": true,
-                    "color": {
-                        "pattern": {
-                            "color": "#003E74",
-                            "width": 20,
-                            "height": 20,
-                            "opacity": 0.6,
-                            "path": { "d": "M 0 20 L 20 0 M -2 2 L 2 -2 M 18 22 L 22 18", "strokeWidth": 4 }
-                        }
-                    }
+                    "isIntermediateSum": true
                 },
                 -20,
                 {
-                    "isSum": true,
-                    "color": {
-                        "pattern": {
-                            "color": "#0A500A",
-                            "width": 20,
-                            "height": 20,
-                            "opacity": 0.6,
-                            "path": { "d": "M 0 20 L 20 0 M -2 2 L 2 -2 M 18 22 L 22 18", "strokeWidth": 4 }
-                        }
-                    }
+                    "isSum": true
                 }
             ]
         },
