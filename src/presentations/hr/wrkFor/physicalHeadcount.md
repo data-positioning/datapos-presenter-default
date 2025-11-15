@@ -103,28 +103,57 @@ Describe opening/closing starting/ending comparison...
             "upColor": {
                 "pattern": { "color": "#15af15", "width": 20, "height": 20, "opacity": 0.6, "path": { "d": "M 0 20 L 20 0 M -2 2 L 2 -2 M 18 22 L 22 18", "strokeWidth": 4 } }
             },
-            "color": "lightblue",
+            "color": {
+                "pattern": { "color": "#0088ff", "width": 20, "height": 20, "opacity": 0.6, "path": { "d": "M 0 20 L 20 0 M -2 2 L 2 -2 M 18 22 L 22 18", "strokeWidth": 4 } }
+            },
             "data": [
                 20,
                 -10,
                 40,
                 {
-                    "isIntermediateSum": true
+                    "isIntermediateSum": true,
+                    "color": {
+                        "pattern": {
+                            "color": "#0A500A",
+                            "width": 20,
+                            "height": 20,
+                            "opacity": 0.6,
+                            "path": { "d": "M 0 20 L 20 0 M -2 2 L 2 -2 M 18 22 L 22 18", "strokeWidth": 4 }
+                        }
+                    }
                 },
                 -10,
                 {
-                    "isIntermediateSum": true
+                    "isIntermediateSum": true,
+                    "color": {
+                        "pattern": {
+                            "color": "#003E74",
+                            "width": 20,
+                            "height": 20,
+                            "opacity": 0.6,
+                            "path": { "d": "M 0 20 L 20 0 M -2 2 L 2 -2 M 18 22 L 22 18", "strokeWidth": 4 }
+                        }
+                    }
                 },
                 -20,
                 {
-                    "isSum": true
+                    "isSum": true,
+                    "color": {
+                        "pattern": {
+                            "color": "#0A500A",
+                            "width": 20,
+                            "height": 20,
+                            "opacity": 0.6,
+                            "path": { "d": "M 0 20 L 20 0 M -2 2 L 2 -2 M 18 22 L 22 18", "strokeWidth": 4 }
+                        }
+                    }
                 }
             ]
         },
         {
             "zIndex": 0,
-            "upColor": "lightgreen",
-            "color": "red",
+            "upColor": "rgba(21, 175, 21, 0.3)",
+            "color": "rgba(0, 136, 255, 0.3)",
             "data": [
                 20,
                 40,
