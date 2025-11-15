@@ -126,7 +126,7 @@ Describe opening/closing starting/ending comparison...
         {
             "zIndex": 0,
             "upColor": "lightgreen",
-            "color": "lightred",
+            "color": "red",
             "data": [
                 20,
                 40,
