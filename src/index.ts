@@ -77,9 +77,11 @@ export default class DefaultPresenter implements Presenter {
 
         for (const visualElements of renderTo.querySelectorAll('.datapos-highcharts')) {
             const datasetOptions = decodeURIComponent((visualElements as HTMLElement).dataset.options);
+            const options = JSON.parse(datasetOptions);
             const viewContainerElement = document.createElement('div');
-            console.log(1111, datasetOptions);
-            this.highchartsTool.render(viewContainerElement, JSON.parse(datasetOptions));
+            console.log(1111, options);
+            visualElements.appendChild(viewContainerElement);
+            this.highchartsTool.render(viewContainerElement, options);
         }
 
         for (const visualElements of renderTo.querySelectorAll('.datapos-visual')) {
