@@ -125,7 +125,7 @@ Describe opening/closing starting/ending comparison...
         },
         {
             "zIndex": 0,
-            "upColor": "light-green",
+            "upColor": "lightgreen",
             "color": "rgba(0, 136, 255, 0.3)",
             "data": [
                 20,
