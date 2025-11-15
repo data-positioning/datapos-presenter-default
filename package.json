@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.920",
+    "version": "0.1.921",
     "dependencies": {
         "@datapos/datapos-shared": "^0.3.215",
         "@datapos/datapos-tool-highcharts": "^0.0.37",
@@ -52,6 +52,6 @@
         "_update:toolMicromarkDep": "npm install @datapos/datapos-tool-micromark@latest",
         "_upload": "npm run _upload:moduleToR2 && npm run _upload:moduleConfigToDO",
         "_upload:moduleConfigToDO": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleConfigToDO())\"",
-        "_upload:moduleToR2": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleToR2('datapos-engine-eu/presenters'))\""
+        "_upload:moduleToR2": "node -e \"import('@datapos/datapos-development').then(m => m.uploadModuleToR2('datapos-engine-eu/presenters/default'))\""
     }
 }
