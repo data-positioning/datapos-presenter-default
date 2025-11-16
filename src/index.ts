@@ -15,6 +15,7 @@ import type {
 } from '@datapos/datapos-shared';
 import type {
     PresentationVisualCartesianViewType,
+    PresentationVisualPeriodFLowBoundariesViewType,
     PresentationVisualPolarViewType,
     PresentationVisualRangeViewType,
     PresentationVisualValuesViewType
@@ -111,6 +112,16 @@ export default class DefaultPresenter implements Presenter {
                             tabBarElement.appendChild(element);
                             break;
                         }
+                        case 'periodFlowBoundaries': {
+                            const polarViewConfig = viewConfig as PresentationVisualPolarViewConfig;
+                            const viewType = presentationViewTypeMap[`${viewCategoryId}_${polarViewConfig.typeId}`] as PresentationVisualPolarViewType;
+                            if (!defaultViewType || polarViewConfig.default) defaultViewType = viewType;
+                            const element = document.createElement('div');
+                            element.textContent = viewType.label['en-gb'];
+                            element.addEventListener('click', () => this.highchartsTool.renderPeriodFlowBoundaries(visualConfig.content, viewContainerElement));
+                            tabBarElement.appendChild(element);
+                            break;
+                        }
                         case 'polar': {
                             const polarViewConfig = viewConfig as PresentationVisualPolarViewConfig;
                             const viewType = presentationViewTypeMap[`${viewCategoryId}_${polarViewConfig.typeId}`] as PresentationVisualPolarViewType;
@@ -148,6 +159,9 @@ export default class DefaultPresenter implements Presenter {
                 switch (defaultViewType.categoryId) {
                     case 'cartesian':
                         this.highchartsTool.renderCartesianChart(defaultViewType as PresentationVisualCartesianViewType, visualConfig.content, viewContainerElement);
+                        break;
+                    case 'periodFlowBoundaries':
+                        this.highchartsTool.renderPeriodFlowBoundaries(visualConfig.content, viewContainerElement);
                         break;
                     case 'polar':
                         this.highchartsTool.renderPolarChart(defaultViewType as PresentationVisualPolarViewType, visualConfig.content, viewContainerElement);
