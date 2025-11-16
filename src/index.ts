@@ -114,7 +114,7 @@ export default class DefaultPresenter implements Presenter {
                         }
                         case 'periodFlowBoundaries': {
                             const polarViewConfig = viewConfig as PresentationVisualPolarViewConfig;
-                            const viewType = presentationViewTypeMap[`${viewCategoryId}_${polarViewConfig.typeId}`] as PresentationVisualPolarViewType;
+                            const viewType = presentationViewTypeMap[viewCategoryId] as PresentationVisualPolarViewType;
                             if (!defaultViewType || polarViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
