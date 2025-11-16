@@ -86,6 +86,25 @@ Describe starting ending headcounts...
 
 ...
 
+```json datapos-visual
+{
+    "content": {
+        "title": { "text": "Monthly Headcount FLow/Boundaries" },
+        "data": {
+            "name": "Headcount",
+            "categoryLabels": { "values": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
+            "measures": [
+                { "id": "openingHeadcount", "name": "Opening" },
+                { "id": "closingHeadcount", "name": "Closing" },
+                { "id": "startingHeadcount", "name": "Starting" },
+                { "id": "endingHeadcount", "name": "Ending" }
+            ]
+        }
+    },
+    "visuals": [{ "categoryId": "periodFlowBoundaries∫" }]
+}
+```
+
 Describe opening/closing starting/ending comparison...
 
 ```json datapos-highcharts
