@@ -101,7 +101,7 @@ Describe starting ending headcounts...
             ]
         }
     },
-    "visuals": [{ "categoryId": "periodFlowBoundaries" }]
+    "views": [{ "categoryId": "periodFlowBoundaries" }]
 }
 ```
 
