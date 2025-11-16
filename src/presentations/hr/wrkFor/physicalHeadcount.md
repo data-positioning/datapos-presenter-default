@@ -89,7 +89,7 @@ Describe starting ending headcounts...
 ```json datapos-visual
 {
     "content": {
-        "title": { "text": "Monthly Headcount FLow/Boundaries" },
+        "title": { "text": "Monthly Headcount Flow & Boundaries" },
         "data": {
             "name": "Headcount",
             "categoryLabels": { "values": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
@@ -106,6 +106,59 @@ Describe starting ending headcounts...
 ```
 
 Describe opening/closing starting/ending comparison...
+
+```json highcharts
+{
+    "chart": { "type": "waterfall" },
+    "title": { "text": "Period Flow & Boundary Chart" },
+    "tooltip": { "shared": true },
+    "xAxis": {
+        "categories": ["B/F", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "C/F"]
+    },
+    "yAxis": {},
+    "plotOptions": {
+        "columnrange": { "grouping": false },
+        "series": { "enableMouseTracking": false },
+        "waterfall": { "borderRadius": 0 }
+    },
+    "series": [
+        {
+            "name": "Boundary",
+            "zIndex": 1,
+            "borderColor": "#a1a1aa",
+            "type": "columnrange",
+            "color": "#dcfce7",
+            "data": [null, [16, 44], [36, 64], null, { "low": 56, "high": 84, "color": "#ffedd5" }, { "low": 36, "high": 64, "color": "#ffedd5" }],
+            "showInLegend": false
+        },
+        {
+            "name": "Increasing",
+            "type": "columnrange",
+            "color": "#86efac",
+            "showInLegend": true,
+            "data": [],
+            "enableMouseTracking": false
+        },
+        {
+            "name": "Decreasing",
+            "zIndex": 2,
+            "borderColor": "#d4d4d8",
+            "upColor": "#86efac",
+            "color": "#fed7aa",
+            "data": [{ "y": 20, "color": "#e4e4e7" }, 20, 20, { "y": 20 }, -20, -20, 0, 0, 0, 0, 0, 0, 0, { "isSum": true, "color": "#e4e4e7" }]
+        },
+        {
+            "name": "Border",
+            "zIndex": 2,
+            "borderColor": "#d4d4d8",
+            "type": "columnrange",
+            "color": "transparent",
+            "data": [[0, 20], [16, 44], [36, 64], [60, 80], [56, 84], [36, 64], null, null, null, null, null, null, null, [0, 40]],
+            "showInLegend": false
+        }
+    ]
+}
+```
 
 ```json datapos-highcharts
 {
