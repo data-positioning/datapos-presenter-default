@@ -107,7 +107,7 @@ Describe starting ending headcounts...
 
 Describe opening/closing starting/ending comparison...
 
-```json highcharts
+```json datapos-highcharts
 {
     "chart": { "type": "waterfall" },
     "title": { "text": "Period Flow & Boundary Chart" },
