@@ -106,6 +106,10 @@ export default class DefaultPresenter implements Presenter {
                         case 'cartesianChart': {
                             const cartesianViewConfig = viewConfig as PresentationVisualCartesianChartViewConfig;
                             const viewType = presentationViewTypeMap[`${viewCategoryId}_${cartesianViewConfig.typeId}`] as PresentationVisualCartesianChartViewType;
+                            if (!viewType) {
+                                console.log(`${viewCategoryId}_${cartesianViewConfig.typeId}`);
+                                break;
+                            }
                             if (!defaultViewType || cartesianViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
@@ -116,6 +120,10 @@ export default class DefaultPresenter implements Presenter {
                         case 'periodFlowBoundariesChart': {
                             const polarViewConfig = viewConfig as PresentationVisualPeriodFlowBoundariesChartViewConfig;
                             const viewType = presentationViewTypeMap[viewCategoryId] as PresentationVisualPeriodFlowBoundariesChartViewType;
+                            if (!viewType) {
+                                console.log(viewCategoryId);
+                                break;
+                            }
                             if (!defaultViewType || polarViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
@@ -126,6 +134,10 @@ export default class DefaultPresenter implements Presenter {
                         case 'polarChart': {
                             const polarViewConfig = viewConfig as PresentationVisualPolarChartViewConfig;
                             const viewType = presentationViewTypeMap[`${viewCategoryId}_${polarViewConfig.typeId}`] as PresentationVisualPolarChartViewType;
+                            if (!viewType) {
+                                console.log(`${viewCategoryId}_${polarViewConfig.typeId}`);
+                                break;
+                            }
                             if (!defaultViewType || polarViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
@@ -136,6 +148,10 @@ export default class DefaultPresenter implements Presenter {
                         case 'rangeChart': {
                             const rangeViewConfig = viewConfig as PresentationVisualRangeChartViewConfig;
                             const viewType = presentationViewTypeMap[`${viewCategoryId}_${rangeViewConfig.typeId}`] as PresentationVisualRangeChartViewType;
+                            if (!viewType) {
+                                console.log(`${viewCategoryId}_${rangeViewConfig.typeId}`);
+                                break;
+                            }
                             if (!defaultViewType || rangeViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
