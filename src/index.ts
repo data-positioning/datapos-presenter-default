@@ -35,7 +35,7 @@ import { useSampleData } from '@/composers/useSampleData';
 // Classes - Default presenter.
 export default class DefaultPresenter implements Presenter {
     readonly config: PresenterConfig;
-    readonly dataTable;
+    readonly valueTable;
     readonly sampleData;
     readonly toolModuleConfigs;
 
@@ -44,7 +44,7 @@ export default class DefaultPresenter implements Presenter {
 
     constructor(toolModuleConfigs: ToolModuleConfig[]) {
         this.config = config as PresenterConfig;
-        this.dataTable = useDataTable();
+        this.valueTable = useDataTable();
         this.sampleData = useSampleData();
         this.toolModuleConfigs = toolModuleConfigs;
     }
@@ -106,10 +106,6 @@ export default class DefaultPresenter implements Presenter {
                         case 'cartesianChart': {
                             const cartesianViewConfig = viewConfig as PresentationVisualCartesianChartViewConfig;
                             const viewType = presentationViewTypeMap[`${viewCategoryId}_${cartesianViewConfig.typeId}`] as PresentationVisualCartesianChartViewType;
-                            if (!viewType) {
-                                console.log(`${viewCategoryId}_${cartesianViewConfig.typeId}`);
-                                break;
-                            }
                             if (!defaultViewType || cartesianViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
@@ -120,10 +116,6 @@ export default class DefaultPresenter implements Presenter {
                         case 'periodFlowBoundariesChart': {
                             const polarViewConfig = viewConfig as PresentationVisualPeriodFlowBoundariesChartViewConfig;
                             const viewType = presentationViewTypeMap[viewCategoryId] as PresentationVisualPeriodFlowBoundariesChartViewType;
-                            if (!viewType) {
-                                console.log(viewCategoryId);
-                                break;
-                            }
                             if (!defaultViewType || polarViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
@@ -134,10 +126,6 @@ export default class DefaultPresenter implements Presenter {
                         case 'polarChart': {
                             const polarViewConfig = viewConfig as PresentationVisualPolarChartViewConfig;
                             const viewType = presentationViewTypeMap[`${viewCategoryId}_${polarViewConfig.typeId}`] as PresentationVisualPolarChartViewType;
-                            if (!viewType) {
-                                console.log(`${viewCategoryId}_${polarViewConfig.typeId}`);
-                                break;
-                            }
                             if (!defaultViewType || polarViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
@@ -148,10 +136,6 @@ export default class DefaultPresenter implements Presenter {
                         case 'rangeChart': {
                             const rangeViewConfig = viewConfig as PresentationVisualRangeChartViewConfig;
                             const viewType = presentationViewTypeMap[`${viewCategoryId}_${rangeViewConfig.typeId}`] as PresentationVisualRangeChartViewType;
-                            if (!viewType) {
-                                console.log(`${viewCategoryId}_${rangeViewConfig.typeId}`);
-                                break;
-                            }
                             if (!defaultViewType || rangeViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
@@ -160,13 +144,13 @@ export default class DefaultPresenter implements Presenter {
                             break;
                         }
                         case 'valueTable': {
-                            const valuesViewConfig = viewConfig as PresentationVisualValueTableViewConfig;
-                            const viewType = presentationViewTypeMap[viewCategoryId] as PresentationVisualValueTableViewType;
-                            if (!defaultViewType) defaultViewType = viewType;
-                            const element = document.createElement('div');
-                            element.textContent = viewType.label['en-gb'];
-                            element.addEventListener('click', () => this.dataTable.render(viewType, visualConfig.content, viewContainerElement));
-                            tabBarElement.appendChild(element);
+                            // const valuesViewConfig = viewConfig as PresentationVisualValueTableViewConfig;
+                            // const viewType = presentationViewTypeMap[viewCategoryId] as PresentationVisualValueTableViewType;
+                            // if (!defaultViewType) defaultViewType = viewType;
+                            // const element = document.createElement('div');
+                            // element.textContent = viewType.label['en-gb'];
+                            // element.addEventListener('click', () => this.valueTable.render(viewType, visualConfig.content, viewContainerElement));
+                            // tabBarElement.appendChild(element);
                             break;
                         }
                     }
@@ -187,7 +171,7 @@ export default class DefaultPresenter implements Presenter {
                         this.highchartsTool.renderRangeChart(defaultViewType as PresentationVisualRangeChartViewType, visualConfig.content, viewContainerElement);
                         break;
                     case 'valueTable':
-                        this.dataTable.render(defaultViewType as PresentationVisualValueTableViewType, visualConfig.content, viewContainerElement);
+                        this.valueTable.render(defaultViewType as PresentationVisualValueTableViewType, visualConfig.content, viewContainerElement);
                         break;
                 }
             } catch (error) {
