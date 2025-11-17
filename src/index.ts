@@ -4,7 +4,15 @@
 
 // Dependencies - Framework.
 import { useDataTable } from '@datapos/datapos-shared';
-import type { ComponentRef, PresentationCartesianTypeId, PresentationPolarTypeId, PresentationRangeTypeId, ToolModuleConfig } from '@datapos/datapos-shared';
+import type {
+    ComponentRef,
+    PresentationCartesianTypeId,
+    PresentationPolarTypeId,
+    PresentationRangeTypeId,
+    PresentationVisualPeriodFlowBoundariesChartViewConfig,
+    PresentationVisualValueTableViewConfig,
+    ToolModuleConfig
+} from '@datapos/datapos-shared';
 import type { PresentationConfig, PresentationVisualConfig } from '@datapos/datapos-shared';
 import type { PresentationVisualCartesianChartViewConfig, PresentationVisualPolarChartViewConfig, PresentationVisualRangeChartViewConfig } from '@datapos/datapos-shared';
 import type { Presenter, PresenterConfig, PresenterLocalisedConfig } from '@datapos/datapos-shared';
@@ -92,8 +100,10 @@ export default class DefaultPresenter implements Presenter {
                     switch (viewCategoryId) {
                         case 'cartesianChart': {
                             const cartesianViewConfig = viewConfig as PresentationVisualCartesianChartViewConfig;
-                            defaultCategoryId = viewCategoryId;
-                            defaultTypeId = cartesianViewConfig.typeId;
+                            if (!defaultTypeId || cartesianViewConfig.default) {
+                                defaultCategoryId = viewCategoryId;
+                                defaultTypeId = cartesianViewConfig.typeId;
+                            }
                             const element = document.createElement('div');
                             element.textContent = cartesianViewConfig.typeId;
                             element.addEventListener('click', () =>
@@ -103,8 +113,11 @@ export default class DefaultPresenter implements Presenter {
                             break;
                         }
                         case 'periodFlowBoundariesChart': {
-                            defaultCategoryId = viewCategoryId;
-                            defaultTypeId = undefined;
+                            const periodFlowBoundariesViewConfig = viewConfig as PresentationVisualPeriodFlowBoundariesChartViewConfig;
+                            if (!defaultTypeId || periodFlowBoundariesViewConfig.default) {
+                                defaultCategoryId = viewCategoryId;
+                                defaultTypeId = undefined;
+                            }
                             const element = document.createElement('div');
                             element.textContent = viewCategoryId;
                             element.addEventListener('click', () => this.highchartsTool.renderPeriodFlowBoundaries(visualConfig.content, viewContainerElement));
@@ -132,8 +145,11 @@ export default class DefaultPresenter implements Presenter {
                             break;
                         }
                         case 'valueTable': {
-                            defaultCategoryId = viewCategoryId;
-                            defaultTypeId = undefined;
+                            const valueTableViewConfig = viewConfig as PresentationVisualValueTableViewConfig;
+                            if (!defaultTypeId || valueTableViewConfig.default) {
+                                defaultCategoryId = viewCategoryId;
+                                defaultTypeId = undefined;
+                            }
                             const element = document.createElement('div');
                             element.textContent = viewCategoryId;
                             element.addEventListener('click', () => this.valueTable.render(visualConfig.content, viewContainerElement));
