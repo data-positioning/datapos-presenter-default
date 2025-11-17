@@ -8,17 +8,18 @@ import { useDataTable } from '@datapos/datapos-shared';
 import type { ComponentRef, ToolModuleConfig } from '@datapos/datapos-shared';
 import type { PresentationConfig, PresentationVisualConfig, PresentationVisualViewType } from '@datapos/datapos-shared';
 import type {
-    PresentationVisualCartesianViewConfig,
-    PresentationVisualPolarViewConfig,
-    PresentationVisualRangeViewConfig,
-    PresentationVisualValuesViewConfig
+    PresentationVisualCartesianChartViewConfig,
+    PresentationVisualPeriodFlowBoundariesChartViewConfig,
+    PresentationVisualPolarChartViewConfig,
+    PresentationVisualRangeChartViewConfig,
+    PresentationVisualValueTableViewConfig
 } from '@datapos/datapos-shared';
 import type {
-    PresentationVisualCartesianViewType,
-    PresentationVisualPeriodFLowBoundariesViewType,
-    PresentationVisualPolarViewType,
-    PresentationVisualRangeViewType,
-    PresentationVisualValuesViewType
+    PresentationVisualCartesianChartViewType,
+    PresentationVisualPeriodFlowBoundariesChartViewType,
+    PresentationVisualPolarChartViewType,
+    PresentationVisualRangeChartViewType,
+    PresentationVisualValueTableViewType
 } from '@datapos/datapos-shared';
 import type { Presenter, PresenterConfig, PresenterLocalisedConfig } from '@datapos/datapos-shared';
 
@@ -81,7 +82,7 @@ export default class DefaultPresenter implements Presenter {
             const options = JSON.parse(datasetOptions);
             const viewContainerElement = document.createElement('div');
             visualElements.appendChild(viewContainerElement);
-            this.highchartsTool.render(viewContainerElement, options);
+            this.highchartsTool.render(options, viewContainerElement);
         }
 
         for (const visualElements of renderTo.querySelectorAll('.datapos-visual')) {
@@ -91,7 +92,7 @@ export default class DefaultPresenter implements Presenter {
 
                 if (!data) {
                     for (const measure of visualConfig.content.data.measures) {
-                        measure.data = this.sampleData.getMeasureValues([measure.id]);
+                        measure.values = this.sampleData.getMeasureValues([measure.id]);
                     }
                 }
 
@@ -102,9 +103,9 @@ export default class DefaultPresenter implements Presenter {
                 for (const viewConfig of visualConfig.views) {
                     const viewCategoryId = viewConfig.categoryId;
                     switch (viewCategoryId) {
-                        case 'cartesian': {
-                            const cartesianViewConfig = viewConfig as PresentationVisualCartesianViewConfig;
-                            const viewType = presentationViewTypeMap[`${viewCategoryId}_${cartesianViewConfig.typeId}`] as PresentationVisualCartesianViewType;
+                        case 'cartesianChart': {
+                            const cartesianViewConfig = viewConfig as PresentationVisualCartesianChartViewConfig;
+                            const viewType = presentationViewTypeMap[`${viewCategoryId}_${cartesianViewConfig.typeId}`] as PresentationVisualCartesianChartViewType;
                             if (!defaultViewType || cartesianViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
@@ -112,9 +113,9 @@ export default class DefaultPresenter implements Presenter {
                             tabBarElement.appendChild(element);
                             break;
                         }
-                        case 'periodFlowBoundaries': {
-                            const polarViewConfig = viewConfig as PresentationVisualPolarViewConfig;
-                            const viewType = presentationViewTypeMap[viewCategoryId] as PresentationVisualPolarViewType;
+                        case 'periodFlowBoundariesChart': {
+                            const polarViewConfig = viewConfig as PresentationVisualPeriodFlowBoundariesChartViewConfig;
+                            const viewType = presentationViewTypeMap[viewCategoryId] as PresentationVisualPeriodFlowBoundariesChartViewType;
                             if (!defaultViewType || polarViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
@@ -122,9 +123,9 @@ export default class DefaultPresenter implements Presenter {
                             tabBarElement.appendChild(element);
                             break;
                         }
-                        case 'polar': {
-                            const polarViewConfig = viewConfig as PresentationVisualPolarViewConfig;
-                            const viewType = presentationViewTypeMap[`${viewCategoryId}_${polarViewConfig.typeId}`] as PresentationVisualPolarViewType;
+                        case 'polarChart': {
+                            const polarViewConfig = viewConfig as PresentationVisualPolarChartViewConfig;
+                            const viewType = presentationViewTypeMap[`${viewCategoryId}_${polarViewConfig.typeId}`] as PresentationVisualPolarChartViewType;
                             if (!defaultViewType || polarViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
@@ -132,9 +133,9 @@ export default class DefaultPresenter implements Presenter {
                             tabBarElement.appendChild(element);
                             break;
                         }
-                        case 'range': {
-                            const rangeViewConfig = viewConfig as PresentationVisualRangeViewConfig;
-                            const viewType = presentationViewTypeMap[`${viewCategoryId}_${rangeViewConfig.typeId}`] as PresentationVisualRangeViewType;
+                        case 'rangeChart': {
+                            const rangeViewConfig = viewConfig as PresentationVisualRangeChartViewConfig;
+                            const viewType = presentationViewTypeMap[`${viewCategoryId}_${rangeViewConfig.typeId}`] as PresentationVisualRangeChartViewType;
                             if (!defaultViewType || rangeViewConfig.default) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
@@ -142,9 +143,9 @@ export default class DefaultPresenter implements Presenter {
                             tabBarElement.appendChild(element);
                             break;
                         }
-                        case 'values': {
-                            const valuesViewConfig = viewConfig as PresentationVisualValuesViewConfig;
-                            const viewType = presentationViewTypeMap[viewCategoryId] as PresentationVisualValuesViewType;
+                        case 'valueTable': {
+                            const valuesViewConfig = viewConfig as PresentationVisualValueTableViewConfig;
+                            const viewType = presentationViewTypeMap[viewCategoryId] as PresentationVisualValueTableViewType;
                             if (!defaultViewType) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
@@ -157,20 +158,20 @@ export default class DefaultPresenter implements Presenter {
                 visualElements.appendChild(tabBarElement);
                 visualElements.appendChild(viewContainerElement);
                 switch (defaultViewType.categoryId) {
-                    case 'cartesian':
-                        this.highchartsTool.renderCartesianChart(defaultViewType as PresentationVisualCartesianViewType, visualConfig.content, viewContainerElement);
+                    case 'cartesianChart':
+                        this.highchartsTool.renderCartesianChart(defaultViewType as PresentationVisualCartesianChartViewType, visualConfig.content, viewContainerElement);
                         break;
-                    case 'periodFlowBoundaries':
+                    case 'periodFlowBoundariesChart':
                         this.highchartsTool.renderPeriodFlowBoundaries(visualConfig.content, viewContainerElement);
                         break;
-                    case 'polar':
-                        this.highchartsTool.renderPolarChart(defaultViewType as PresentationVisualPolarViewType, visualConfig.content, viewContainerElement);
+                    case 'polarChart':
+                        this.highchartsTool.renderPolarChart(defaultViewType as PresentationVisualPolarChartViewType, visualConfig.content, viewContainerElement);
                         break;
-                    case 'range':
-                        this.highchartsTool.renderRangeChart(defaultViewType as PresentationVisualRangeViewType, visualConfig.content, viewContainerElement);
+                    case 'rangeChart':
+                        this.highchartsTool.renderRangeChart(defaultViewType as PresentationVisualRangeChartViewType, visualConfig.content, viewContainerElement);
                         break;
-                    case 'values':
-                        this.dataTable.render(defaultViewType as PresentationVisualValuesViewType, visualConfig.content, viewContainerElement);
+                    case 'valueTable':
+                        this.dataTable.render(defaultViewType as PresentationVisualValueTableViewType, visualConfig.content, viewContainerElement);
                         break;
                 }
             } catch (error) {

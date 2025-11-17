@@ -25,8 +25,24 @@ Quantifies the variation in physical headcount between the opening and closing o
     "content": {
         "title": { "text": "Opening/Closing Headcount" },
         "data": {
-            "name": "Headcount",
-            "categoryLabels": { "values": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
+            "label": { "text": "Headcount" },
+            "dimension": {
+                "label": { "text": "Months" },
+                "values": [
+                    { "label": { "text": "Jan" } },
+                    { "label": { "text": "Feb" } },
+                    { "label": { "text": "Mar" } },
+                    { "label": { "text": "Apr" } },
+                    { "label": { "text": "May" } },
+                    { "label": { "text": "Jun" } },
+                    { "label": { "text": "Jul" } },
+                    { "label": { "text": "Aug" } },
+                    { "label": { "text": "Sep" } },
+                    { "label": { "text": "Oct" } },
+                    { "label": { "text": "Nov" } },
+                    { "label": { "text": "Dec" } }
+                ]
+            },
             "measures": [
                 { "id": "openingHeadcount", "name": "Opening" },
                 { "id": "closingHeadcount", "name": "Closing" }
@@ -34,17 +50,18 @@ Quantifies the variation in physical headcount between the opening and closing o
         }
     },
     "views": [
-        { "categoryId": "cartesian", "typeId": "areaLine" },
-        { "categoryId": "cartesian", "typeId": "bar" },
-        { "categoryId": "cartesian", "typeId": "column" },
-        { "categoryId": "cartesian", "typeId": "line", "default": true },
-        { "categoryId": "polar", "typeId": "area" },
-        { "categoryId": "polar", "typeId": "column" },
-        { "categoryId": "polar", "typeId": "line" },
-        { "categoryId": "range", "typeId": "area" },
-        { "categoryId": "range", "typeId": "bar" },
-        { "categoryId": "range", "typeId": "column" },
-        { "categoryId": "values" }
+        { "categoryId": "cartesianChart", "typeId": "areaLine" },
+        { "categoryId": "cartesianChart", "typeId": "bar" },
+        { "categoryId": "cartesianChart", "typeId": "column" },
+        { "categoryId": "cartesianChart", "typeId": "line", "default": true },
+        { "categoryId": "polarChart", "typeId": "areaLine" },
+        { "categoryId": "polarChart", "typeId": "areaSpline" },
+        { "categoryId": "polarChart", "typeId": "column" },
+        { "categoryId": "polarChart", "typeId": "line" },
+        { "categoryId": "rangeChart", "typeId": "areaLine" },
+        { "categoryId": "rangeChart", "typeId": "bar" },
+        { "categoryId": "rangeChart", "typeId": "column" },
+        { "categoryId": "valueTable" }
     ]
 }
 ```
@@ -60,8 +77,24 @@ Quantifies the variation in physical headcount between the starting and ending o
     "content": {
         "title": { "text": "Starting/Ending Headcount" },
         "data": {
-            "name": "Headcount",
-            "categoryLabels": { "values": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
+            "label": { "text": "Headcount" },
+            "dimension": {
+                "label": { "text": "Months" },
+                "values": [
+                    { "label": { "text": "Jan" } },
+                    { "label": { "text": "Feb" } },
+                    { "label": { "text": "Mar" } },
+                    { "label": { "text": "Apr" } },
+                    { "label": { "text": "May" } },
+                    { "label": { "text": "Jun" } },
+                    { "label": { "text": "Jul" } },
+                    { "label": { "text": "Aug" } },
+                    { "label": { "text": "Sep" } },
+                    { "label": { "text": "Oct" } },
+                    { "label": { "text": "Nov" } },
+                    { "label": { "text": "Dec" } }
+                ]
+            },
             "measures": [
                 { "id": "startingHeadcount", "name": "Starting" },
                 { "id": "endingHeadcount", "name": "Ending" }
@@ -69,13 +102,13 @@ Quantifies the variation in physical headcount between the starting and ending o
         }
     },
     "views": [
-        { "categoryId": "cartesian", "typeId": "column" },
-        { "categoryId": "cartesian", "typeId": "line", "default": true },
-        { "categoryId": "polar", "typeId": "column" },
-        { "categoryId": "polar", "typeId": "line" },
-        { "categoryId": "range", "typeId": "area" },
-        { "categoryId": "range", "typeId": "column" },
-        { "categoryId": "values" }
+        { "categoryId": "cartesianChart", "typeId": "column" },
+        { "categoryId": "cartesianChart", "typeId": "line", "default": true },
+        { "categoryId": "polarChart", "typeId": "column" },
+        { "categoryId": "polarChart", "typeId": "line" },
+        { "categoryId": "rangeChart", "typeId": "areaLine" },
+        { "categoryId": "rangeChart", "typeId": "column" },
+        { "categoryId": "valueTable" }
     ]
 }
 ```
@@ -91,8 +124,24 @@ Describe starting ending headcounts...
     "content": {
         "title": { "text": "Monthly Headcount Flow & Boundaries" },
         "data": {
-            "name": "Headcount",
-            "categoryLabels": { "values": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] },
+            "label": { "text": "Headcount" },
+            "dimension": {
+                "label": { "text": "Months" },
+                "values": [
+                    { "label": { "text": "Jan" } },
+                    { "label": { "text": "Feb" } },
+                    { "label": { "text": "Mar" } },
+                    { "label": { "text": "Apr" } },
+                    { "label": { "text": "May" } },
+                    { "label": { "text": "Jun" } },
+                    { "label": { "text": "Jul" } },
+                    { "label": { "text": "Aug" } },
+                    { "label": { "text": "Sep" } },
+                    { "label": { "text": "Oct" } },
+                    { "label": { "text": "Nov" } },
+                    { "label": { "text": "Dec" } }
+                ]
+            },
             "measures": [
                 { "id": "openingHeadcount", "name": "Opening" },
                 { "id": "closingHeadcount", "name": "Closing" },
@@ -101,7 +150,7 @@ Describe starting ending headcounts...
             ]
         }
     },
-    "views": [{ "categoryId": "periodFlowBoundaries" }]
+    "views": [{ "categoryId": "periodFlowBoundariesChart" }]
 }
 ```
 
