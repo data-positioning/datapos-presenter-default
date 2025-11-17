@@ -149,7 +149,7 @@ export default class DefaultPresenter implements Presenter {
                             if (!defaultViewType) defaultViewType = viewType;
                             const element = document.createElement('div');
                             element.textContent = viewType.label['en-gb'];
-                            // element.addEventListener('click', () => this.valueTable.render(viewType, visualConfig.content, viewContainerElement));
+                            element.addEventListener('click', () => this.valueTable.render(viewType, visualConfig.content, viewContainerElement));
                             tabBarElement.appendChild(element);
                             break;
                         }
