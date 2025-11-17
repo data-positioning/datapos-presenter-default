@@ -126,8 +126,10 @@ export default class DefaultPresenter implements Presenter {
                         }
                         case 'polarChart': {
                             const polarViewConfig = viewConfig as PresentationVisualPolarChartViewConfig;
-                            defaultCategoryId = viewCategoryId;
-                            defaultTypeId = polarViewConfig.typeId;
+                            if (!defaultTypeId || polarViewConfig.default) {
+                                defaultCategoryId = viewCategoryId;
+                                defaultTypeId = polarViewConfig.typeId;
+                            }
                             const element = document.createElement('div');
                             element.textContent = polarViewConfig.typeId;
                             element.addEventListener('click', () => this.highchartsTool.renderPolarChart(polarViewConfig.typeId, visualConfig.content, viewContainerElement));
@@ -136,8 +138,10 @@ export default class DefaultPresenter implements Presenter {
                         }
                         case 'rangeChart': {
                             const rangeViewConfig = viewConfig as PresentationVisualRangeChartViewConfig;
-                            defaultCategoryId = viewCategoryId;
-                            defaultTypeId = rangeViewConfig.typeId;
+                            if (!defaultTypeId || rangeViewConfig.default) {
+                                defaultCategoryId = viewCategoryId;
+                                defaultTypeId = rangeViewConfig.typeId;
+                            }
                             const element = document.createElement('div');
                             element.textContent = rangeViewConfig.typeId;
                             element.addEventListener('click', () => this.highchartsTool.renderRangeChart(rangeViewConfig.typeId, visualConfig.content, viewContainerElement));
