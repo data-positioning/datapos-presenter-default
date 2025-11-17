@@ -3,24 +3,10 @@
  */
 
 // Dependencies - Framework.
-import { presentationViewTypeMap } from '@datapos/datapos-shared';
 import { useDataTable } from '@datapos/datapos-shared';
-import type { ComponentRef, ToolModuleConfig } from '@datapos/datapos-shared';
-import type { PresentationConfig, PresentationVisualConfig, PresentationVisualViewType } from '@datapos/datapos-shared';
-import type {
-    PresentationVisualCartesianChartViewConfig,
-    PresentationVisualPeriodFlowBoundariesChartViewConfig,
-    PresentationVisualPolarChartViewConfig,
-    PresentationVisualRangeChartViewConfig,
-    PresentationVisualValueTableViewConfig
-} from '@datapos/datapos-shared';
-import type {
-    PresentationVisualCartesianChartViewType,
-    PresentationVisualPeriodFlowBoundariesChartViewType,
-    PresentationVisualPolarChartViewType,
-    PresentationVisualRangeChartViewType,
-    PresentationVisualValueTableViewType
-} from '@datapos/datapos-shared';
+import type { ComponentRef, PresentationCartesianTypeId, PresentationPolarTypeId, PresentationRangeTypeId, ToolModuleConfig } from '@datapos/datapos-shared';
+import type { PresentationConfig, PresentationVisualConfig } from '@datapos/datapos-shared';
+import type { PresentationVisualCartesianChartViewConfig, PresentationVisualPolarChartViewConfig, PresentationVisualRangeChartViewConfig } from '@datapos/datapos-shared';
 import type { Presenter, PresenterConfig, PresenterLocalisedConfig } from '@datapos/datapos-shared';
 
 // Dependencies - Tools.
@@ -99,57 +85,58 @@ export default class DefaultPresenter implements Presenter {
                 const tabBarElement = document.createElement('div');
                 tabBarElement.className = 'dp-tab-bar';
                 const viewContainerElement = document.createElement('div');
-                let defaultViewType: PresentationVisualViewType | undefined = undefined;
+                let defaultCategoryId: string | undefined = undefined;
+                let defaultTypeId: string | undefined = undefined;
                 for (const viewConfig of visualConfig.views) {
                     const viewCategoryId = viewConfig.categoryId;
                     switch (viewCategoryId) {
                         case 'cartesianChart': {
                             const cartesianViewConfig = viewConfig as PresentationVisualCartesianChartViewConfig;
-                            const viewType = presentationViewTypeMap[`${viewCategoryId}_${cartesianViewConfig.typeId}`] as PresentationVisualCartesianChartViewType;
-                            if (!defaultViewType || cartesianViewConfig.default) defaultViewType = viewType;
+                            defaultCategoryId = viewCategoryId;
+                            defaultTypeId = cartesianViewConfig.typeId;
                             const element = document.createElement('div');
-                            element.textContent = viewType.label['en-gb'];
-                            element.addEventListener('click', () => this.highchartsTool.renderCartesianChart(viewType, visualConfig.content, viewContainerElement));
+                            element.textContent = cartesianViewConfig.typeId;
+                            element.addEventListener('click', () =>
+                                this.highchartsTool.renderCartesianChart(cartesianViewConfig.typeId, visualConfig.content, viewContainerElement)
+                            );
                             tabBarElement.appendChild(element);
                             break;
                         }
                         case 'periodFlowBoundariesChart': {
-                            const polarViewConfig = viewConfig as PresentationVisualPeriodFlowBoundariesChartViewConfig;
-                            const viewType = presentationViewTypeMap[viewCategoryId] as PresentationVisualPeriodFlowBoundariesChartViewType;
-                            if (!defaultViewType || polarViewConfig.default) defaultViewType = viewType;
+                            defaultCategoryId = viewCategoryId;
+                            defaultTypeId = undefined;
                             const element = document.createElement('div');
-                            element.textContent = viewType.label['en-gb'];
+                            element.textContent = viewCategoryId;
                             element.addEventListener('click', () => this.highchartsTool.renderPeriodFlowBoundaries(visualConfig.content, viewContainerElement));
                             tabBarElement.appendChild(element);
                             break;
                         }
                         case 'polarChart': {
                             const polarViewConfig = viewConfig as PresentationVisualPolarChartViewConfig;
-                            const viewType = presentationViewTypeMap[`${viewCategoryId}_${polarViewConfig.typeId}`] as PresentationVisualPolarChartViewType;
-                            if (!defaultViewType || polarViewConfig.default) defaultViewType = viewType;
+                            defaultCategoryId = viewCategoryId;
+                            defaultTypeId = polarViewConfig.typeId;
                             const element = document.createElement('div');
-                            element.textContent = viewType.label['en-gb'];
-                            element.addEventListener('click', () => this.highchartsTool.renderPolarChart(viewType, visualConfig.content, viewContainerElement));
+                            element.textContent = polarViewConfig.typeId;
+                            element.addEventListener('click', () => this.highchartsTool.renderPolarChart(polarViewConfig.typeId, visualConfig.content, viewContainerElement));
                             tabBarElement.appendChild(element);
                             break;
                         }
                         case 'rangeChart': {
                             const rangeViewConfig = viewConfig as PresentationVisualRangeChartViewConfig;
-                            const viewType = presentationViewTypeMap[`${viewCategoryId}_${rangeViewConfig.typeId}`] as PresentationVisualRangeChartViewType;
-                            if (!defaultViewType || rangeViewConfig.default) defaultViewType = viewType;
+                            defaultCategoryId = viewCategoryId;
+                            defaultTypeId = rangeViewConfig.typeId;
                             const element = document.createElement('div');
-                            element.textContent = viewType.label['en-gb'];
-                            element.addEventListener('click', () => this.highchartsTool.renderRangeChart(viewType, visualConfig.content, viewContainerElement));
+                            element.textContent = rangeViewConfig.typeId;
+                            element.addEventListener('click', () => this.highchartsTool.renderRangeChart(rangeViewConfig.typeId, visualConfig.content, viewContainerElement));
                             tabBarElement.appendChild(element);
                             break;
                         }
                         case 'valueTable': {
-                            const valuesViewConfig = viewConfig as PresentationVisualValueTableViewConfig;
-                            const viewType = presentationViewTypeMap[viewCategoryId] as PresentationVisualValueTableViewType;
-                            if (!defaultViewType) defaultViewType = viewType;
+                            defaultCategoryId = viewCategoryId;
+                            defaultTypeId = undefined;
                             const element = document.createElement('div');
-                            element.textContent = viewType.label['en-gb'];
-                            element.addEventListener('click', () => this.valueTable.render(viewType, visualConfig.content, viewContainerElement));
+                            element.textContent = viewCategoryId;
+                            element.addEventListener('click', () => this.valueTable.render(visualConfig.content, viewContainerElement));
                             tabBarElement.appendChild(element);
                             break;
                         }
@@ -157,21 +144,21 @@ export default class DefaultPresenter implements Presenter {
                 }
                 visualElements.appendChild(tabBarElement);
                 visualElements.appendChild(viewContainerElement);
-                switch (defaultViewType.categoryId) {
+                switch (defaultCategoryId) {
                     case 'cartesianChart':
-                        this.highchartsTool.renderCartesianChart(defaultViewType as PresentationVisualCartesianChartViewType, visualConfig.content, viewContainerElement);
+                        this.highchartsTool.renderCartesianChart(defaultTypeId as PresentationCartesianTypeId, visualConfig.content, viewContainerElement);
                         break;
                     case 'periodFlowBoundariesChart':
                         this.highchartsTool.renderPeriodFlowBoundaries(visualConfig.content, viewContainerElement);
                         break;
                     case 'polarChart':
-                        this.highchartsTool.renderPolarChart(defaultViewType as PresentationVisualPolarChartViewType, visualConfig.content, viewContainerElement);
+                        this.highchartsTool.renderPolarChart(defaultTypeId as PresentationPolarTypeId, visualConfig.content, viewContainerElement);
                         break;
                     case 'rangeChart':
-                        this.highchartsTool.renderRangeChart(defaultViewType as PresentationVisualRangeChartViewType, visualConfig.content, viewContainerElement);
+                        this.highchartsTool.renderRangeChart(defaultTypeId as PresentationRangeTypeId, visualConfig.content, viewContainerElement);
                         break;
                     case 'valueTable':
-                        this.valueTable.render(defaultViewType as PresentationVisualValueTableViewType, visualConfig.content, viewContainerElement);
+                        this.valueTable.render(visualConfig.content, viewContainerElement);
                         break;
                 }
             } catch (error) {
