@@ -3,17 +3,17 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.945",
+    "version": "0.1.946",
     "dependencies": {
-        "@datapos/datapos-shared": "^0.3.232",
-        "@datapos/datapos-tool-highcharts": "^0.0.42",
+        "@datapos/datapos-shared": "^0.3.233",
+        "@datapos/datapos-tool-highcharts": "^0.0.43",
         "@datapos/datapos-tool-micromark": "^0.1.891"
     },
     "devDependencies": {
         "@datapos/datapos-development": "^0.3.93",
         "@types/node": "^24.10.1",
-        "@typescript-eslint/eslint-plugin": "^8.46.4",
-        "@typescript-eslint/parser": "^8.46.4",
+        "@typescript-eslint/eslint-plugin": "^8.47.0",
+        "@typescript-eslint/parser": "^8.47.0",
         "eslint": "^9.39.1",
         "eslint-plugin-import": "^2.32.0",
         "front-matter": "^4.0.2",
