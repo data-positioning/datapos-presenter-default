@@ -144,13 +144,13 @@ export default class DefaultPresenter implements Presenter {
                             break;
                         }
                         case 'valueTable': {
-                            // const valuesViewConfig = viewConfig as PresentationVisualValueTableViewConfig;
-                            // const viewType = presentationViewTypeMap[viewCategoryId] as PresentationVisualValueTableViewType;
-                            // if (!defaultViewType) defaultViewType = viewType;
-                            // const element = document.createElement('div');
-                            // element.textContent = viewType.label['en-gb'];
+                            const valuesViewConfig = viewConfig as PresentationVisualValueTableViewConfig;
+                            const viewType = presentationViewTypeMap[viewCategoryId] as PresentationVisualValueTableViewType;
+                            if (!defaultViewType) defaultViewType = viewType;
+                            const element = document.createElement('div');
+                            element.textContent = viewType.label['en-gb'];
                             // element.addEventListener('click', () => this.valueTable.render(viewType, visualConfig.content, viewContainerElement));
-                            // tabBarElement.appendChild(element);
+                            tabBarElement.appendChild(element);
                             break;
                         }
                     }
