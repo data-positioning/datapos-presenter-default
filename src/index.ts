@@ -43,7 +43,7 @@ export default class DefaultPresenter implements Presenter {
         this.toolModuleConfigs = toolModuleConfigs;
     }
 
-    // Operations - List.
+    // Operations - List. TODO: Is this needed? Is 'configPresentations.json' needed????
     list(): ComponentRef[] {
         return this.config.presentations;
     }

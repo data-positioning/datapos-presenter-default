@@ -3,7 +3,7 @@
     "license": "MIT",
     "private": true,
     "type": "module",
-    "version": "0.1.954",
+    "version": "0.1.955",
     "dependencies": {
         "@datapos/datapos-shared": "^0.3.239",
         "@datapos/datapos-tool-highcharts": "^0.0.44",
