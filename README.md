@@ -1,6 +1,7 @@
 # Data Positioning Default Presenter
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![npm version](https://img.shields.io/npm/v/@data-positioning/datapos-tool-micromark)](https://www.npmjs.com/package/@data-positioning/datapos-tool-micromark)
 
 A library that implements the default presenter in accordance with the Data Positioning presenter interface.
 
@@ -22,7 +23,7 @@ The following list details the repository management commands implementation by 
 | lint           | alt+ctrl+shift+l  | Check the code for potential errors and enforces coding styles.                                                 |
 | release        | alt+ctrl+shift+r  | Synchronise local repository with the main GitHub repository and upload connector to Data Positioning platform. |
 | syncWithGitHub | alt+ctrl+shift+s  | Synchronise local repository with the main GitHub repository.                                                   |
-| update         | alt+ctrl+shift+l  | Install the latest version of Data Positioning dependencies.                                                    |
+| update         | alt+ctrl+shift+u  | Install the latest version of Data Positioning dependencies.                                                    |
 
 ## Compliance
 
