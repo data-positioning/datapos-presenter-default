@@ -2,11 +2,11 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
-A TypeScript library that implements the default presenter.
+A library that implements the default presenter in accordance with the Data Positioning presenter interface.
 
 ## Installation
 
-There’s no need to install this presenter manually. Once released, it’s uploaded to the Data Positioning Engine cloud and becomes instantly available to all new instances of the browser app. A notification about the new version is also sent to all existing browser apps.
+Manual installation of this presenter is not required. Upon release, it is uploaded to the Data Positioning Register, making it immediately available to all new app instances. Active apps also receive a notification regarding the new version.
 
 ## Repository Management Commands
 
