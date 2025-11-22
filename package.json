@@ -1,9 +1,9 @@
 {
-    "name": "datapos-presenter-default",
+    "name": "@datapos/datapos-presenter-default",
     "license": "MIT",
-    "private": true,
+    "private": false,
     "type": "module",
-    "version": "0.1.959",
+    "version": "0.1.960",
     "dependencies": {
         "@datapos/datapos-shared": "^0.3.239",
         "@datapos/datapos-tool-highcharts": "^0.0.44",
@@ -38,7 +38,7 @@
         "format": "prettier --write src/",
         "lint": "eslint .",
         "publish:toNPM": "npm publish --access public",
-        "release": "npm run bump:version && npm run _build:config && npm run build && npm run _sync:withGitHub && npm run _upload",
+        "release": "npm run bump:version && npm run _build:config && npm run build && npm run _sync:withGitHub && npm run _upload && npm run publish:toNPM",
         "sync": "npm run bump:version && npm run _build:config && node -e \"import('@datapos/datapos-development').then(m => m.syncWithGitHub())\"",
         "test": "node -e \"import('@datapos/datapos-development').then(m => m.echoScriptNotImplemented('Test'))\"",
         "update:dataPosDeps": "npm run _update:developDep && npm run _update:sharedDep && npm run _update:toolHighchartsDep && npm run _update:toolMicromarkDep",
