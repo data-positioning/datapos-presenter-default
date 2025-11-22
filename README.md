@@ -1,7 +1,7 @@
 # Data Positioning Default Presenter
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![npm version](https://img.shields.io/npm/v/@data-positioning/datapos-tool-micromark)](https://www.npmjs.com/package/@data-positioning/datapos-tool-micromark)
+[![npm version](https://img.shields.io/npm/v/@data-positioning/datapos-default-presenter)](https://www.npmjs.com/package/@data-positioning/datapos-default-presenter)
 
 A library that implements the default presenter in accordance with the Data Positioning presenter interface.
 
