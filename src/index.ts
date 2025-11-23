@@ -11,7 +11,7 @@ import type {
     PresentationRangeTypeId,
     PresentationVisualPeriodFlowBoundariesChartViewConfig,
     PresentationVisualValueTableViewConfig,
-    ToolModuleConfig
+    ToolConfig
 } from '@datapos/datapos-shared';
 import type { PresentationConfig, PresentationVisualConfig } from '@datapos/datapos-shared';
 import type { PresentationVisualCartesianChartViewConfig, PresentationVisualPolarChartViewConfig, PresentationVisualRangeChartViewConfig } from '@datapos/datapos-shared';
@@ -36,7 +36,7 @@ export default class DefaultPresenter implements Presenter {
     highchartsTool?: HighchartsTool;
     micromarkTool?: MicromarkTool;
 
-    constructor(toolModuleConfigs: ToolModuleConfig[]) {
+    constructor(toolModuleConfigs: ToolConfig[]) {
         this.config = config as PresenterConfig;
         this.valueTable = useDataTable();
         this.sampleData = useSampleData();
@@ -46,6 +46,11 @@ export default class DefaultPresenter implements Presenter {
     // Operations - List. TODO: Is this needed? Is 'configPresentations.json' needed????
     list(): ComponentRef[] {
         return this.config.presentations;
+    }
+
+    // Operations - Switch them.
+    switchTheme(mode: 'light' | 'dark') {
+        if (this.micromarkTool) this.micromarkTool.switchTheme(mode);
     }
 
     // Operations - Render.
