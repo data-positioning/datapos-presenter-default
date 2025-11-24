@@ -1,8 +1,6 @@
-# Common git ignore configuration for unpublished repositories.
-dist
+# Common git ignore configuration for published Data Positioning repositories.
 dist-scripts
 node_modules
-stats
 .env
 .npmrc
 **/.DS_Store

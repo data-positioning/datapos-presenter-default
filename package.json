@@ -1,9 +1,29 @@
 {
     "name": "@datapos/datapos-presenter-default",
+    "version": "0.1.997",
+    "description": "A library that implements the default presenter in accordance with the Data Positioning presenter interface.",
     "license": "MIT",
     "private": false,
     "type": "module",
-    "version": "0.1.996",
+    "homepage": "https://www.datapos.app",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/data-positioning/datapos-presenter-default.git"
+    },
+    "bugs": {
+        "url": "https://github.com/data-positioning/datapos-presenter-default/issues"
+    },
+    "module": "./dist/datapos-presenter-default.es.js",
+    "types": "./dist/types/src/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/datapos-presenter-default.es.js",
+            "types": "./dist/types/src/index.d.ts"
+        }
+    },
+    "files": [
+        "dist"
+    ],
     "dependencies": {
         "@datapos/datapos-shared": "^0.3.248",
         "@datapos/datapos-tool-highcharts": "^0.0.47",
@@ -24,6 +44,7 @@
         "npm-check-updates": "^19.1.2",
         "prettier": "^3.6.2",
         "retire": "^5.3.0",
+        "rollup-plugin-visualizer": "^6.0.5",
         "typescript": "^5.9.3",
         "vite": "^7.2.4",
         "vite-plugin-dts": "^4.5.4"
