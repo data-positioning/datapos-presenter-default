@@ -3,11 +3,11 @@
     "license": "MIT",
     "private": false,
     "type": "module",
-    "version": "0.1.988",
+    "version": "0.1.989",
     "dependencies": {
         "@datapos/datapos-shared": "^0.3.248",
         "@datapos/datapos-tool-highcharts": "^0.0.47",
-        "@datapos/datapos-tool-micromark": "^0.1.950"
+        "@datapos/datapos-tool-micromark": "^0.1.954"
     },
     "devDependencies": {
         "@datapos/datapos-development": "^0.3.94",

@@ -5,7 +5,6 @@
 // Dependencies - Framework.
 import { useDataTable } from '@datapos/datapos-shared';
 import type {
-    ColorModeId,
     ComponentRef,
     PresentationCartesianTypeId,
     PresentationPolarTypeId,
@@ -71,7 +70,7 @@ export default class DefaultPresenter implements Presenter {
         this.micromarkTool = await this.loadMicromarkTool();
         const html = await this.micromarkTool.render(processedMarkdown, { tables: true }); // TODO: Need to pass tables from frontend.
         renderTo.innerHTML = html;
-        this.micromarkTool.highlight(this.colorModeId);
+        this.micromarkTool.highlight(renderTo, this.colorModeId);
 
         // ????
         this.highchartsTool = await this.loadHighchartsTool();
