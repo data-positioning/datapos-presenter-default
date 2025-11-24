@@ -32,14 +32,14 @@ export default class DefaultPresenter implements Presenter {
     colorModeId: string;
     readonly valueTable;
     readonly sampleData;
-    readonly toolModuleConfigs;
+    readonly toolConfigs;
 
     highchartsTool?: HighchartsTool;
     micromarkTool?: MicromarkTool;
 
-    constructor(toolModuleConfigs: ToolConfig[], colorModeId: string) {
+    constructor(toolConfigs: ToolConfig[], colorModeId: string) {
         this.config = config as PresenterConfig;
-        this.toolModuleConfigs = toolModuleConfigs; // TODO: Change to 'toolConfigs'.
+        this.toolConfigs = toolConfigs;
         this.colorModeId = colorModeId;
 
         this.valueTable = useDataTable(); // TODO?
@@ -55,10 +55,6 @@ export default class DefaultPresenter implements Presenter {
     async render(presentationPath: keyof typeof configPresentations, renderTo: HTMLElement, data?: unknown): Promise<void> {
         // Use presentation path to retrieve presentation.
         const presentation = configPresentations[presentationPath] as PresentationConfig;
-
-        // TODO: Remove
-        // const chartJS = await import('chart.js');
-        // console.log('chartJS', chartJS);
 
         // Substitute values for label and description placeholders in content.
         let processedMarkdown = presentation.content;
@@ -194,16 +190,15 @@ export default class DefaultPresenter implements Presenter {
 
     // Operations - Set color mode.
     setColorMode(id: string) {
-        console.log('presenter-default.setColorMode', id, this.micromarkTool);
         this.colorModeId = id;
         if (this.micromarkTool) this.micromarkTool.setColorMode(this.colorModeId);
     }
 
-    // Utilities - Load Highcharts tool.
+    // Helpers - Load Highcharts tool.
     private async loadHighchartsTool(): Promise<HighchartsTool> {
         if (this.highchartsTool) return this.highchartsTool;
 
-        const toolModuleConfig = this.toolModuleConfigs.find((config) => config.id === 'datapos-tool-highcharts');
+        const toolModuleConfig = this.toolConfigs.find((config) => config.id === 'datapos-tool-highcharts');
         if (!toolModuleConfig) return;
 
         const url = `https://engine-eu.datapos.app/tools/highcharts_v${toolModuleConfig.version}/datapos-tool-highcharts.es.js`;
@@ -211,11 +206,11 @@ export default class DefaultPresenter implements Presenter {
         return new HighchartsTool();
     }
 
-    // Utilities - Load Micromark tool.
+    // Helpers - Load Micromark tool.
     private async loadMicromarkTool(): Promise<MicromarkTool> {
         if (this.micromarkTool) return this.micromarkTool;
 
-        const toolModuleConfig = this.toolModuleConfigs.find((config) => config.id === 'datapos-tool-micromark');
+        const toolModuleConfig = this.toolConfigs.find((config) => config.id === 'datapos-tool-micromark');
         if (!toolModuleConfig) return;
 
         const url = `https://engine-eu.datapos.app/tools/micromark_v${toolModuleConfig.version}/datapos-tool-micromark.es.js`;
