@@ -66,7 +66,7 @@ export default class DefaultPresenter implements Presenter {
 
         // Render markdown to HTML
         this.micromarkTool = await this.loadMicromarkTool();
-        const html = this.micromarkTool.render(processedMarkdown);
+        const html = await this.micromarkTool.render(processedMarkdown);
         renderTo.innerHTML = html;
         this.micromarkTool.highlight();
 
