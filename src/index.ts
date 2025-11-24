@@ -191,8 +191,9 @@ export default class DefaultPresenter implements Presenter {
     }
 
     // Operations - Set color mode.
-    setColorMode(mode: ColorModeId) {
-        if (this.micromarkTool) this.micromarkTool.setColorMode(mode);
+    setColorMode(colorModeId: ColorModeId) {
+        console.log(3333, colorModeId);
+        if (this.micromarkTool) this.micromarkTool.setColorMode(colorModeId);
     }
 
     // Utilities - Load Highcharts tool.
