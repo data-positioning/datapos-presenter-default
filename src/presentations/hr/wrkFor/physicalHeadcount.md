@@ -371,7 +371,7 @@ $$
 ```
 
 ```json datapos-formula
-{ "expression": "Termination Rate2=Average Headcount/Terminations*100'" }
+{ "expression": "Termination Rates=Average Headcount/Terminations*100'" }
 ```
 
 > A blockquote...
