@@ -192,7 +192,7 @@ export default class DefaultPresenter implements Presenter {
 
     // Operations - Set color mode.
     setColorMode(colorModeId: ColorModeId) {
-        console.log('presenter-default.setColorMode', colorModeId);
+        console.log('presenter-default.setColorMode', colorModeId, this.micromarkTool);
         if (this.micromarkTool) this.micromarkTool.setColorMode(colorModeId);
     }
 
