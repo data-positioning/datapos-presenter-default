@@ -352,6 +352,24 @@ console.log(count);
 { "expression": "Termination Rate=Average Headcount/Terminations*100'" }
 ```
 
+```html datapos-formula
+<!-- Termination Rate=Average Headcount/Terminations*100 -->
+<math display="block">
+    <mrow>
+        <mi>Termination Rate</mi>
+        <mo>=</mo>
+        <mrow>
+            <mfrac>
+                <mi>Average Headcount</mi>
+                <mi>Terminations</mi>
+            </mfrac>
+            <mo>×</mo>
+            <mn>100</mn>
+        </mrow>
+    </mrow>
+</math>
+```
+
 > A blockquote...
 
 - Unordered list 1
