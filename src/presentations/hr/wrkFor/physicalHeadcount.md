@@ -348,9 +348,9 @@ console.log('A very long line of text that will test how the code block wraps on
 console.log(count);
 ```
 
-```json datapos-formula
-{ "expression": "Termination Rate=Average Headcount/Terminations*100'" }
-```
+$$
+Termination Rate = \frac{Average Headcount}{Terminations}
+$$
 
 ```html datapos-formula
 <!-- Termination Rate=Average Headcount/Terminations*100 -->
@@ -368,6 +368,10 @@ console.log(count);
         </mrow>
     </mrow>
 </math>
+```
+
+```json datapos-formula
+{ "expression": "Termination Rate2=Average Headcount/Terminations*100'" }
 ```
 
 > A blockquote...
