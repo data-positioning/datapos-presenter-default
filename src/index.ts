@@ -5,6 +5,7 @@
 // Dependencies - Framework.
 import { useDataTable } from '@datapos/datapos-shared';
 import type {
+    ColorModeId,
     ComponentRef,
     PresentationCartesianTypeId,
     PresentationPolarTypeId,
@@ -28,7 +29,7 @@ import { useSampleData } from '@/composers/useSampleData';
 
 // Classes - Default presenter.
 export default class DefaultPresenter implements Presenter {
-    readonly config: PresenterConfig;
+    readonly config: PresenterConfig; // TODO: If we remove list method, then config is not needed. Would make presenter slightly smaller.
     readonly valueTable;
     readonly sampleData;
     readonly toolModuleConfigs;
@@ -46,11 +47,6 @@ export default class DefaultPresenter implements Presenter {
     // Operations - List. TODO: Is this needed? Is 'configPresentations.json' needed????
     list(): ComponentRef[] {
         return this.config.presentations;
-    }
-
-    // Operations - Switch them.
-    switchTheme(mode: 'light' | 'dark') {
-        if (this.micromarkTool) this.micromarkTool.switchTheme(mode);
     }
 
     // Operations - Render.
@@ -192,6 +188,11 @@ export default class DefaultPresenter implements Presenter {
                 visualElements.textContent = 'Invalid options.';
             }
         }
+    }
+
+    // Operations - Set color mode.
+    setColorMode(mode: ColorModeId) {
+        if (this.micromarkTool) this.micromarkTool.switchTheme(mode);
     }
 
     // Utilities - Load Highcharts tool.
