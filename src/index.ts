@@ -41,7 +41,7 @@ export default class DefaultPresenter implements Presenter {
         this.config = config as PresenterConfig;
         this.valueTable = useDataTable();
         this.sampleData = useSampleData();
-        this.toolModuleConfigs = toolModuleConfigs;
+        this.toolModuleConfigs = toolModuleConfigs; // TODO: Change to 'toolConfigs'.
     }
 
     // Operations - List. TODO: Is this needed? Is 'configPresentations.json' needed????
