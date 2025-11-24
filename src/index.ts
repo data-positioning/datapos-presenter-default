@@ -30,6 +30,7 @@ import { useSampleData } from '@/composers/useSampleData';
 // Classes - Default presenter.
 export default class DefaultPresenter implements Presenter {
     readonly config: PresenterConfig; // TODO: If we remove list method, then config is not needed. Would make presenter slightly smaller.
+    colorModeId: string;
     readonly valueTable;
     readonly sampleData;
     readonly toolModuleConfigs;
@@ -37,11 +38,13 @@ export default class DefaultPresenter implements Presenter {
     highchartsTool?: HighchartsTool;
     micromarkTool?: MicromarkTool;
 
-    constructor(toolModuleConfigs: ToolConfig[]) {
+    constructor(toolModuleConfigs: ToolConfig[], colorModeId: string) {
         this.config = config as PresenterConfig;
-        this.valueTable = useDataTable();
-        this.sampleData = useSampleData();
         this.toolModuleConfigs = toolModuleConfigs; // TODO: Change to 'toolConfigs'.
+        this.colorModeId = colorModeId;
+
+        this.valueTable = useDataTable(); // TODO?
+        this.sampleData = useSampleData(); // TODO?
     }
 
     // Operations - List. TODO: Is this needed? Is 'configPresentations.json' needed????
@@ -68,7 +71,7 @@ export default class DefaultPresenter implements Presenter {
         this.micromarkTool = await this.loadMicromarkTool();
         const html = await this.micromarkTool.render(processedMarkdown, { tables: true }); // TODO: Need to pass tables from frontend.
         renderTo.innerHTML = html;
-        this.micromarkTool.highlight();
+        this.micromarkTool.highlight(this.colorModeId);
 
         // ????
         this.highchartsTool = await this.loadHighchartsTool();
@@ -191,9 +194,10 @@ export default class DefaultPresenter implements Presenter {
     }
 
     // Operations - Set color mode.
-    setColorMode(colorModeId: ColorModeId) {
-        console.log('presenter-default.setColorMode', colorModeId, this.micromarkTool);
-        if (this.micromarkTool) this.micromarkTool.setColorMode(colorModeId);
+    setColorMode(id: string) {
+        console.log('presenter-default.setColorMode', id, this.micromarkTool);
+        this.colorModeId = id;
+        if (this.micromarkTool) this.micromarkTool.setColorMode(this.colorModeId);
     }
 
     // Utilities - Load Highcharts tool.
