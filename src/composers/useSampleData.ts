@@ -12,18 +12,18 @@ export function useSampleData() {
         return monthData.map((month) => ids.map((id) => getMeasureValue(id, month)));
     }
 
-    // Utilities - Get measure value.
-    function getMeasureValue(id: string, month: MonthData): number {
-        switch (id) {
-            case 'startingHeadcount':
-                return month.openingHeadcount + month.startingHires;
-            case 'endingHeadcount':
-                return month.closingHeadcount + month.endingTerminations;
-            default:
-                return month[id] ?? 0;
-        }
-    }
-
     // Exposures
     return { getMeasureValues };
+}
+
+// Utilities - Get measure value.
+function getMeasureValue(id: string, month: MonthData): number {
+    switch (id) {
+        case 'startingHeadcount':
+            return month.openingHeadcount + month.startingHires;
+        case 'endingHeadcount':
+            return month.closingHeadcount + month.endingTerminations;
+        default:
+            return month[id] ?? 0;
+    }
 }

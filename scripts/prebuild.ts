@@ -1,7 +1,7 @@
 // Dependencies - Vendor.
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
 import frontMatter from 'front-matter';
-import path from 'path';
+import path from 'node:path';
 
 // Dependencies - Framework.
 import type { ComponentRef, PresentationConfig } from '@datapos/datapos-shared';
@@ -72,4 +72,4 @@ async function constructPresentationConfigs() {
 }
 
 // Pre-build Processing
-constructPresentationConfigs();
+await constructPresentationConfigs();
