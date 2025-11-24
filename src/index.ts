@@ -66,7 +66,7 @@ export default class DefaultPresenter implements Presenter {
 
         // Render markdown to HTML
         this.micromarkTool = await this.loadMicromarkTool();
-        const html = await this.micromarkTool.render(processedMarkdown, { tables: true });
+        const html = await this.micromarkTool.render(processedMarkdown, { tables: true }); // TODO: Need to pass tables from frontend.
         renderTo.innerHTML = html;
         this.micromarkTool.highlight();
 
@@ -192,7 +192,7 @@ export default class DefaultPresenter implements Presenter {
 
     // Operations - Set color mode.
     setColorMode(colorModeId: ColorModeId) {
-        console.log(3333, colorModeId);
+        console.log('presenter-default.setColorMode', colorModeId);
         if (this.micromarkTool) this.micromarkTool.setColorMode(colorModeId);
     }
 
