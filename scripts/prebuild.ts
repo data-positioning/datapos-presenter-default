@@ -67,7 +67,7 @@ async function constructPresentationConfigs() {
                 const attributeString = trimmedInfoString ? ` ${trimmedInfoString}` : '';
                 return ['```json' + attributeString, stringifiedJsonCode, '```'].join('\n');
             } catch (error) {
-                console.log('JSON parsing error', error);
+                console.error('JSON parsing error', error); // TODO: Use development error format.
                 return match;
             }
         });
