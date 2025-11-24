@@ -1,6 +1,6 @@
 {
     "name": "@datapos/datapos-presenter-default",
-    "version": "0.1.999",
+    "version": "0.1.1000",
     "description": "A library that implements the default presenter in accordance with the Data Positioning presenter interface.",
     "license": "MIT",
     "private": false,

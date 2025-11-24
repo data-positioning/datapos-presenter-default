@@ -63,8 +63,11 @@ async function constructPresentationConfigs() {
             const trimmedJSONCode = jsonCode.trim();
             try {
                 // Rebuild fenced JSON code block with info and compressed JSON code.
-                return `\`\`\`json${trimmedInfoString ? ` ${trimmedInfoString}` : ''}\n${JSON.stringify(JSON.parse(trimmedJSONCode))}\n\`\`\``;
-            } catch (err) {
+                const stringifiedJsonCode = JSON.stringify(JSON.parse(trimmedJSONCode));
+                const attributeString = trimmedInfoString ? ` ${trimmedInfoString}` : '';
+                return ['```json' + attributeString, stringifiedJsonCode, '```'].join('\n');
+            } catch (error) {
+                console.log('JSON parsing error', error);
                 return match;
             }
         });
