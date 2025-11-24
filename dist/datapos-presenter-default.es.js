@@ -1,10 +1,10 @@
 function w() {
-  function h(e, a) {
+  function c(e, a) {
     console.log(1111, e), console.log(2222, a), console.log(3333, a.childNodes), console.log(4444, a.children);
   }
-  return { render: h };
+  return { render: c };
 }
-const y = "datapos-presenter-default", H = { "en-gb": "Default Presenter" }, T = { "en-gb": "..." }, v = "alpha", I = "presenter", F = "0.1.998", C = [{ id: "hrWrkForAverageHeadcount", label: { "en-gb": "Average Headcount" }, description: { "en-gb": "This is a description..." }, order: 2, path: "hr/wrkFor/averageHeadcount" }, { id: "hrWrkForFtes", label: { "en-gb": "Full-Time Equivalents" }, description: { "en-gb": "This is a description..." }, order: 4, path: "hr/wrkFor/ftes" }, { id: "hrWrkForHeadcountSummary", label: { "en-gb": "Headcount Summary" }, description: { "en-gb": "This is a description..." }, order: 7, path: "hr/wrkFor/headcountSummary" }, { id: "hrWrkForHiresTerminations", label: { "en-gb": "Hires & Terminations" }, description: { "en-gb": "This is a description..." }, order: 3, path: "hr/wrkFor/hiresTerminations" }, { id: "hrWrkForMovementFlows", label: { "en-gb": "Movement Flows" }, description: { "en-gb": "This is a description..." }, order: 6, path: "hr/wrkFor/movementFlows" }, { id: "hrWrkForMovements", label: { "en-gb": "Movements (Entry, Internal & Exit)" }, description: { "en-gb": "This is a description..." }, order: 5, path: "hr/wrkFor/movements" }, { id: "hrWrkForPhysicalHeadcount", label: { "en-gb": "Physical Headcount" }, description: { "en-gb": "This is a description..." }, order: 1, path: "hr/wrkFor/physicalHeadcount" }], k = {
+const y = "datapos-presenter-default", H = { "en-gb": "Default Presenter" }, T = { "en-gb": "..." }, v = "alpha", I = "presenter", F = "0.1.999", C = [{ id: "hrWrkForAverageHeadcount", label: { "en-gb": "Average Headcount" }, description: { "en-gb": "This is a description..." }, order: 2, path: "hr/wrkFor/averageHeadcount" }, { id: "hrWrkForFtes", label: { "en-gb": "Full-Time Equivalents" }, description: { "en-gb": "This is a description..." }, order: 4, path: "hr/wrkFor/ftes" }, { id: "hrWrkForHeadcountSummary", label: { "en-gb": "Headcount Summary" }, description: { "en-gb": "This is a description..." }, order: 7, path: "hr/wrkFor/headcountSummary" }, { id: "hrWrkForHiresTerminations", label: { "en-gb": "Hires & Terminations" }, description: { "en-gb": "This is a description..." }, order: 3, path: "hr/wrkFor/hiresTerminations" }, { id: "hrWrkForMovementFlows", label: { "en-gb": "Movement Flows" }, description: { "en-gb": "This is a description..." }, order: 6, path: "hr/wrkFor/movementFlows" }, { id: "hrWrkForMovements", label: { "en-gb": "Movements (Entry, Internal & Exit)" }, description: { "en-gb": "This is a description..." }, order: 5, path: "hr/wrkFor/movements" }, { id: "hrWrkForPhysicalHeadcount", label: { "en-gb": "Physical Headcount" }, description: { "en-gb": "This is a description..." }, order: 1, path: "hr/wrkFor/physicalHeadcount" }], k = {
   id: y,
   label: H,
   description: T,
@@ -107,22 +107,22 @@ New Hires & Rehires vs External & Internal Hires...
   months: x
 };
 function P() {
-  function h(e) {
-    return M.months.map((u) => e.map((d) => S(d, u)));
-  }
-  return { getMeasureValues: h };
+  return { getMeasureValues: S };
 }
-function S(h, e) {
-  switch (h) {
+function S(c) {
+  return M.months.map((a) => c.map((h) => A(h, a)));
+}
+function A(c, e) {
+  switch (c) {
     case "startingHeadcount":
       return e.openingHeadcount + e.startingHires;
     case "endingHeadcount":
       return e.closingHeadcount + e.endingTerminations;
     default:
-      return e[h] ?? 0;
+      return e[c] ?? 0;
   }
 }
-class A {
+class R {
   config;
   // TODO: If we remove list method, then config is not needed. Would make presenter slightly smaller.
   colorModeId;
@@ -139,10 +139,10 @@ class A {
     return this.config.presentations;
   }
   // Operations - Render.
-  async render(e, a, u) {
-    const d = E[e];
-    let m = d.content;
-    m = m.replace(/\{\{label\}\}/g, d.label?.["en-gb"] ?? "{{label}}").replace(/\{\{description\}\}/g, d.description?.["en-gb"] ?? "{{description}}"), this.micromarkTool = await this.loadMicromarkTool();
+  async render(e, a, h) {
+    const u = E[e];
+    let m = u.content;
+    m = m.replace(/\{\{label\}\}/g, u.label?.["en-gb"] ?? "{{label}}").replace(/\{\{description\}\}/g, u.description?.["en-gb"] ?? "{{description}}"), this.micromarkTool = await this.loadMicromarkTool();
     const b = await this.micromarkTool.render(m, { tables: !0 });
     a.innerHTML = b, this.micromarkTool.highlight(a, this.colorModeId), this.highchartsTool = await this.loadHighchartsTool();
     for (const g of a.querySelectorAll(".datapos-highcharts")) {
@@ -153,19 +153,19 @@ class A {
       const f = decodeURIComponent(g.dataset.options);
       try {
         const t = JSON.parse(f);
-        if (!u)
-          for (const l of t.content.data.measures)
-            l.values = this.sampleData.getMeasureValues([l.id]);
+        if (!h)
+          for (const d of t.content.data.measures)
+            d.values = this.sampleData.getMeasureValues([d.id]);
         const s = document.createElement("div");
         s.className = "dp-tab-bar";
         const i = document.createElement("div");
         let p, r;
-        for (const l of t.views) {
-          const c = l.categoryId;
-          switch (c) {
+        for (const d of t.views) {
+          const l = d.categoryId;
+          switch (l) {
             case "cartesianChart": {
-              const o = l;
-              (!r || o.default) && (p = c, r = o.typeId);
+              const o = d;
+              (!r || o.default) && (p = l, r = o.typeId);
               const n = document.createElement("div");
               n.textContent = o.typeId, n.addEventListener(
                 "click",
@@ -174,29 +174,29 @@ class A {
               break;
             }
             case "periodFlowBoundariesChart": {
-              (!r || l.default) && (p = c, r = void 0);
+              (!r || d.default) && (p = l, r = void 0);
               const n = document.createElement("div");
-              n.textContent = c, n.addEventListener("click", () => this.highchartsTool.renderPeriodFlowBoundaries(t.content, i)), s.appendChild(n);
+              n.textContent = l, n.addEventListener("click", () => this.highchartsTool.renderPeriodFlowBoundaries(t.content, i)), s.appendChild(n);
               break;
             }
             case "polarChart": {
-              const o = l;
-              (!r || o.default) && (p = c, r = o.typeId);
+              const o = d;
+              (!r || o.default) && (p = l, r = o.typeId);
               const n = document.createElement("div");
               n.textContent = o.typeId, n.addEventListener("click", () => this.highchartsTool.renderPolarChart(o.typeId, t.content, i)), s.appendChild(n);
               break;
             }
             case "rangeChart": {
-              const o = l;
-              (!r || o.default) && (p = c, r = o.typeId);
+              const o = d;
+              (!r || o.default) && (p = l, r = o.typeId);
               const n = document.createElement("div");
               n.textContent = o.typeId, n.addEventListener("click", () => this.highchartsTool.renderRangeChart(o.typeId, t.content, i)), s.appendChild(n);
               break;
             }
             case "valueTable": {
-              (!r || l.default) && (p = c, r = void 0);
+              (!r || d.default) && (p = l, r = void 0);
               const n = document.createElement("div");
-              n.textContent = c, n.addEventListener("click", () => this.valueTable.render(t.content, i)), s.appendChild(n);
+              n.textContent = l, n.addEventListener("click", () => this.valueTable.render(t.content, i)), s.appendChild(n);
               break;
             }
           }
@@ -230,20 +230,20 @@ class A {
   // Helpers - Load Highcharts tool.
   async loadHighchartsTool() {
     if (this.highchartsTool) return this.highchartsTool;
-    const e = this.toolConfigs.find((d) => d.id === "datapos-tool-highcharts");
+    const e = this.toolConfigs.find((u) => u.id === "datapos-tool-highcharts");
     if (!e) return;
-    const u = (await import(`https://engine-eu.datapos.app/tools/highcharts_v${e.version}/datapos-tool-highcharts.es.js`)).HighchartsTool;
-    return new u();
+    const h = (await import(`https://engine-eu.datapos.app/tools/highcharts_v${e.version}/datapos-tool-highcharts.es.js`)).HighchartsTool;
+    return new h();
   }
   // Helpers - Load Micromark tool.
   async loadMicromarkTool() {
     if (this.micromarkTool) return this.micromarkTool;
-    const e = this.toolConfigs.find((d) => d.id === "datapos-tool-micromark");
+    const e = this.toolConfigs.find((u) => u.id === "datapos-tool-micromark");
     if (!e) return;
-    const u = (await import(`https://engine-eu.datapos.app/tools/micromark_v${e.version}/datapos-tool-micromark.es.js`)).MicromarkTool;
-    return new u();
+    const h = (await import(`https://engine-eu.datapos.app/tools/micromark_v${e.version}/datapos-tool-micromark.es.js`)).MicromarkTool;
+    return new h();
   }
 }
 export {
-  A as default
+  R as default
 };

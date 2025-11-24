@@ -1,3 +1,5 @@
 export declare function useSampleData(): {
-    getMeasureValues: (ids: string[]) => number[][];
+    getMeasureValues: typeof getMeasureValues;
 };
+declare function getMeasureValues(ids: string[]): number[][];
+export {};

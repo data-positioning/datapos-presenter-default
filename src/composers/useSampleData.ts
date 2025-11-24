@@ -6,14 +6,14 @@ type MonthData = Record<string, number>;
 
 // Composables - Use sample data.
 export function useSampleData() {
-    // Operations - Get measure values.
-    function getMeasureValues(ids: string[]): number[][] {
-        const monthData: MonthData[] = headcountForCalendarYear.months;
-        return monthData.map((month) => ids.map((id) => getMeasureValue(id, month)));
-    }
-
     // Exposures
     return { getMeasureValues };
+}
+
+// Operations - Get measure values.
+function getMeasureValues(ids: string[]): number[][] {
+    const monthData: MonthData[] = headcountForCalendarYear.months;
+    return monthData.map((month) => ids.map((id) => getMeasureValue(id, month)));
 }
 
 // Utilities - Get measure value.
