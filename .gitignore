@@ -1,5 +1,5 @@
 # Common git ignore configuration for published Data Positioning repositories.
-dependency-check
+dependency-check-bin
 dist-scripts
 node_modules
 .env
