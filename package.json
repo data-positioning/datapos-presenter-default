@@ -1,6 +1,6 @@
 {
     "name": "@datapos/datapos-presenter-default",
-    "version": "0.1.1001",
+    "version": "0.1.1002",
     "description": "A library that implements the default presenter in accordance with the Data Positioning presenter interface.",
     "license": "MIT",
     "private": false,
@@ -25,15 +25,15 @@
         "dist"
     ],
     "dependencies": {
-        "@datapos/datapos-shared": "^0.3.248",
+        "@datapos/datapos-shared": "^0.3.252",
         "@datapos/datapos-tool-highcharts": "^0.0.47",
-        "@datapos/datapos-tool-micromark": "^0.1.954"
+        "@datapos/datapos-tool-micromark": "^0.1.983"
     },
     "devDependencies": {
-        "@datapos/datapos-development": "^0.3.94",
+        "@datapos/datapos-development": "^0.3.120",
         "@types/node": "^24.10.1",
-        "@typescript-eslint/eslint-plugin": "^8.47.0",
-        "@typescript-eslint/parser": "^8.47.0",
+        "@typescript-eslint/eslint-plugin": "^8.48.0",
+        "@typescript-eslint/parser": "^8.48.0",
         "eslint": "^9.39.1",
         "eslint-plugin-import": "^2.32.0",
         "front-matter": "^4.0.2",
@@ -42,6 +42,7 @@
         "license-report-check": "^0.1.2",
         "nanoid": "^5.1.6",
         "npm-check-updates": "^19.1.2",
+        "owasp-dependency-check": "^1.0.0",
         "prettier": "^3.6.2",
         "retire": "^5.3.0",
         "rollup-plugin-visualizer": "^6.0.5",
@@ -64,6 +65,8 @@
         "test": "node -e \"import('@datapos/datapos-development').then(m => m.echoScriptNotImplemented('Test'))\"",
         "update:dataPosDeps": "npm run _update:developDep && npm run _update:sharedDep && npm run _update:toolHighchartsDep && npm run _update:toolMicromarkDep",
         "_build:config": "node -e \"import('@datapos/datapos-development').then(m => m.buildConfig())\"",
+        "_check:insertOWASPBadge": "node -e \"import('@datapos/datapos-development').then(m => m.insertOWASPDependencyCheckBadgeIntoReadme())\"",
+        "_check:owasp": "set -a && source .env && set +a && owasp-dependency-check --project \"@datapos/datapos-presenter-default\" --nvdApiKey \"$NVD_API_KEY\"",
         "_document:licenceReport": "license-report --only=prod,peer > LICENSES.json",
         "_document:licenceCheck": "license-report-check --source ./LICENSES.json --allowed 'MIT' --allowed 'n/a' --allowed 'Apache-2.0' --output=table",
         "_sync:withGitHub": "node -e \"import('@datapos/datapos-development').then(m => m.syncWithGitHub())\"",

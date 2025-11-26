@@ -1,8 +1,8 @@
 {
     "explorer.fileNesting.enabled": true,
     "explorer.fileNesting.patterns": {
-        "package.json": ".gitattributes, .gitignore, .markdownlint.json, .npmrc, .prettier*, eslint*, package-lock.json",
-        "README.md": "LICENSE, LICENSES.json",
+        "package.json": ".env, .gitattributes, .gitignore, .markdownlint.json, .npmrc, .prettier*, eslint*, package-lock.json",
+        "README.md": "LICENSE*",
         "vite.config.ts": "tsconfig.*"
     }
 }
