@@ -1,7 +1,7 @@
 # Data Positioning Default Presenter
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=data-positioning_datapos-presenter-default&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=data-positioning_datapos-presenter-default)
-<span><!-- OWASP_BADGE_START -->[![OWASP Moderate](https://img.shields.io/badge/OWASP%20Moderate-1-yellow)](./dependency-check-reports/dependency-check-report.html)<!-- OWASP_BADGE_END --></span>
+<span><!-- OWASP_BADGE_START -->[![OWASP](https://img.shields.io/badge/OWASP-passed-4CAF50)](https://data-positioning.github.io/datapos-presenter-default/dependency-check-reports/dependency-check-report.html)<!-- OWASP_BADGE_END --></span>
 [![npm version](https://img.shields.io/npm/v/@datapos/datapos-presenter-default)](https://www.npmjs.com/package/@datapos/datapos-presenter-default)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
